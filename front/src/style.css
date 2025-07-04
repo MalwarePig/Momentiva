@@ -1,0 +1,32 @@
+:root {
+  --dark-gray: #13111c;
+  --second-gray: #181622;
+
+  --darkGray-border: #13111c;
+  --lightGray-border: #252525;
+
+  --BgPurple: #1e132a;
+  --purple-border: #3d2259;
+
+  --BgBlue: #0b1428;
+  --blue-border: #183367;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  color: white;
+}
+
+.card {
+  padding: 2em;
+}
+
+#app {  
+  width: 100%;
+  height: 100vh;
+}
+ 

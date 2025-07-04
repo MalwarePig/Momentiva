@@ -1,0 +1,76 @@
+{
+  "user": {
+    "id": 13354
+  },
+  "fondo": {
+    "color": "#6a1b9a",
+    "imagen": "",
+    "estilo": "cover",
+    "RepetirBG": false,
+    "escalaGrises": false
+  },
+  "imagenPrincipal": {
+    "archivo": "",
+    "estilo": "fill",
+    "tamano": "100",
+    "altura": "50",
+    "bordes": "0",
+    "transparencia": "0",
+    "desvanecido": "0",
+    "posicion": "0",
+    "escalaGrises": false
+  },
+  "anfitrion": {
+    "nombre": "Familia García",
+    "tamano": "50",
+    "altura": "300",
+    "fuente": "Allura",
+    "color": "#000000"
+  },
+  "evento": {
+    "nombre": "Fiesta de cumpleaños",
+    "tamano": "30",
+    "altura": "380",
+    "fuente": "Allura",
+    "color": "#000000"
+  },
+  "titulo": {
+    "texto": "¡Estás invitado!",
+    "tamano": "40",
+    "altura": "450",
+    "fuente": "Allura",
+    "color": "#000000"
+  },
+  "datos": {
+    "fecha": "",
+    "fechaTamano": "20",
+    "fechaAltura": "550",
+    "fechaFuente": "Allura",
+    "fechaColor": "#000000",
+    "hora": "",
+    "horaTamano": "20",
+    "horaAltura": "580",
+    "horaFuente": "Allura",
+    "horaColor": "#000000",
+    "ubicacion": "",
+    "ubicacionTamano": "25",
+    "ubicacionAltura": "600",
+    "ubicacionFuente": "Allura",
+    "ubicacionColor": "#000000"
+  },
+  "mensaje": {
+    "mensaje": "",
+    "mensajeTamano": "25",
+    "mensajeAltura": "680",
+    "mensajeFuente": "Allura",
+    "mensajeColor": "#000000"
+  },
+  "galeria": {
+    "foto1": "",
+    "foto2": "",
+    "foto3": "",
+    "foto4": "",
+    "foto5": "",
+    "foto6": ""
+  }
+}

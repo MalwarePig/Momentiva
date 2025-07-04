@@ -1,0 +1,257 @@
+.Laboratorio {
+  display: flex;
+  height: 100vh;
+  /* IMPORTANTE: fija altura total para evitar que crezca */
+  overflow: hidden;
+}
+
+.panel {
+  background-color: var(--dark-gray);
+  width: 50%;
+  padding: 24px 0;
+  overflow-y: auto;
+  height: 100%;
+  /* <-- Añade esto */
+
+}
+
+.opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Panel derecho */
+.preview {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.telefono {
+  width: 390px;
+  height: 844px;
+  border: 12px solid #333;
+  border-radius: 40px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  position: relative;
+  top: 0;
+}
+
+.tarjeta {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.titulo,
+.evento,
+.anfitrion,
+.hora,
+.ubicacion,
+.mensaje,
+.fecha,
+.spotify {
+  position: absolute;
+  padding: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 0.9;
+}
+
+.titulo {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.evento {
+  font-size: 1.4rem;
+}
+
+.anfitrion {
+  font-size: 1.1rem;
+}
+
+.mensaje {
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+.hora,
+.ubicacion,
+.fecha,
+.spotify {
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+.foto-central {
+  background-color: transparent;
+  width: 80%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 999;
+  position: absolute;
+  padding: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.galeria {
+  display: flex;
+  gap: 6px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: absolute;
+  padding: 0 15px;
+}
+
+.foto-galeria {
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+}
+
+.rsvp {
+  margin-top: auto;
+  background: #ffffff88;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  display: none;
+}
+
+/* caordeon */
+
+details {
+  background-color: var(--BgBlue);
+  border: 2px solid var(--blue-border);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+  list-style: none;
+  padding: 20px;
+}
+
+details[open] {
+  background-color: var(--BgPurple);
+  border: 2px solid var(--purple-border);
+}
+
+/* Controles */
+
+.control .element {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sub {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  border: 2px solid var(--lightGray-border);
+  border-radius: 24px;
+  padding: 10px 10px;
+}
+
+.control label {
+  margin-top: 10px;
+  font-size: 1.1rem;
+
+  font-family: Poppins-Bold, "Lora", "Roboto Mono", sans-serif;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.01rem;
+}
+
+.control input[type="text"],
+input[type="date"],
+input[type="time"],
+select {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  padding: 5px;
+  font-family: Poppins-Bold, "Lora", "Roboto Mono", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.01rem;
+  width: 200px;
+}
+
+input[type="range"],
+input[type="checkbox"] {
+  width: 100px;
+  margin-top: 20px;
+}
+
+input[type="color"] {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--lightGray-border);
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.control textarea {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  padding: 5px;
+  font-family: Poppins-Bold, "Lora", "Roboto Mono", sans-serif;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.01rem;
+  width: 90%;
+}
+
+.anchura {
+  width: 90%;
+}
+
+#Botones{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#Exportar {
+  width: 150px;
+  height: 50px;
+  font-size: 1.2rem;
+  color: whitesmoke;
+  background-color: var(--dark-gray);
+  border: 2px solid var(--lightGray-border);
+  border-radius: 8px;
+}
+
+#Exportar:hover{
+  color: #15e8ff;
+  border: 2px solid var(--blue-border);
+}

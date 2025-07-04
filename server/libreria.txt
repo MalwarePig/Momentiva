@@ -1,0 +1,6 @@
+npm i express
+npm i morgan 
+npm install --save-dev nodemon
+npm install express cors
+
+ express-handlebars express-session morgan 

@@ -1,0 +1,76 @@
+{
+  "user": {
+    "id": 1
+  },
+  "fondo": {
+    "color": "#6a1b9a",
+    "imagen": "../../../public/img/bg/Fondo6.jpg",
+    "estilo": "cover",
+    "RepetirBG": false,
+    "escalaGrises": false
+  },
+  "imagenPrincipal": {
+    "archivo": "../../../public/img/perfil/fiesta.jpg",
+    "estilo": "fill",
+    "tamano": "100",
+    "altura": "68",
+    "bordes": "0",
+    "transparencia": "0",
+    "desvanecido": "46",
+    "posicion": "-36",
+    "escalaGrises": false
+  },
+  "anfitrion": {
+    "nombre": "Familia García",
+    "tamano": "53",
+    "altura": "278",
+    "fuente": "Montserrat",
+    "color": "#fffd9b"
+  },
+  "evento": {
+    "nombre": "Fiesta de cumpleaños",
+    "tamano": "30",
+    "altura": "408",
+    "fuente": "Montserrat",
+    "color": "#fffd9b"
+  },
+  "titulo": {
+    "texto": "¡Estás invitado!",
+    "tamano": "24",
+    "altura": "497",
+    "fuente": "Poppins",
+    "color": "#fffd9b"
+  },
+  "datos": {
+    "fecha": "2025-07-31",
+    "fechaTamano": "20",
+    "fechaAltura": "550",
+    "fechaFuente": "Montserrat",
+    "fechaColor": "#fffd9b",
+    "hora": "17:30",
+    "horaTamano": "20",
+    "horaAltura": "580",
+    "horaFuente": "Allura",
+    "horaColor": "#fffd9b",
+    "ubicacion": "Feste Monterrey 1709 Col Esperanza Mty",
+    "ubicacionTamano": "19",
+    "ubicacionAltura": "663",
+    "ubicacionFuente": "Lora",
+    "ubicacionColor": "#fffd9b"
+  },
+  "mensaje": {
+    "mensaje": "No faltes a mi festejo, te esperamos puntual!",
+    "mensajeTamano": "22",
+    "mensajeAltura": "700",
+    "mensajeFuente": "Allura",
+    "mensajeColor": "#fffd9b"
+  },
+  "galeria": {
+    "foto1": "",
+    "foto2": "",
+    "foto3": "",
+    "foto4": "",
+    "foto5": "",
+    "foto6": ""
+  }
+}
