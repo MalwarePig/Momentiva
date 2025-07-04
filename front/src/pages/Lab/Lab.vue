@@ -130,13 +130,13 @@ export default {
                         <div class="element">
                             <label for="imgPrimTransparencia">Transparencia</label>
                             <input type="range" name="imgPrimTransparencia" id="imgPrimTransparencia" min="0" max="100"
-                                   value="0">
+                                value="0">
                         </div>
 
                         <div class="element">
                             <label for="imgPrimPosicion">Posicion</label>
                             <input type="range" name="imgPrimPosicion" id="imgPrimPosicion" min="-100" max="300"
-                                   value="0">
+                                value="0">
                         </div>
 
                         <div class="element">
@@ -166,7 +166,7 @@ export default {
                         <div class="element">
                             <label for="anfitrionHeight">Altura</label>
                             <input type="range" name="anfitrionHeight" id="anfitrionHeight" min="0" max="700"
-                                   value="300">
+                                value="300">
                         </div>
 
                         <div class="element">
@@ -198,7 +198,7 @@ export default {
                         <div class="element">
                             <label for="nombreEvento">Nombre del Evento</label>
                             <input type="text" id="nombreEvento" placeholder="Ej: Fiesta de cumpleaños"
-                                   value="Fiesta de cumpleaños">
+                                value="Fiesta de cumpleaños">
                         </div>
 
                         <div class="element">
@@ -378,7 +378,7 @@ export default {
                         <div class="element">
                             <label for="ubicacionHeight">Altura</label>
                             <input type="range" name="ubicacionHeight" id="ubicacionHeight" min="0" max="700"
-                                   value="600">
+                                value="600">
                         </div>
 
                         <div class="element">
@@ -493,10 +493,21 @@ export default {
                 </div>
             </details>
 
+            <details>
+                <summary>Sección 6: Registro</summary>
+                <div class="control">
+                    <div class="sub">
+                        <div class="element">
+                            <label for="Serie">Serie</label>
+                            <input type="text" id="Serie" placeholder="#01" required>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
             <div id="Botones">
                 <button @click="Exportar()" id="Exportar">Exportar</button>
-                <a href="Tarjeta">Google</a>
-
+                <a id="linkTarjeta" href="Tarjeta">Tarjeta</a>
             </div>
 
         </div>
@@ -505,9 +516,11 @@ export default {
         <div class="panel preview">
             <div class="telefono">
                 <div id="tarjeta" class="tarjeta">
-                    <div id="vistaTitulo" class="titulo">Aquí va tu invitación</div>
-                    <div id="vistaEvento" class="evento"></div>
                     <div id="vistaAnfitrion" class="anfitrion"></div>
+                    <div id="vistaEvento" class="evento"></div>
+                    <div id="vistaTitulo" class="titulo">Aquí va tu invitación</div>
+
+
                     <div id="vistaMensaje" class="mensaje"></div>
                     <div id="vistaFotoCentral" class="foto-central"></div>
 

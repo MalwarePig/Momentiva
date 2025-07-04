@@ -3,7 +3,7 @@
 export function obtenerConfig() {
   return {
     user: {
-      id: 1 /* Math.floor(Math.random() * 99999) */
+      id: document.getElementById("Serie").value /* Math.floor(Math.random() * 99999) */
     },
     fondo: {
       color: document.getElementById("colorFondo").value,
@@ -117,7 +117,7 @@ export function iniciarConfigurador() {
     vistaEvento.style.fontFamily = config.evento.fuente;
 
     const vistaTitulo = document.getElementById("vistaTitulo");
-    vistaTitulo.textContent = config.titulo.texto;
+    vistaTitulo.textContent = config.titulo.nombre;
     vistaTitulo.style.fontSize = config.titulo.tamano + "px";
     vistaTitulo.style.top = config.titulo.altura + "px";
     vistaTitulo.style.color = config.titulo.color;

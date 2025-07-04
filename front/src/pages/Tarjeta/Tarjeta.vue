@@ -1,5 +1,8 @@
+<style src="./Tarjeta.css"></style>
+
+
 <template>
-  <div v-if="config" class="tarjeta" :style="{
+  <div v-if="config" class="Vista" :style="{
     backgroundColor: config.fondo.color,
     backgroundImage: config.fondo.imagen ? `url(${config.fondo.imagen})` : 'none',
     backgroundSize: config.fondo.estilo,
@@ -7,11 +10,10 @@
     filter: config.fondo?.bgGray ? 'grayscale(100%)' : 'none'
   }">
 
-
     <!-- Anfitrión -->
-    <div class="anfitrion" :style="{
+    <div class="anfitrionVista" :style="{
       top: config.anfitrion.altura + 'px',
-      fontSize: 'clamp(2rem, ' + config.anfitrion.tamano + 'vw, 10vw)',  
+      fontSize: 'clamp(2rem, ' + config.anfitrion.tamano + 'vw, 10vw)',
       fontFamily: config.anfitrion.fuente,
       color: config.anfitrion.color
     }">
@@ -19,7 +21,7 @@
     </div>
 
     <!-- Evento -->
-    <div class="evento" :style="{
+    <div class="eventoVista" :style="{
       top: config.evento.altura + 'px',
       fontSize: 'clamp(2rem, ' + config.evento.tamano + 'vw, 10vw)',
       fontFamily: config.evento.fuente,
@@ -29,29 +31,18 @@
     </div>
 
     <!-- Título -->
-    <div class="titulo" :style="{
-      top: config.titulo.altura + 'px',
+    <div class="tituloVista" :style="{
+      top: (config.titulo.altura - 15) + 'px',
       fontSize: 'clamp(2rem, ' + config.titulo.tamano + 'vw, 9vw)',
       fontFamily: config.titulo.fuente,
       color: config.titulo.color
     }">
       {{ config.titulo.texto }}
-    </div>
-
-
-    <!-- Mensaje -->
-    <div class="mensaje" :style="{
-      top: config.mensaje.mensajeAltura + 'px',
-      fontSize: config.mensaje.mensajeTamano + 'px',
-      fontFamily: config.mensaje.mensajeFuente,
-      color: config.mensaje.mensajeColor
-    }">
-      {{ config.mensaje.mensaje }}
-    </div>
+    </div> 
 
     <!-- Fecha -->
-    <div class="fecha" :style="{
-      top: config.datos.fechaAltura + 'px',
+    <div class="fechaVista" :style="{
+      top: (config.datos.fechaAltura- 50) + 'px',
       fontSize: config.datos.fechaTamano + 'px',
       fontFamily: config.datos.fechaFuente,
       color: config.datos.fechaColor
@@ -60,8 +51,8 @@
     </div>
 
     <!-- Hora -->
-    <div class="hora" :style="{
-      top: config.datos.horaAltura + 'px',
+    <div class="horaVista" :style="{
+      top: (config.datos.horaAltura - 80) + 'px',
       fontSize: config.datos.horaTamano + 'px',
       fontFamily: config.datos.horaFuente,
       color: config.datos.horaColor
@@ -70,8 +61,8 @@
     </div>
 
     <!-- Ubicación -->
-    <div class="ubicacion" :style="{
-      top: config.datos.ubicacionAltura + 'px',
+    <div class="ubicacionVista" :style="{
+      top: (config.datos.ubicacionAltura -100) + 'px',
       fontSize: config.datos.ubicacionTamano + 'px',
       fontFamily: config.datos.ubicacionFuente,
       color: config.datos.ubicacionColor
@@ -79,8 +70,18 @@
       {{ config.datos.ubicacion }}
     </div>
 
+        <!-- Mensaje -->
+    <div class="mensajeVista" :style="{
+      top: (config.mensaje.mensajeAltura -160 )+ 'px',
+      fontSize: config.mensaje.mensajeTamano + 'px',
+      fontFamily: config.mensaje.mensajeFuente,
+      color: config.mensaje.mensajeColor
+    }">
+      {{ config.mensaje.mensaje }}
+    </div>
+
     <!-- Imagen principal -->
-    <div class="foto-central" :style="{
+    <div class="foto-centralVista" :style="{
       backgroundImage: config.imagenPrincipal.archivo ? `url(${config.imagenPrincipal.archivo})` : 'none',
       width: config.imagenPrincipal.tamano + '%',
       height: (config.imagenPrincipal.altura - 15) + '%',
@@ -96,7 +97,7 @@
     </div>
 
     <!-- Galería -->
-    <div class="galeria" v-if="config.fotos && config.fotos.length">
+    <div class="galeriaVista" v-if="config.fotos && config.fotos.length">
       <div v-for="(foto, i) in config.fotos" :key="i" class="foto-galeria" :style="{ backgroundImage: `url(${foto})` }">
       </div>
     </div>
@@ -113,7 +114,7 @@ import { onMounted, ref } from 'vue'
 const config = ref(null)
 
 onMounted(async () => {
-  const usuario = '1' // O dynamic desde ruta
+  const usuario = '02' // O dynamic desde ruta
   const res = await fetch(`http://localhost:3000/cargar/${usuario}`)
   const data = await res.json()
   console.table(data)
@@ -121,6 +122,3 @@ onMounted(async () => {
 })
 
 </script>
-
-
-<style src="../Lab/Lab.css"></style>

@@ -1,65 +1,65 @@
 {
   "user": {
-    "id": 17801
+    "id": "02"
   },
   "fondo": {
     "color": "#6a1b9a",
-    "imagen": "",
+    "imagen": "../../../public/img/bg/Fondo14.jpg",
     "estilo": "cover",
     "RepetirBG": false,
     "escalaGrises": false
   },
   "imagenPrincipal": {
-    "archivo": "",
+    "archivo": "../../../public/img/perfil/niña.jpg",
     "estilo": "fill",
     "tamano": "100",
-    "altura": "50",
+    "altura": "62",
     "bordes": "0",
     "transparencia": "0",
-    "desvanecido": "0",
-    "posicion": "0",
+    "desvanecido": "32",
+    "posicion": "-6",
     "escalaGrises": false
   },
   "anfitrion": {
     "nombre": "Familia García",
-    "tamano": "50",
+    "tamano": "43",
     "altura": "300",
     "fuente": "Allura",
-    "color": "#000000"
+    "color": "#d22879"
   },
   "evento": {
     "nombre": "Fiesta de cumpleaños",
-    "tamano": "30",
-    "altura": "380",
+    "tamano": "53",
+    "altura": "328",
     "fuente": "Allura",
-    "color": "#000000"
+    "color": "#ff0080"
   },
   "titulo": {
-    "texto": "¡Estás invitado!",
-    "tamano": "40",
-    "altura": "450",
+    "nombre": "¡Estás invitado!",
+    "tamano": "29",
+    "altura": "339",
     "fuente": "Allura",
-    "color": "#000000"
+    "color": "#ff0080"
   },
   "datos": {
-    "fecha": "",
-    "fechaTamano": "20",
-    "fechaAltura": "550",
+    "fecha": "2025-07-31",
+    "fechaTamano": "42",
+    "fechaAltura": "400",
     "fechaFuente": "Allura",
-    "fechaColor": "#000000",
-    "hora": "",
-    "horaTamano": "20",
-    "horaAltura": "580",
+    "fechaColor": "#ffffff",
+    "hora": "15:30",
+    "horaTamano": "32",
+    "horaAltura": "409",
     "horaFuente": "Allura",
-    "horaColor": "#000000",
-    "ubicacion": "",
-    "ubicacionTamano": "25",
-    "ubicacionAltura": "600",
+    "horaColor": "#f7f7f7",
+    "ubicacion": "Salón de fiestas Mexico",
+    "ubicacionTamano": "42",
+    "ubicacionAltura": "435",
     "ubicacionFuente": "Allura",
     "ubicacionColor": "#000000"
   },
   "mensaje": {
-    "mensaje": "",
+    "mensaje": "Te esperamos con alegría, no faltes!",
     "mensajeTamano": "25",
     "mensajeAltura": "680",
     "mensajeFuente": "Allura",

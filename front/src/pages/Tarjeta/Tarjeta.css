@@ -1,0 +1,128 @@
+.Vista {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  overflow-x: hidden;
+  height: 100%;
+  background-size: cover;
+  background-position: center; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.tituloVista,
+.eventoVista,
+.anfitrionVista,
+.horaVista,
+.ubicacionVista,
+.mensajeVista,
+.fechaVista,
+.spotifyVista {
+  position: relative;
+  padding: 0; 
+  line-height: 0.9;
+  z-index: 999;
+  width: 80%;
+}
+
+.tituloVista {
+  font-size: 1.6rem;
+  width: 80%;
+}
+
+.eventoVista {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.anfitrionVista {
+  font-size: 1.1rem;
+}
+
+.mensajeVista {
+  margin-top: 8px;
+  font-size: 1rem;
+  width: 80%;
+}
+
+.horaVista,
+.fechaVista,
+.spotifyVista {
+  font-size: 0.95rem;
+  font-style: italic;
+  width: 80%;
+}
+
+.ubicacionVista {
+  font-size: 0.95rem;
+  font-style: italic;
+  width: 80%;
+}
+
+.foto-centralVista {
+  background-color: transparent;
+  width: 80%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 900;
+  position: absolute;
+  padding: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.galeriaVista {
+  display: flex;
+  gap: 6px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  padding: 0 15px;
+}
+
+.foto-galeriaVista {
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+}
+
+.rsvpVista {
+  margin-top: auto;
+  background: #ffffff88;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  display: none;
+}
+
+/* caordeon */
+
+details {
+  background-color: var(--BgBlue);
+  border: 2px solid var(--blue-border);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+  list-style: none;
+  padding: 20px;
+}
+
+details[open] {
+  background-color: var(--BgPurple);
+  border: 2px solid var(--purple-border);
+}
+ 
