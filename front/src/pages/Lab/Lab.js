@@ -38,7 +38,7 @@ export function obtenerConfig() {
       color: document.getElementById('colorEvento').value
     },
     titulo: {
-      texto: document.getElementById('titulo').value,
+      nombre: document.getElementById('titulo').value,
       tamano: document.getElementById('TituloSize').value,
       altura: document.getElementById('TituloHeight').value,
       fuente: document.getElementById('fontTitulo').value,
