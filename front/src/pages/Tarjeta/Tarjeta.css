@@ -2,7 +2,7 @@
   width: 100vw !important;
   max-width: 100vw !important;
   overflow-x: hidden;
-  height: 100%;
+  height: 150%; 
   background-size: cover;
   background-position: center; 
   display: flex;
@@ -10,7 +10,8 @@
   align-items: center;
   color: white;
   transition: all 0.3s ease;
-  text-align: center;
+  text-align: center; 
+  background-attachment: scroll; /* que se mueva con el contenido */
 }
 
 .tituloVista,
@@ -21,7 +22,7 @@
 .mensajeVista,
 .fechaVista,
 .spotifyVista {
-  position: relative;
+  position: absolute;
   padding: 0; 
   line-height: 0.9;
   z-index: 999;
@@ -34,8 +35,7 @@
 }
 
 .eventoVista {
-  font-size: 1.4rem;
-  font-weight: bold;
+  font-size: 1.4rem; 
 }
 
 .anfitrionVista {
@@ -69,40 +69,15 @@
   background-size: cover;
   background-position: center;
   z-index: 900;
-  position: absolute;
+  position: relative;
   padding: 0;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.galeriaVista {
-  display: flex;
-  gap: 6px;
-  margin: 10px 0;
-  flex-wrap: wrap;
-  justify-content: center;
-  position: relative;
-  padding: 0 15px;
-}
+ 
 
-.foto-galeriaVista {
-  width: 80px;
-  height: 80px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 8px;
-}
-
-.rsvpVista {
-  margin-top: auto;
-  background: #ffffff88;
-  color: #000;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-weight: bold;
-  display: none;
-}
-
+ 
 /* caordeon */
 
 details {
@@ -115,8 +90,7 @@ details {
 }
 
 summary {
-  cursor: pointer;
-  font-weight: bold;
+  cursor: pointer; 
   list-style: none;
   padding: 20px;
 }

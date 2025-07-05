@@ -1,16 +1,53 @@
 <script>
-import { onMounted, nextTick } from 'vue'
-import { iniciarConfigurador, Exportar } from './Lab.js'
+// Importa funciones necesarias de Vue
+import { onMounted, nextTick, ref } from 'vue'
+// Importa funciones personalizadas desde tu archivo Lab.js
+import { iniciarConfigurador, Exportar, obtenerConfig } from './Lab.js'
 
 export default {
     setup() {
+        //Define el componente Vue usando la función setup, que se ejecuta cuando el componente se monta.
+        const iframeRef = ref(null);//Crea una referencia reactiva para acceder al <iframe> desde el DOM (lo usarás para comunicarte con él usando postMessage).
+        // Esta función envía la configuración actual al iframe incrustado en la página.
+        // Se asegura primero de que el iframe exista y tenga acceso a su ventana interna (contentWindow).
+        // Luego obtiene la configuración actual desde la función obtenerConfig()
+        // y la envía al iframe usando postMessage, con un objeto que indica
+        // el tipo de mensaje ('ACTUALIZAR_CONFIGURACION') y los datos a transmitir (payload: config). 
+        const enviarConfiguracionAlIframe = () => {
+            if (iframeRef.value && iframeRef.value.contentWindow) {
+                const config = obtenerConfig();
+                iframeRef.value.contentWindow.postMessage({
+                    type: 'ACTUALIZAR_CONFIGURACION',
+                    payload: config
+                }, 'http://localhost:5173'); //  origen del iframe receptor
+            }
+        };
+
+        // Esta función se ejecuta automáticamente cuando el componente Vue se monta en el DOM.
+        // Primero espera al siguiente "tick" del DOM para asegurarse de que todos los elementos estén renderizados.
+        // Luego, inicia el configurador pasando la función 'enviarConfiguracionAlIframe' como callback,
+        // para que cada vez que cambie algo, se actualice el iframe en tiempo real.
+
+        // También se agrega un evento al botón con ID 'Exportar' (si existe),
+        // que al hacer clic, primero ejecuta la función Exportar (para guardar o descargar algo),
+        // y luego vuelve a enviar la configuración actual al iframe para reflejar los cambios.
         onMounted(async () => {
-            await nextTick();
-            iniciarConfigurador();
+            await nextTick(); // Espera a que el DOM esté completamente listo
+            iniciarConfigurador(enviarConfiguracionAlIframe); // Inicia el configurador con la función de actualización
+
+            // Agrega un evento al botón Exportar si existe en el DOM
+            document.getElementById('Exportar')?.addEventListener('click', () => {
+                Exportar(); // Ejecuta la exportación
+                enviarConfiguracionAlIframe(); // Reenvía la configuración al iframe
+            });
         });
 
+        // Retorna las referencias y funciones que estarán disponibles en el template del componente Vue.
+        // Exportar: por si quieres usar la función directamente desde el template.
+        // iframeRef: para vincular el iframe con ref="iframeRef".
         return {
-            Exportar, // <- Esto permite usarlo en el template con @click
+            Exportar,
+            iframeRef
         };
     }
 }
@@ -28,7 +65,7 @@ export default {
                 <div class="control">
                     <div class="element">
                         <label for="colorFondo">Color de Fondo</label>
-                        <input type="color" id="colorFondo" value="#6a1b9a">
+                        <input type="color" id="colorFondo" value="#000">
                     </div>
 
                     <div class="sub">
@@ -36,25 +73,24 @@ export default {
                             <label for="imagenFondo">Imagen de Fondo</label>
                             <select id="imagenFondo">
                                 <option value="">(Sin imagen)</option>
-                                <option value="../../../public/img/bg/Fondo1.jpg">Fondo 1</option>
-                                <option value="../../../public/img/bg/fondo2.jpg">Fondo 2</option>
-                                <option value="../../../public/img/bg/Fondo3.jpg">Fondo 3</option>
-                                <option value="../../../public/img/bg/Fondo4.jpg">Fondo 4</option>
-                                <option value="../../../public/img/bg/Fondo5.jpg">Fondo 5</option>
-                                <option value="../../../public/img/bg/Fondo6.jpg">Fondo 6</option>
-                                <option value="../../../public/img/bg/Fondo7.jpg">Fondo 7</option>
-                                <option value="../../../public/img/bg/Fondo8.jpg">Fondo 8</option>
-                                <option value="../../../public/img/bg/Fondo9.jpg">Fondo 9</option>
-                                <option value="../../../public/img/bg/Fondo10.jpg">Fondo 10</option>
-                                <option value="../../../public/img/bg/Fondo11.jpg">Fondo 11</option>
-                                <option value="../../../public/img/bg/Fondo12.jpg">Fondo 12</option>
-                                <option value="../../../public/img/bg/Fondo13.jpg">Fondo 13</option>
-                                <option value="../../../public/img/bg/Fondo16.jpg">Fondo 16</option>
-                                <option value="../../../public/img/bg/Fondo14.jpg">Fondo 14</option>
-                                <option value="../../../public/img/bg/Fondo15.jpg">Fondo 15</option>
+                                <option value="../../../public/img/bg/Fondo1.webp">Fondo 1</option>
+                                <option value="../../../public/img/bg/fondo2.webp">Fondo 2</option>
+                                <option value="../../../public/img/bg/Fondo3.webp">Fondo 3</option>
+                                <option value="../../../public/img/bg/Fondo4.webp">Fondo 4</option>
+                                <option value="../../../public/img/bg/Fondo5.webp">Fondo 5</option>
+                                <option value="../../../public/img/bg/Fondo6.webp">Fondo 6</option>
+                                <option value="../../../public/img/bg/Fondo7.webp">Fondo 7</option>
+                                <option value="../../../public/img/bg/Fondo8.webp">Fondo 8</option>
+                                <option value="../../../public/img/bg/Fondo9.webp">Fondo 9</option>
+                                <option value="../../../public/img/bg/Fondo10.webp">Fondo 10</option>
+                                <option value="../../../public/img/bg/Fondo11.webp">Fondo 11</option>
+                                <option value="../../../public/img/bg/Fondo12.webp">Fondo 12</option>
+                                <option value="../../../public/img/bg/Fondo13.webp">Fondo 13</option>
+                                <option value="../../../public/img/bg/Fondo16.webp">Fondo 16</option>
+                                <option value="../../../public/img/bg/Fondo14.webp">Fondo 14</option>
+                                <option value="../../../public/img/bg/Fondo15.webp">Fondo 15</option>
                             </select>
                         </div>
-
 
                         <div class="element">
                             <label for="bgEstilo">Estilo</label>
@@ -90,10 +126,11 @@ export default {
                             <label for="fotoCentral">Imagen principal</label>
                             <select id="fotoCentral">
                                 <option value="">(Sin imagen)</option>
-                                <option value="../../../public/img/perfil/fiesta.jpg">fiesta</option>
-                                <option value="../../../public/img/perfil/niño.jpg">niño</option>
-                                <option value="../../../public/img/perfil/niña.jpg">niña</option>
-                                <option value="../../../public/img/perfil/xv.jpg">XVS</option>
+                                <option value="../../../public/img/perfil/Yumi.jpg">Yumi</option>
+                                <option value="../../../public/img/perfil/fiesta.webp">fiesta</option>
+                                <option value="../../../public/img/perfil/niño.webp">niño</option>
+                                <option value="../../../public/img/perfil/niña.webp">niña</option>
+                                <option value="../../../public/img/perfil/xv.webp">XVS</option>
                             </select>
                         </div>
 
@@ -135,7 +172,7 @@ export default {
 
                         <div class="element">
                             <label for="imgPrimPosicion">Posicion</label>
-                            <input type="range" name="imgPrimPosicion" id="imgPrimPosicion" min="-100" max="300"
+                            <input type="range" name="imgPrimPosicion" id="imgPrimPosicion" min="-100" max="500"
                                 value="0">
                         </div>
 
@@ -150,12 +187,11 @@ export default {
 
             <details>
                 <summary>Sección 2: Título</summary>
-                <div class="control">
-
+                <div class="control"> 
                     <div class="sub">
                         <div class="element">
                             <label for="anfitrion">Anfitrión</label>
-                            <input type="text" id="anfitrion" placeholder="Ej: Familia García" value="Familia García">
+                            <input type="text" id="anfitrion" placeholder="Ej: Familia García">
                         </div>
 
                         <div class="element">
@@ -165,7 +201,7 @@ export default {
 
                         <div class="element">
                             <label for="anfitrionHeight">Altura</label>
-                            <input type="range" name="anfitrionHeight" id="anfitrionHeight" min="0" max="700"
+                            <input type="range" name="anfitrionHeight" id="anfitrionHeight" min="0" max="1000"
                                 value="300">
                         </div>
 
@@ -189,16 +225,25 @@ export default {
                         </div>
 
                         <div class="element">
+                            <label for="boldAnfitrion">Negrita</label>
+                            <input type="checkbox" name="boldAnfitrion" id="boldAnfitrion" checked>
+                        </div>
+
+                        <div class="element">
                             <label for="colorAnfitrion">Color</label>
                             <input type="color" id="colorAnfitrion" value="#000">
+                        </div>
+
+                         <div class="element">
+                            <label for="bgAnfitrion">Fondo para texto</label>
+                            <input type="checkbox" name="bgAnfitrion" id="bgAnfitrion">
                         </div>
                     </div>
 
                     <div class="sub">
                         <div class="element">
                             <label for="nombreEvento">Nombre del Evento</label>
-                            <input type="text" id="nombreEvento" placeholder="Ej: Fiesta de cumpleaños"
-                                value="Fiesta de cumpleaños">
+                            <input type="text" id="nombreEvento" placeholder="Ej: Fiesta de cumpleaños">
                         </div>
 
                         <div class="element">
@@ -208,7 +253,7 @@ export default {
 
                         <div class="element">
                             <label for="EventoHeight">Altura</label>
-                            <input type="range" name="EventoHeight" id="EventoHeight" min="-100" max="700" value="380">
+                            <input type="range" name="EventoHeight" id="EventoHeight" min="-100" max="1000" value="380">
                         </div>
 
                         <div class="element">
@@ -231,15 +276,25 @@ export default {
                         </div>
 
                         <div class="element">
+                            <label for="boldEvento">Negrita</label>
+                            <input type="checkbox" name="boldEvento" id="boldEvento">
+                        </div>
+
+                        <div class="element">
                             <label for="colorEvento">Color</label>
                             <input type="color" id="colorEvento" value="#000">
+                        </div>
+
+                        <div class="element">
+                            <label for="bgEvento">Fondo para texto</label>
+                            <input type="checkbox" name="bgEvento" id="bgEvento">
                         </div>
                     </div>
 
                     <div class="sub">
                         <div class="element">
                             <label for="titulo">Título</label>
-                            <input type="text" id="titulo" placeholder="Ej: ¡Estás invitado!" value="¡Estás invitado!">
+                            <input type="text" id="titulo" placeholder="Ej: ¡Estás invitado!">
                         </div>
 
                         <div class="element">
@@ -249,7 +304,7 @@ export default {
 
                         <div class="element">
                             <label for="TituloHeight">Altura</label>
-                            <input type="range" name="TituloHeight" id="TituloHeight" min="0" max="700" value="450">
+                            <input type="range" name="TituloHeight" id="TituloHeight" min="0" max="1000" value="450">
                         </div>
 
                         <div class="element">
@@ -272,8 +327,18 @@ export default {
                         </div>
 
                         <div class="element">
+                            <label for="boldTitulo">Negrita</label>
+                            <input type="checkbox" name="boldTitulo" id="boldTitulo">
+                        </div>
+
+                        <div class="element">
                             <label for="colorTitulo">Color</label>
                             <input type="color" id="colorTitulo" value="#000">
+                        </div>
+
+                        <div class="element">
+                            <label for="bgTitulo">Fondo para texto</label>
+                            <input type="checkbox" name="bgTitulo" id="bgTitulo">
                         </div>
                     </div>
 
@@ -291,13 +356,11 @@ export default {
                         </div>
 
                         <div class="element">
-                            <label for="fechaSize">Tamaño</label>
-                            <input type="range" name="fechaSize" id="fechaSize" min="0" max="100" value="20">
-                        </div>
-
-                        <div class="element">
-                            <label for="fechaHeight">Altura</label>
-                            <input type="range" name="fechaHeight" id="fechaHeight" min="0" max="700" value="550">
+                            <label for="fechaFormato">Tipografia</label>
+                            <select id="fechaFormato">
+                                <option value="corto">01/12/2020</option>
+                                <option value="largo"> Diciembre 1, 2020</option> 
+                            </select>
                         </div>
 
                         <div class="element">
@@ -320,8 +383,29 @@ export default {
                         </div>
 
                         <div class="element">
+                            <label for="fechaSize">Tamaño</label>
+                            <input type="range" name="fechaSize" id="fechaSize" min="0" max="100" value="20">
+                        </div>
+
+                        <div class="element">
+                            <label for="fechaHeight">Altura</label>
+                            <input type="range" name="fechaHeight" id="fechaHeight" min="0" max="1300" value="550">
+                        </div>
+ 
+
+                        <div class="element">
+                            <label for="boldFecha">Negrita</label>
+                            <input type="checkbox" name="boldFecha" id="boldFecha">
+                        </div>
+
+                        <div class="element">
                             <label for="colorFecha">Color</label>
                             <input type="color" id="colorFecha" value="#000">
+                        </div>
+
+                        <div class="element">
+                            <label for="bgFecha">Fondo para texto</label>
+                            <input type="checkbox" name="bgFecha" id="bgFecha">
                         </div>
                     </div>
                     <div class="sub">
@@ -337,7 +421,7 @@ export default {
 
                         <div class="element">
                             <label for="horaHeight">Altura</label>
-                            <input type="range" name="horaHeight" id="horaHeight" min="0" max="700" value="580">
+                            <input type="range" name="horaHeight" id="horaHeight" min="0" max="1300" value="620">
                         </div>
 
                         <div class="element">
@@ -360,8 +444,18 @@ export default {
                         </div>
 
                         <div class="element">
+                            <label for="boldHora">Negrita</label>
+                            <input type="checkbox" name="boldHora" id="boldHora">
+                        </div>
+
+                        <div class="element">
                             <label for="colorHora">Color</label>
                             <input type="color" id="colorHora" value="#000">
+                        </div>
+
+                        <div class="element">
+                            <label for="bgHora">Fondo para texto</label>
+                            <input type="checkbox" name="bgHora" id="bgHora">
                         </div>
                     </div>
                     <div class="sub">
@@ -377,8 +471,7 @@ export default {
 
                         <div class="element">
                             <label for="ubicacionHeight">Altura</label>
-                            <input type="range" name="ubicacionHeight" id="ubicacionHeight" min="0" max="700"
-                                value="600">
+                            <input type="range" name="ubicacionHeight" id="ubicacionHeight" min="0" max="1300" value="800">
                         </div>
 
                         <div class="element">
@@ -401,8 +494,18 @@ export default {
                         </div>
 
                         <div class="element">
+                            <label for="boldUbicacion">Negrita</label>
+                            <input type="checkbox" name="boldUbicacion" id="boldUbicacion">
+                        </div>
+
+                        <div class="element">
                             <label for="colorUbicacion">Color</label>
                             <input type="color" id="colorUbicacion" value="#000">
+                        </div>
+
+                        <div class="element">
+                            <label for="bgUbicacion">Fondo para texto</label>
+                            <input type="checkbox" name="bgUbicacion" id="bgUbicacion">
                         </div>
                     </div>
                 </div>
@@ -425,7 +528,7 @@ export default {
 
                         <div class="element">
                             <label for="mensajeHeight">Altura</label>
-                            <input type="range" name="mensajeHeight" id="mensajeHeight" min="0" max="700" value="680">
+                            <input type="range" name="mensajeHeight" id="mensajeHeight" min="0" max="1300" value="900">
                         </div>
 
                         <div class="element">
@@ -448,47 +551,19 @@ export default {
                         </div>
 
                         <div class="element">
+                            <label for="boldMensaje">Negrita</label>
+                            <input type="checkbox" name="boldMensaje" id="boldMensaje">
+                        </div>
+
+                        <div class="element">
                             <label for="colorMensaje">Color</label>
                             <input type="color" id="colorMensaje" value="#000">
                         </div>
-                    </div>
-                </div>
-            </details>
 
-            <details>
-                <summary>Sección 5: Galería</summary>
-                <div class="control">
-                    <div class="sub">
-                        <div class="element">
-                            <label for="foto1">Foto 1 (URL)</label>
-                            <input type="text" id="foto1" placeholder="URL foto 1">
+                         <div class="element">
+                            <label for="bgMensaje">Fondo para texto</label>
+                            <input type="checkbox" name="bgMensaje" id="bgMensaje">
                         </div>
-
-                        <div class="element">
-                            <label for="foto2">Foto 2 (URL)</label>
-                            <input type="text" id="foto2" placeholder="URL foto 2">
-                        </div>
-
-                        <div class="element">
-                            <label for="foto3">Foto 3 (URL)</label>
-                            <input type="text" id="foto3" placeholder="URL foto 3">
-                        </div>
-
-                        <div class="element">
-                            <label for="foto4">Foto 4 (URL)</label>
-                            <input type="text" id="foto4" placeholder="URL foto 4">
-                        </div>
-
-                        <div class="element">
-                            <label for="fofoto5to4">Foto 5 (URL)</label>
-                            <input type="text" id="foto5" placeholder="URL foto 5">
-                        </div>
-                        <div class="element">
-                            <label for="foto6">Foto 6 (URL)</label>
-                            <input type="text" id="foto6" placeholder="URL foto 6">
-                        </div>
-
-
                     </div>
                 </div>
             </details>
@@ -499,7 +574,7 @@ export default {
                     <div class="sub">
                         <div class="element">
                             <label for="Serie">Serie</label>
-                            <input type="text" id="Serie" placeholder="#01" required>
+                            <input type="text" id="Serie" placeholder="#01" required value="00">
                         </div>
                     </div>
                 </div>
@@ -509,37 +584,12 @@ export default {
                 <button @click="Exportar()" id="Exportar">Exportar</button>
                 <a id="linkTarjeta" href="Tarjeta">Tarjeta</a>
             </div>
-
         </div>
 
         <!-- Panel derecho -->
         <div class="panel preview">
             <div class="telefono">
-                <div id="tarjeta" class="tarjeta">
-                    <div id="vistaAnfitrion" class="anfitrion"></div>
-                    <div id="vistaEvento" class="evento"></div>
-                    <div id="vistaTitulo" class="titulo">Aquí va tu invitación</div>
-
-
-                    <div id="vistaMensaje" class="mensaje"></div>
-                    <div id="vistaFotoCentral" class="foto-central"></div>
-
-                    <div class="galeria" id="galeria">
-                        <div id="galeria1" class="foto-galeria"></div>
-                        <div id="galeria2" class="foto-galeria"></div>
-                        <div id="galeria3" class="foto-galeria"></div>
-                        <div id="galeria4" class="foto-galeria"></div>
-                        <div id="galeria5" class="foto-galeria"></div>
-                        <div id="galeria6" class="foto-galeria"></div>
-                    </div>
-
-                    <div id="vistaFecha" class="fecha"></div>
-                    <div id="vistaHora" class="hora"></div>
-                    <div id="vistaUbicacion" class="ubicacion"></div>
-                    <div id="vistaSpotify" class="spotify"></div>
-
-                    <div id="rsvpBtn" class="rsvp">Confirmar Asistencia</div>
-                </div>
+                <iframe ref="iframeRef" src="http://localhost:5173/Tarjeta" width="360" height="780"></iframe>
             </div>
         </div>
 

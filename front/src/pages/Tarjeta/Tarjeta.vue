@@ -10,78 +10,8 @@
     filter: config.fondo?.bgGray ? 'grayscale(100%)' : 'none'
   }">
 
-    <!-- Anfitrión -->
-    <div class="anfitrionVista" :style="{
-      top: config.anfitrion.altura + 'px',
-      fontSize: 'clamp(2rem, ' + config.anfitrion.tamano + 'vw, 10vw)',
-      fontFamily: config.anfitrion.fuente,
-      color: config.anfitrion.color
-    }">
-      {{ config.anfitrion.nombre }}
-    </div>
-
-    <!-- Evento -->
-    <div class="eventoVista" :style="{
-      top: config.evento.altura + 'px',
-      fontSize: 'clamp(2rem, ' + config.evento.tamano + 'vw, 10vw)',
-      fontFamily: config.evento.fuente,
-      color: config.evento.color
-    }">
-      {{ config.evento.nombre }}
-    </div>
-
-    <!-- Título -->
-    <div class="tituloVista" :style="{
-      top: (config.titulo.altura - 15) + 'px',
-      fontSize: 'clamp(2rem, ' + config.titulo.tamano + 'vw, 9vw)',
-      fontFamily: config.titulo.fuente,
-      color: config.titulo.color
-    }">
-      {{ config.titulo.texto }}
-    </div> 
-
-    <!-- Fecha -->
-    <div class="fechaVista" :style="{
-      top: (config.datos.fechaAltura- 50) + 'px',
-      fontSize: config.datos.fechaTamano + 'px',
-      fontFamily: config.datos.fechaFuente,
-      color: config.datos.fechaColor
-    }">
-      {{ config.datos.fecha }}
-    </div>
-
-    <!-- Hora -->
-    <div class="horaVista" :style="{
-      top: (config.datos.horaAltura - 80) + 'px',
-      fontSize: config.datos.horaTamano + 'px',
-      fontFamily: config.datos.horaFuente,
-      color: config.datos.horaColor
-    }">
-      {{ config.datos.hora }}
-    </div>
-
-    <!-- Ubicación -->
-    <div class="ubicacionVista" :style="{
-      top: (config.datos.ubicacionAltura -100) + 'px',
-      fontSize: config.datos.ubicacionTamano + 'px',
-      fontFamily: config.datos.ubicacionFuente,
-      color: config.datos.ubicacionColor
-    }">
-      {{ config.datos.ubicacion }}
-    </div>
-
-        <!-- Mensaje -->
-    <div class="mensajeVista" :style="{
-      top: (config.mensaje.mensajeAltura -160 )+ 'px',
-      fontSize: config.mensaje.mensajeTamano + 'px',
-      fontFamily: config.mensaje.mensajeFuente,
-      color: config.mensaje.mensajeColor
-    }">
-      {{ config.mensaje.mensaje }}
-    </div>
-
     <!-- Imagen principal -->
-    <div class="foto-centralVista" :style="{
+    <img class="foto-centralVista" :style="{
       backgroundImage: config.imagenPrincipal.archivo ? `url(${config.imagenPrincipal.archivo})` : 'none',
       width: config.imagenPrincipal.tamano + '%',
       height: (config.imagenPrincipal.altura - 15) + '%',
@@ -94,31 +24,253 @@
         ? `linear-gradient(to bottom, black ${(100 - config.imagenPrincipal.desvanecido)}%, transparent 100%)`
         : 'none'
     }">
+    </img>
+
+    <!-- Anfitrión -->
+    <div class="anfitrionVista" :style="{
+      top: config.anfitrion.altura + 'px',
+      fontSize: config.anfitrion.tamano + 'px',
+      fontFamily: config.anfitrion.fuente,
+      color: config.anfitrion.color,
+      fontWeight: config.anfitrion.negrita ? 'bold' : 'normal',
+
+      backgroundColor: config.anfitrion.bg ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
+      backdropFilter: config.anfitrion.bg ? 'blur(8px)' : 'none',
+      WebkitBackdropFilter: config.anfitrion.bg ? 'blur(8px)' : 'none' // Safari
+    }">
+      {{ config.anfitrion.nombre }}
     </div>
 
-    <!-- Galería -->
-    <div class="galeriaVista" v-if="config.fotos && config.fotos.length">
-      <div v-for="(foto, i) in config.fotos" :key="i" class="foto-galeria" :style="{ backgroundImage: `url(${foto})` }">
-      </div>
+    <!-- Evento -->
+    <div class="eventoVista" :style="{
+      top: config.evento.altura + 'px',
+      fontSize: config.evento.tamano + 'px',
+      fontFamily: config.evento.fuente,
+      color: config.evento.color,
+      fontWeight: config.evento.negrita ? 'bold' : 'normal',
+
+      backgroundColor: config.evento.bg ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
+      backdropFilter: config.evento.bg ? 'blur(8px)' : 'none',
+      WebkitBackdropFilter: config.evento.bg ? 'blur(8px)' : 'none' // Safari
+    }">
+      {{ config.evento.nombre }}
     </div>
+
+    <!-- Título -->
+    <div class="tituloVista" :style="{
+      top: (config.titulo.altura - 15) + 'px',
+      fontSize: config.titulo.tamano + 'px',
+      fontFamily: config.titulo.fuente,
+      color: config.titulo.color,
+      fontWeight: config.titulo.negrita ? 'bold' : 'normal',
+
+      backgroundColor: config.titulo.bg ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
+      backdropFilter: config.titulo.bg ? 'blur(8px)' : 'none',
+      WebkitBackdropFilter: config.titulo.bg ? 'blur(8px)' : 'none' // Safari
+    }">
+      {{ config.titulo.nombre }}
+    </div>
+
+    <!-- Fecha -->
+    <div class="fechaVista" :style="{
+      top: (config.datos.fechaAltura - 50) + 'px',
+      fontSize: config.datos.fechaTamano + 'px',
+      fontFamily: config.datos.fechaFuente,
+      color: config.datos.fechaColor,
+      fontWeight: config.datos.fechaNegrita ? 'bold' : 'normal',
+
+      backgroundColor: config.datos.fechaBg ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
+      backdropFilter: config.datos.fechaBg ? 'blur(8px)' : 'none',
+      WebkitBackdropFilter: config.datos.fechaBg ? 'blur(8px)' : 'none' // Safari
+    }">
+      {{ fechaFormateada }}
+    </div>
+
+    <!-- Hora -->
+    <div class="horaVista" :style="{
+      top: (config.datos.horaAltura - 80) + 'px',
+      fontSize: config.datos.horaTamano + 'px',
+      fontFamily: config.datos.horaFuente,
+      color: config.datos.horaColor,
+      fontWeight: config.datos.horaNegrita ? 'bold' : 'normal',
+
+      backgroundColor: config.datos.horaBg ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
+      backdropFilter: config.datos.horaBg ? 'blur(8px)' : 'none',
+      WebkitBackdropFilter: config.datos.horaBg ? 'blur(8px)' : 'none' // Safari
+    }">
+      {{ config.datos.hora }}
+    </div>
+
+    <!-- Ubicación -->
+    <div class="ubicacionVista" :style="{
+      top: (config.datos.ubicacionAltura - 100) + 'px',
+      fontSize: config.datos.ubicacionTamano + 'px',
+      fontFamily: config.datos.ubicacionFuente,
+      color: config.datos.ubicacionColor,
+      fontWeight: config.datos.ubicacionNegrita ? 'bold' : 'normal',
+
+      backgroundColor: config.datos.ubicacionBg ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
+      backdropFilter: config.datos.ubicacionBg ? 'blur(8px)' : 'none',
+      WebkitBackdropFilter: config.datos.ubicacionBg ? 'blur(8px)' : 'none' // Safari
+    }">
+      {{ config.datos.ubicacion }}
+    </div>
+
+    <!-- Mensaje -->
+    <div class="mensajeVista" :style="{
+      top: (config.mensaje.mensajeAltura - 160) + 'px',
+      fontSize: config.mensaje.mensajeTamano + 'px',
+      fontFamily: config.mensaje.mensajeFuente,
+      color: config.mensaje.mensajeColor,
+      fontWeight: config.mensaje.mensajeNegrita ? 'bold' : 'normal',
+
+      backgroundColor: config.mensaje.mensajeBg ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
+      backdropFilter: config.mensaje.mensajeBg ? 'blur(8px)' : 'none',
+      WebkitBackdropFilter: config.mensaje.mensajeBg ? 'blur(8px)' : 'none' // Safari
+    }">
+      {{ config.mensaje.mensaje }}
+    </div>
+
+
 
     <!-- Confirmación -->
-    <div class="rsvp">Confirmar Asistencia</div>
+
   </div>
 </template>
 
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, onUnmounted, watch, computed } from 'vue'
 
+// Se crea una variable reactiva que va a guardar la configuración recibida
 const config = ref(null)
 
-onMounted(async () => {
-  const usuario = '02' // O dynamic desde ruta
-  const res = await fetch(`http://localhost:3000/cargar/${usuario}`)
-  const data = await res.json()
-  console.table(data)
-  config.value = data
+// Computada para formatear la fecha en español
+/* const fechaFormateada = computed(() => {
+  const fecha = config.value?.datos?.fecha
+  return fecha
+    ? new Intl.DateTimeFormat('es-MX', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(new Date(fecha))
+    : ''
+}) */
+
+const fechaFormateada = computed(() => {
+  const fecha = config.value?.datos?.fecha
+  const formato = config.value?.datos?.fechaFormato
+  console.log(fecha , formato)
+
+  if (formato === 'corto') {
+    return fecha
+    ? new Intl.DateTimeFormat('es-MX', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    }).format(new Date(fecha + 'T00:00:00'))
+    : '' 
+  }else{
+    return fecha
+    ? new Intl.DateTimeFormat('es-MX', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(new Date(fecha + 'T00:00:00'))
+    : '' 
+  }
+
+
+
+  /* return fecha
+    ? new Intl.DateTimeFormat('es-MX', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(new Date(fecha))
+    : '' */
 })
 
+
+/* const fechaFormateada = computed(() => {
+  const fecha = config.datos?.fecha
+  const tipo = config.datos?.fechaFormato // 'corto' o 'largo'
+  console.log(fecha + tipo)
+  if (!fecha) return ''
+
+  const date = new Date(fecha)
+
+  if (tipo === 'corto') {
+    // Formato: 01/12/2025
+    return date.toLocaleDateString('es-MX', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    })
+  } else {
+    // Formato largo: 1 de diciembre del 2025
+    const formateado = date.toLocaleDateString('es-MX', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+
+    // Opcional: reemplazar "de 2025" por "del 2025"
+    return formateado.replace(' de ', ' de ').replace(' de ', ' del ')
+  }
+}) */
+// Esta función recibe una configuración nueva (nuevaConfig) y la aplica a la variable reactiva 'config'
+// Se asegura de que cada propiedad importante tenga un valor por defecto si no está definida
+const aplicarConfiguracion = (nuevaConfig) => {
+  config.value = {
+    ...nuevaConfig
+  }
+}
+
+// Esta función se encarga de manejar los mensajes que llegan por postMessage
+// Si el tipo del mensaje es 'ACTUALIZAR_CONFIGURACION', se actualiza la configuración llamando a 'aplicarConfiguracion'
+const manejarMensaje = (event) => {
+  if (event.data.type === 'ACTUALIZAR_CONFIGURACION') {
+    aplicarConfiguracion(event.data.payload)
+  }
+}
+
+const estaEnIframe = ref(false)
+onMounted(() => {
+  // Cuando se monta el componente, se configura un 'event listener' para escuchar mensajes que vengan del iframe padre
+  window.addEventListener('message', manejarMensaje)
+  var usuario;
+  watch(config, (nuevoValor) => {
+    console.log('User:', nuevoValor.user)  // Esto te mostrará el objeto user
+    console.log('User ID:', nuevoValor.user?.id)  // Por ejemplo, mostrar solo el id del user
+    usuario = nuevoValor.user?.id
+  })
+
+  // Detectar si estamos en un iframe
+  try {
+    estaEnIframe.value = window.self !== window.top
+  } catch (e) {
+    estaEnIframe.value = true // Si hay error, asumimos que sí está en iframe
+  }
+
+  if (estaEnIframe.value) {
+    usuario = '00'
+  } else {
+    usuario = '04'
+  }
+
+  console.log("¿Está en iframe?", estaEnIframe.value)
+
+  // También, al cargar la página, se intenta obtener una configuración guardada en el backend
+  // Aquí podrías cambiarlo por un valor dinámico si lo necesitas
+  fetch(`http://localhost:3000/cargar/${usuario}`)
+    .then(res => res.json())                 // Convierte la respuesta en JSON
+    .then(data => aplicarConfiguracion(data)) // Aplica esa configuración
+    .catch(err => console.error('Error cargando configuración:', err)) // Muestra error si falla la carga
+})
+
+// Cuando el componente se desmonta, se elimina el 'event listener' para evitar fugas de memoria
+onUnmounted(() => {
+  window.removeEventListener('message', manejarMensaje)
+})
 </script>

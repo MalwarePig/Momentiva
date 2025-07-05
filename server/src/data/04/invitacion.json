@@ -1,0 +1,77 @@
+{
+  "user": {
+    "id": "04"
+  },
+  "fondo": {
+    "color": "#8000ff",
+    "imagen": "../../../public/img/bg/Fondo7.webp",
+    "estilo": "cover",
+    "RepetirBG": false,
+    "escalaGrises": false
+  },
+  "imagenPrincipal": {
+    "archivo": "../../../public/img/perfil/Yumi.jpg",
+    "estilo": "fill",
+    "tamano": "100",
+    "altura": "60",
+    "bordes": "0",
+    "transparencia": "11",
+    "desvanecido": "65",
+    "posicion": "-65",
+    "escalaGrises": false
+  },
+  "anfitrion": {
+    "nombre": "Yumiko Tovar",
+    "tamano": "50",
+    "altura": "300",
+    "fuente": "Allura",
+    "color": "#000000",
+    "negrita": true,
+    "bg": false
+  },
+  "evento": {
+    "nombre": "celebrando mis 36´s",
+    "tamano": "33",
+    "altura": "405",
+    "fuente": "Allura",
+    "color": "#ff00ff",
+    "negrita": false
+  },
+  "titulo": {
+    "nombre": "Te invito a mi fiesta",
+    "tamano": "52",
+    "altura": "497",
+    "fuente": "Allura",
+    "color": "#800040",
+    "negrita": false
+  },
+  "datos": {
+    "fecha": "2025-12-20",
+    "fechaFormato": "largo",
+    "fechaTamano": "31",
+    "fechaAltura": "772",
+    "fechaFuente": "Allura",
+    "fechaColor": "#000000",
+    "fechaNegrita": true,
+    "hora": "17:00",
+    "horaTamano": "39",
+    "horaAltura": "847",
+    "horaFuente": "Allura",
+    "horaColor": "#000000",
+    "horaNegrita": true,
+    "ubicacion": "Paseo de los Diocesanos 310 Fracc. Fuentes del Seminario Sector 1",
+    "ubicacionTamano": "34",
+    "ubicacionAltura": "934",
+    "ubicacionFuente": "Allura",
+    "ubicacionColor": "#000000",
+    "ubicacionNegrita": true
+  },
+  "mensaje": {
+    "mensaje": "Te espero,\nconfirma tu asistencia al watsapp 8183669895",
+    "mensajeTamano": "25",
+    "mensajeAltura": "776",
+    "mensajeFuente": "Allura",
+    "mensajeColor": "#800080",
+    "mensajeNegrita": false
+  }
+}

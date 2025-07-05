@@ -29,8 +29,7 @@ Controller.Saludar = (req, res) => {
                     return res.status(500).json({ mensaje: "Error al guardar invitación" });
                }
 
-               console.log("Archivo guardado en:", filePath);
-               res.json({ mensaje: '¡Invitación guardada correctamente!' });
+               console.log("Archivo guardado en:", filePath); 
           });
      });
 

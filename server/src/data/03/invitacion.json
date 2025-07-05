@@ -1,0 +1,77 @@
+{
+  "user": {
+    "id": "03"
+  },
+  "fondo": {
+    "color": "#000000",
+    "imagen": "../../../public/img/bg/Fondo6.webp",
+    "estilo": "cover",
+    "RepetirBG": false,
+    "escalaGrises": false
+  },
+  "imagenPrincipal": {
+    "archivo": "../../../public/img/perfil/fiesta.webp",
+    "estilo": "cover",
+    "tamano": "100",
+    "altura": "51",
+    "bordes": "0",
+    "transparencia": "31",
+    "desvanecido": "31",
+    "posicion": "-65",
+    "escalaGrises": false
+  },
+  "anfitrion": {
+    "nombre": "yumi ",
+    "tamano": "62",
+    "altura": "247",
+    "fuente": "Send Flowers",
+    "color": "#c0c0c0",
+    "negrita": true,
+    "bg": false
+  },
+  "evento": {
+    "nombre": "Cumpleaños ",
+    "tamano": "64",
+    "altura": "323",
+    "fuente": "Meow Script",
+    "color": "#8000ff",
+    "negrita": false
+  },
+  "titulo": {
+    "nombre": "te invito a festejar mi cumple 36",
+    "tamano": "40",
+    "altura": "450",
+    "fuente": "Twinkle Star",
+    "color": "#ffff00",
+    "negrita": false
+  },
+  "datos": {
+    "fecha": "2025-12-20",
+    "fechaFormato": "corto",
+    "fechaTamano": "29",
+    "fechaAltura": "572",
+    "fechaFuente": "Kapakana",
+    "fechaColor": "#ff80c0",
+    "fechaNegrita": true,
+    "hora": "19:00",
+    "horaTamano": "28",
+    "horaAltura": "634",
+    "horaFuente": "Kapakana",
+    "horaColor": "#ff00ff",
+    "horaNegrita": true,
+    "ubicacion": "mi casa",
+    "ubicacionTamano": "31",
+    "ubicacionAltura": "684",
+    "ubicacionFuente": "Kapakana",
+    "ubicacionColor": "#00ff80",
+    "ubicacionNegrita": true
+  },
+  "mensaje": {
+    "mensaje": "no falten perros, si si vas a ir me preguntas la dirección ",
+    "mensajeTamano": "25",
+    "mensajeAltura": "851",
+    "mensajeFuente": "Allura",
+    "mensajeColor": "#00ff80",
+    "mensajeNegrita": false
+  }
+}
