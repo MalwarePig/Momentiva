@@ -9,10 +9,30 @@ app.set('port',process.env.PORT || 3000)//asignar puerto, si lo da el So que lo 
  
 
 // middlewares
+/* app.use(cors({
+   origin: 'http://localhost:5173', // puerto de Vite (Vue)
+  credentials: true
+})); */
+
+
+// Lista de orígenes permitidos
+const whitelist = [
+  'http://localhost:5173', // Vite
+  'http://localhost:3000', // Otro frontend local
+  'https://midominio.com', // Producción
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173', // puerto de Vite (Vue)
+  origin: function (origin, callback) {
+    if (!origin || whitelist.includes(origin)) {
+      callback(null, true); // Permite la solicitud
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
   credentials: true
 }));
+
 app.use(express.json());
 app.use(morgan('dev'));
 

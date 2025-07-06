@@ -3,10 +3,11 @@
 export function obtenerConfig() {
   return {
     user: {
-      id: document.getElementById("Serie").value || "00" /* Math.floor(Math.random() * 99999) */
+      user: document.getElementById("user").value, /* Math.floor(Math.random() * 99999) */
+      pass: document.getElementById("pass").value /* Math.floor(Math.random() * 99999) */
     },
     fondo: {
-      color: document.getElementById("colorFondo").value,
+      color: document.getElementById("colorFondo").value || "#ffffff",
       imagen: document.getElementById('imagenFondo').value,
       estilo: document.getElementById('bgEstilo').value,
       RepetirBG: document.getElementById('RepetirBG').checked,
@@ -93,9 +94,10 @@ export function iniciarConfigurador(callbackActualizacion) {
   };
 
   // Escuchar cambios para actualizar la vista
-  document.querySelectorAll("input, select, textarea").forEach(input => {
+  document.querySelectorAll("input, select, textarea, img").forEach(input => {
     input.addEventListener("input", actualizarVista);
     input.addEventListener("change", actualizarVista);
+    input.addEventListener("click", actualizarVista);
   });
 
   // Actualiza la vista inicialmente
@@ -106,7 +108,7 @@ export function Exportar() {
   const config = obtenerConfig();
 
 
-  fetch('http://localhost:3000/Saludar', {
+  fetch('http://localhost:3000/Exportar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(config)
@@ -116,4 +118,17 @@ export function Exportar() {
       console.log(data.mensaje); // Hola, Sergio!
     });
   console.table(config);
+}
+
+
+// src/scripts/seleccionarFondo.js
+export function initSelectorFondo() {
+  const imagenes = document.querySelectorAll('#galeriaFondos img');
+
+  imagenes.forEach(img => {
+    img.addEventListener('click', () => {
+      const urlImagen = img.src;
+      document.getElementById('imagenFondo').value = urlImagen; 
+    });
+  });
 }

@@ -36,7 +36,7 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   position: relative;
-  top: 0;  
+  top: 0;
 }
 
 .tarjeta {
@@ -63,15 +63,15 @@
   padding: 0;
   line-height: 0.9;
   z-index: 999;
-  width: 80%; 
+  width: 80%;
 }
 
 .titulo {
-  font-size: 1.6rem; 
+  font-size: 1.6rem;
 }
 
 .evento {
-  font-size: 1.4rem; 
+  font-size: 1.4rem;
 }
 
 .anfitrion {
@@ -111,7 +111,7 @@
   transform: translateX(-50%);
 }
 
- 
+
 /* caordeon */
 
 details {
@@ -125,7 +125,7 @@ details {
 
 summary {
   cursor: pointer;
- /*  font-weight: bold; */
+  /*  font-weight: bold; */
   list-style: none;
   padding: 20px;
 }
@@ -238,7 +238,7 @@ input[type="color"] {
 #linkTarjeta {
   display: inline-flex;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
   color: whitesmoke;
   background-color: var(--dark-gray);
   border: 2px solid var(--lightGray-border);
@@ -249,10 +249,38 @@ input[type="color"] {
   transition: background-color 0.3s ease;
   width: 150px;
   height: 50px;
-  white-space: nowrap; /* Evita saltos de línea no deseados */
+  white-space: nowrap;
+  /* Evita saltos de línea no deseados */
 }
 
 #linkTarjeta:hover {
   color: #15e8ff;
   border: 2px solid var(--blue-border);
+}
+
+
+
+.galeria-scroll {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+
+.miniatura-fondo {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 6px;
+  scroll-snap-align: start;
+  transition: transform 0.2s, border 0.2s;
+  border: 2px solid transparent;
+}
+
+.miniatura-fondo:hover {
+  transform: scale(1.05);
+  border: 2px solid #007bff;
 }

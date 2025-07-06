@@ -3,7 +3,7 @@ const router = express.Router(); //usar modulo de router de ex´press
 const conLab = require('../controllers/controllerLab');
 
 //Iniciar logueo
-router.post('/Saludar', conLab.Saludar);
+router.post('/Exportar', conLab.Exportar);
 
 router.get('/cargar/:usuario', conLab.Cargar);
 

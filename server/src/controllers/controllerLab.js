@@ -1,40 +1,50 @@
 const Controller = {};
 const fs = require('fs');
 const path = require('path');
+/* const EnviarCorreos = require('../functions/email') */
+/* const iniciarWhatsApp = require('../functions/whatsapp'); */
+Controller.Exportar = (req, res) => {
 
-Controller.Saludar = (req, res) => {
+    // ✅ Llama a la función de correo
+    /*  EnviarCorreos(); */
 
-     const config = req.body;
-     console.clear()
-     console.log(config)
-     const id = String(config.user.id || "desconocido");
+    
+/* (async () => {
+  await iniciarWhatsApp();
+})();
 
-     // Ruta base donde guardar los archivos
-     const userFolder = path.join(__dirname, '..', 'data', id);
+ */
+    const config = req.body;
+    console.clear()
+    console.log(config)
+    const id = config.user.user + config.user.pass;
 
-     // Crear carpeta del usuario si no existe
-     fs.mkdir(userFolder, { recursive: true }, (err) => {
-          if (err) {
-               console.error("Error al crear carpeta:", err);
-               return res.status(500).json({ mensaje: "Error al crear carpeta del usuario" });
-          }
+    // Ruta base donde guardar los archivos
+    const userFolder = path.join(__dirname, '..', 'data', id);
 
-          // Ruta del archivo a guardar
-          const filePath = path.join(userFolder, 'invitacion.json');
+    // Crear carpeta del usuario si no existe
+    fs.mkdir(userFolder, { recursive: true }, (err) => {
+        if (err) {
+            console.error("Error al crear carpeta:", err);
+            return res.status(500).json({ mensaje: "Error al crear carpeta del usuario" });
+        }
 
-          // Guardar JSON en archivo
-          fs.writeFile(filePath, JSON.stringify(config, null, 2), (err) => {
-               if (err) {
-                    console.error("Error al guardar archivo:", err);
-                    return res.status(500).json({ mensaje: "Error al guardar invitación" });
-               }
+        // Ruta del archivo a guardar
+        const filePath = path.join(userFolder, 'invitacion.json');
 
-               console.log("Archivo guardado en:", filePath); 
-          });
-     });
+        // Guardar JSON en archivo
+        fs.writeFile(filePath, JSON.stringify(config, null, 2), (err) => {
+            if (err) {
+                console.error("Error al guardar archivo:", err);
+                return res.status(500).json({ mensaje: "Error al guardar invitación" });
+            }
+
+            console.log("Archivo guardado en:", filePath);
+        });
+    });
 
 
-     res.json({ mensaje: '¡Hola desde el servidor!' });
+    res.json({ mensaje: '¡Hola desde el servidor!' });
 };
 
 

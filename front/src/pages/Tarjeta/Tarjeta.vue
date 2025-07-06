@@ -134,6 +134,21 @@
 
 
     <!-- Confirmación -->
+    <div class="confirmacion">
+      <div class="element">
+        <label for="Familia">A nombre de:</label>
+        <input type="text" id="Familia" placeholder="Familia Luna" required>
+      </div>
+
+      <div class="element">
+        <label for="Cantidad">Confirmo:</label>
+        <input type="text" id="Cantidad" placeholder="Cantidad de asistentes" required>
+      </div>
+
+      <div id="Botones">
+        <button id="Confirmacion"> Confirmar</button>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -145,80 +160,31 @@ import { onMounted, ref, onUnmounted, watch, computed } from 'vue'
 // Se crea una variable reactiva que va a guardar la configuración recibida
 const config = ref(null)
 
-// Computada para formatear la fecha en español
-/* const fechaFormateada = computed(() => {
-  const fecha = config.value?.datos?.fecha
-  return fecha
-    ? new Intl.DateTimeFormat('es-MX', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    }).format(new Date(fecha))
-    : ''
-}) */
-
 const fechaFormateada = computed(() => {
   const fecha = config.value?.datos?.fecha
   const formato = config.value?.datos?.fechaFormato
-  console.log(fecha , formato)
+  console.log(fecha, formato)
 
   if (formato === 'corto') {
     return fecha
-    ? new Intl.DateTimeFormat('es-MX', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    }).format(new Date(fecha + 'T00:00:00'))
-    : '' 
-  }else{
-    return fecha
-    ? new Intl.DateTimeFormat('es-MX', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    }).format(new Date(fecha + 'T00:00:00'))
-    : '' 
-  }
-
-
-
-  /* return fecha
-    ? new Intl.DateTimeFormat('es-MX', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    }).format(new Date(fecha))
-    : '' */
-})
-
-
-/* const fechaFormateada = computed(() => {
-  const fecha = config.datos?.fecha
-  const tipo = config.datos?.fechaFormato // 'corto' o 'largo'
-  console.log(fecha + tipo)
-  if (!fecha) return ''
-
-  const date = new Date(fecha)
-
-  if (tipo === 'corto') {
-    // Formato: 01/12/2025
-    return date.toLocaleDateString('es-MX', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    })
+      ? new Intl.DateTimeFormat('es-MX', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric'
+      }).format(new Date(fecha + 'T00:00:00'))
+      : ''
   } else {
-    // Formato largo: 1 de diciembre del 2025
-    const formateado = date.toLocaleDateString('es-MX', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    })
-
-    // Opcional: reemplazar "de 2025" por "del 2025"
-    return formateado.replace(' de ', ' de ').replace(' de ', ' del ')
+    return fecha
+      ? new Intl.DateTimeFormat('es-MX', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).format(new Date(fecha + 'T00:00:00'))
+      : ''
   }
-}) */
+
+})
+ 
 // Esta función recibe una configuración nueva (nuevaConfig) y la aplica a la variable reactiva 'config'
 // Se asegura de que cada propiedad importante tenga un valor por defecto si no está definida
 const aplicarConfiguracion = (nuevaConfig) => {
@@ -242,8 +208,8 @@ onMounted(() => {
   var usuario;
   watch(config, (nuevoValor) => {
     console.log('User:', nuevoValor.user)  // Esto te mostrará el objeto user
-    console.log('User ID:', nuevoValor.user?.id)  // Por ejemplo, mostrar solo el id del user
-    usuario = nuevoValor.user?.id
+    console.log('User ID:', nuevoValor.user?.user + nuevoValor.user?.pass)  // Por ejemplo, mostrar solo el id del user
+    usuario = nuevoValor.user?.user + nuevoValor.user?.pass
   })
 
   // Detectar si estamos en un iframe
@@ -256,7 +222,7 @@ onMounted(() => {
   if (estaEnIframe.value) {
     usuario = '00'
   } else {
-    usuario = '04'
+    usuario = 'Yumiko1702'
   }
 
   console.log("¿Está en iframe?", estaEnIframe.value)

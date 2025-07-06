@@ -1,13 +1,16 @@
+
 .Vista {
-  width: 100vw !important;
+  /* width: 100vw !important; */
+  position: relative;
   max-width: 100vw !important;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   height: 150%; 
   background-size: cover;
   background-position: center; 
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
   color: white;
   transition: all 0.3s ease;
   text-align: center; 
@@ -27,7 +30,20 @@
   line-height: 0.9;
   z-index: 999;
   width: 80%;
+
+  animation: subirRevelar 2s ease-out both;
 }
+
+
+.tituloVista   { animation-delay: 0.10s; }
+.eventoVista   { animation-delay: 0.20s; }
+.anfitrionVista { animation-delay: 0.30s; }
+.fechaVista    { animation-delay: 0.40s; }
+.horaVista     { animation-delay: 0.50s; }
+.ubicacionVista { animation-delay: 0.60s; }
+.mensajeVista  { animation-delay: 0.70s; }
+.spotifyVista  { animation-delay: 0.80s; }
+
 
 .tituloVista {
   font-size: 1.6rem;
@@ -68,16 +84,77 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  z-index: 900;
+  z-index: 1;
   position: relative;
-  padding: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  padding: 0; 
 }
 
- 
+.confirmacion {
+  width: 100%; 
+  position: absolute;
+  bottom: 0;
+  z-index: 999;
 
- 
+  padding: 10px 0;
+   background-color: rgba(46, 46, 46, 0.226); /* Fondo semitransparente */
+  backdrop-filter: blur(10px); /* Desenfoca lo que está detrás */
+
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.element {
+  padding: 0 20px;
+  display: flex;
+  flex: 1;   
+  justify-content:  space-between;
+}
+
+.confirmacion label {
+  margin-top: 10px;
+  font-size: 1.1rem;
+
+  font-family: Poppins-Bold, "Lora", "Roboto Mono", sans-serif;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.01rem;
+}
+
+.confirmacion input[type="text"] {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  padding: 4px;
+  font-family: Poppins-Bold, "Lora", "Roboto Mono", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.01rem;
+  width: 150px;
+}
+
+
+#Botones {
+  width: 100%;
+  display: flex; 
+  justify-content: center;
+  margin:15px 0 10px 0;
+}
+
+#Confirmacion {
+  width: 150px;
+  height: 50px;
+  font-size: 1.2rem;
+  color: whitesmoke;
+  background-color: var(--dark-gray);
+  border: 2px solid var(--lightGray-border);
+  border-radius: 8px;
+}
+
+ #Confirmacion:hover {
+  color: #15e8ff;
+  border: 2px solid var(--blue-border);
+  cursor: pointer;
+}
 /* caordeon */
 
 details {
@@ -100,3 +177,14 @@ details[open] {
   border: 2px solid var(--purple-border);
 }
  
+
+@keyframes subirRevelar {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

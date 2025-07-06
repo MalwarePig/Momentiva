@@ -2,7 +2,7 @@
 // Importa funciones necesarias de Vue
 import { onMounted, nextTick, ref } from 'vue'
 // Importa funciones personalizadas desde tu archivo Lab.js
-import { iniciarConfigurador, Exportar, obtenerConfig } from './Lab.js'
+import { iniciarConfigurador, Exportar, obtenerConfig, initSelectorFondo  } from './Lab.js'
 
 export default {
     setup() {
@@ -32,9 +32,11 @@ export default {
         // que al hacer clic, primero ejecuta la función Exportar (para guardar o descargar algo),
         // y luego vuelve a enviar la configuración actual al iframe para reflejar los cambios.
         onMounted(async () => {
+             initSelectorFondo();  // <--- Aquí la llamas para que agregue los event listeners a las imágenes
+
             await nextTick(); // Espera a que el DOM esté completamente listo
             iniciarConfigurador(enviarConfiguracionAlIframe); // Inicia el configurador con la función de actualización
-
+ 
             // Agrega un evento al botón Exportar si existe en el DOM
             document.getElementById('Exportar')?.addEventListener('click', () => {
                 Exportar(); // Ejecuta la exportación
@@ -42,12 +44,21 @@ export default {
             });
         });
 
+        /* const seleccionarFondo = (ruta) => {
+            const input = document.getElementById("imagenFondo");
+            if (input) input.value = ruta;
+
+            // Dispara el evento 'change' para forzar que se actualice el iframe
+            input?.dispatchEvent(new Event("change", { bubbles: true }));
+        }; */
+
+
         // Retorna las referencias y funciones que estarán disponibles en el template del componente Vue.
         // Exportar: por si quieres usar la función directamente desde el template.
         // iframeRef: para vincular el iframe con ref="iframeRef".
         return {
             Exportar,
-            iframeRef
+            iframeRef 
         };
     }
 }
@@ -67,9 +78,43 @@ export default {
                         <label for="colorFondo">Color de Fondo</label>
                         <input type="color" id="colorFondo" value="#000">
                     </div>
+                    <div class="sub">
+                        <!-- <div class="element">
+                            <label>Elige un fondo</label>
+                            <div class="galeria-scroll" id="galeriaFondos">
+                                <img v-for="i in 16" :key="i" :src="`../../../public/img/bg/Fondo${i}.webp`"
+                                     :alt="`Fondo ${i}`"
+                                     @click="seleccionarFondo(`../../../public/img/bg/Fondo${i}.webp`)"
+                                     class="miniatura-fondo" />
+                            </div>
+                        </div> -->
+
+                        <div class="element">
+                            <label>Elige un fondo</label>
+                            <div class="galeria-scroll" id="galeriaFondos">
+                                <img src="../../../public/img/bg/Fondo1.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo2.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo3.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo4.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo5.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo6.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo7.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo8.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo9.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo10.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo11.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo12.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo13.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo14.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo15.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo16.webp" alt="" class="miniatura-fondo">
+                            </div>
+                            <input type="hidden" id="imagenFondo" value="" />
+                        </div>
+                    </div>
 
                     <div class="sub">
-                        <div class="element">
+                        <!-- <div class="element">
                             <label for="imagenFondo">Imagen de Fondo</label>
                             <select id="imagenFondo">
                                 <option value="">(Sin imagen)</option>
@@ -90,7 +135,7 @@ export default {
                                 <option value="../../../public/img/bg/Fondo14.webp">Fondo 14</option>
                                 <option value="../../../public/img/bg/Fondo15.webp">Fondo 15</option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="element">
                             <label for="bgEstilo">Estilo</label>
@@ -167,13 +212,13 @@ export default {
                         <div class="element">
                             <label for="imgPrimTransparencia">Transparencia</label>
                             <input type="range" name="imgPrimTransparencia" id="imgPrimTransparencia" min="0" max="100"
-                                value="0">
+                                   value="0">
                         </div>
 
                         <div class="element">
                             <label for="imgPrimPosicion">Posicion</label>
-                            <input type="range" name="imgPrimPosicion" id="imgPrimPosicion" min="-100" max="500"
-                                value="0">
+                            <input type="range" name="imgPrimPosicion" id="imgPrimPosicion" min="-200" max="1000"
+                                   value="0">
                         </div>
 
                         <div class="element">
@@ -187,7 +232,7 @@ export default {
 
             <details>
                 <summary>Sección 2: Título</summary>
-                <div class="control"> 
+                <div class="control">
                     <div class="sub">
                         <div class="element">
                             <label for="anfitrion">Anfitrión</label>
@@ -202,7 +247,7 @@ export default {
                         <div class="element">
                             <label for="anfitrionHeight">Altura</label>
                             <input type="range" name="anfitrionHeight" id="anfitrionHeight" min="0" max="1000"
-                                value="300">
+                                   value="300">
                         </div>
 
                         <div class="element">
@@ -234,7 +279,7 @@ export default {
                             <input type="color" id="colorAnfitrion" value="#000">
                         </div>
 
-                         <div class="element">
+                        <div class="element">
                             <label for="bgAnfitrion">Fondo para texto</label>
                             <input type="checkbox" name="bgAnfitrion" id="bgAnfitrion">
                         </div>
@@ -359,7 +404,7 @@ export default {
                             <label for="fechaFormato">Tipografia</label>
                             <select id="fechaFormato">
                                 <option value="corto">01/12/2020</option>
-                                <option value="largo"> Diciembre 1, 2020</option> 
+                                <option value="largo"> Diciembre 1, 2020</option>
                             </select>
                         </div>
 
@@ -391,7 +436,7 @@ export default {
                             <label for="fechaHeight">Altura</label>
                             <input type="range" name="fechaHeight" id="fechaHeight" min="0" max="1300" value="550">
                         </div>
- 
+
 
                         <div class="element">
                             <label for="boldFecha">Negrita</label>
@@ -471,7 +516,8 @@ export default {
 
                         <div class="element">
                             <label for="ubicacionHeight">Altura</label>
-                            <input type="range" name="ubicacionHeight" id="ubicacionHeight" min="0" max="1300" value="800">
+                            <input type="range" name="ubicacionHeight" id="ubicacionHeight" min="0" max="1300"
+                                   value="800">
                         </div>
 
                         <div class="element">
@@ -560,7 +606,7 @@ export default {
                             <input type="color" id="colorMensaje" value="#000">
                         </div>
 
-                         <div class="element">
+                        <div class="element">
                             <label for="bgMensaje">Fondo para texto</label>
                             <input type="checkbox" name="bgMensaje" id="bgMensaje">
                         </div>
@@ -573,9 +619,16 @@ export default {
                 <div class="control">
                     <div class="sub">
                         <div class="element">
-                            <label for="Serie">Serie</label>
-                            <input type="text" id="Serie" placeholder="#01" required value="00">
+                            <label for="user">Usuario</label>
+                            <input type="text" id="user" placeholder="Registra un usuario" required>
                         </div>
+
+                        <div class="element">
+                            <label for="pass">Contraseña</label>
+                            <input type="text" id="pass" placeholder="Registra una contraseña" required>
+                        </div>
+
+
                     </div>
                 </div>
             </details>
@@ -583,9 +636,9 @@ export default {
             <div id="Botones">
                 <button @click="Exportar()" id="Exportar">Exportar</button>
                 <a id="linkTarjeta" href="Tarjeta">Tarjeta</a>
+                <a id="MyParty" href="MyParty">My Party</a>
             </div>
         </div>
-
         <!-- Panel derecho -->
         <div class="panel preview">
             <div class="telefono">
