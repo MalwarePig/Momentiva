@@ -155,27 +155,6 @@
   border: 2px solid var(--blue-border);
   cursor: pointer;
 }
-/* caordeon */
-
-details {
-  background-color: var(--BgBlue);
-  border: 2px solid var(--blue-border);
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
-  transition: all 0.3s ease;
-}
-
-summary {
-  cursor: pointer; 
-  list-style: none;
-  padding: 20px;
-}
-
-details[open] {
-  background-color: var(--BgPurple);
-  border: 2px solid var(--purple-border);
-}
  
 
 @keyframes subirRevelar {
@@ -188,3 +167,4 @@ details[open] {
     transform: translateY(0);
   }
 }
+

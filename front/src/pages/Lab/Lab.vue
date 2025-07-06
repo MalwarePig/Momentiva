@@ -634,9 +634,7 @@ export default {
             </details>
 
             <div id="Botones">
-                <button @click="Exportar()" id="Exportar">Exportar</button>
-                <a id="linkTarjeta" href="Tarjeta">Tarjeta</a>
-                <a id="MyParty" href="MyParty">My Party</a>
+                <button @click="Exportar()" id="Exportar">Exportar</button> 
             </div>
         </div>
         <!-- Panel derecho -->

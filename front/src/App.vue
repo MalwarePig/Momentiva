@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import BG from './components/BG/BG.vue'
+/* import BG from './components/BG/BG.vue' */
 
 export default {
   name: 'App',
-  components: {
+ /*  components: {
     BG
-  }
+  } */
 }
 </script>

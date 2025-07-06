@@ -1,4 +1,4 @@
-<script setup> 
+<script setup>
 const invitados = [
     { "familia": "Familia García", "cantidad": 3, "fechaConfirmacion": "2025-06-21" },
     { "familia": "Familia López", "cantidad": 2, "fechaConfirmacion": "2025-06-22" },
@@ -47,93 +47,139 @@ const invitados = [
 </script>
 
 <template>
- 
     <h1>Mi evento</h1>
-    <div class="PanelPrincipal">
-        <h2>Invitados confirmados</h2>
+    <div class="dashboard">
+        <div class="Familias">
+             <div class="widget">
+                <h3>Familias</h3>
+                <span>12</span>
+            </div>
+        </div>
+        <div class="PanelPrincipal">
+            <h2>Invitados confirmados</h2>
 
-        <div class="tarjeta tarjetaHeader">
-            <div class="datos familia">
-                <span>Invitiados</span>
+            <div class="tarjeta tarjetaHeader">
+                <div class="datos familia">
+                    <span>Invitiados</span>
+                </div>
+                <div class="datos">
+                    <span>Cantidad</span>
+                </div>
+                <div class="datos fecha">
+                    <span>Fecha de confirmación</span>
+                </div>
             </div>
-            <div class="datos">
-                <span>Cantidad</span>
-            </div>
-            <div class="datos fecha">
-                <span>Fecha de confirmación</span>
+
+            <div class="tarjeta" v-for="(invitado, index) in invitados" :key="index">
+                <div class="datos familia">
+                    <span>{{ invitado.familia }}</span>
+                </div>
+                <div class="datos cantidad">
+                    <span>{{
+                        invitado.cantidad }}</span>
+                </div>
+                <div class="datos fecha">
+                    <span>{{ invitado.fechaConfirmacion }}</span>
+                </div>
             </div>
         </div>
 
-        <div class="tarjeta" v-for="(invitado, index) in invitados" :key="index">
-            <div class="datos familia">
-                <span>{{ invitado.familia }}</span>
-            </div>
-            <div class="datos cantidad">
-                <span>{{
-                    invitado.cantidad }}</span>
-            </div>
-            <div class="datos fecha">
-                <span>{{ invitado.fechaConfirmacion }}</span>
+        <div class="Invitados">
+            <div class="widget">
+                <h3>Invitados</h3>
+                <span>85</span>
             </div>
         </div>
-
-        <!--   <table>
-            <thead>
-                <tr>
-                    <th class="">Familia</th>
-                    <th class="">Cantidad</th>
-                    <th class="">Fecha de Confirmación</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(invitado, index) in invitados" :key="index" class="hover:bg-gray-50">
-                    <td class="px-6 py-4">{{ invitado.familia }}</td>
-                    <td class="px-6 py-4">{{ invitado.cantidad }}</td>
-                    <td class="px-6 py-4">{{ invitado.fechaConfirmacion }}</td>
-                </tr>
-            </tbody>
-        </table> -->
     </div>
+
 
 </template>
 
 <style scoped>
+.dashboard {
+    display: flex;
+    gap: 10px;
+    padding: 0 20px;
+}
+
+.Familias, .Invitados {
+    width: 400px;
+}
+ 
+
+.widget {
+    margin: 20px auto;
+    background-color: var(--bg-color-prim);
+    color: #fff;
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--box-shadow);
+    border-radius: 16px;
+    background: var(--Widget)
+
+/* 
+    background: radial-gradient( #aa4b6b, #3b8d99); */
+}
+
+.widget h3 {
+    font-size: 2rem;
+    margin: 15px 0;
+    color: var(--font-gradient);
+}
+
+.widget span {
+    font-size: 5rem;
+    color: var(--main-Font);
+    font-weight: 900;
+}
+
+
+
+
+
+
+
 .PanelPrincipal {
     min-height: 85vh;
     max-height: 80vh;
     overflow-y: auto;
     width: 50%;
-    background-color: #fbfbfe;
-    color: #15163D;
+    background-color: var(--bg-color-prim);
+    color: var(--main-Font);
     margin: 30px auto;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
+    gap: 15px;
+    box-shadow: var(--box-shadow);
+    border-radius: 16px;
 }
 
 h1,
-h2 {
+h2,
+h3 {
     text-align: center;
-    color: #15163D;
+    color: var(--main-Font);
 }
 
 .tarjeta {
     width: 80%;
-    background-color: #fbfbfe;
-    color: #15163D;
+    background-color: var(--Bg-color-sec);
+    color: var(--main-Font);
     margin: 5px auto;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--box-shadow);
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 
-
 }
 
-.tarjetaHeader{
-background-color: var(--BgBlue);
-color: #fbfbfe;
+.tarjetaHeader {
+    background-color: var(--main-Font);
+    color: var(--main-Font-inverter);
 }
 
 .datos {
@@ -150,7 +196,7 @@ color: #fbfbfe;
 
 }
 
-.tarjeta:not(.tarjetaHeader) div:nth-child(2) span  {
+.tarjeta:not(.tarjetaHeader) div:nth-child(2) span {
     background-color: #e6c50a;
     padding: 6px;
     border-radius: 8px;
@@ -158,8 +204,10 @@ color: #fbfbfe;
 }
 
 .tarjeta:last-child {
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
-
+#app {
+    overflow-y: hidden !important;
+}
 </style>
