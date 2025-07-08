@@ -1,74 +1,78 @@
 <script setup>
-const invitados = [
-    { "familia": "Familia García", "cantidad": 3, "fechaConfirmacion": "2025-06-21" },
-    { "familia": "Familia López", "cantidad": 2, "fechaConfirmacion": "2025-06-22" },
-    { "familia": "Familia Ramírez", "cantidad": 5, "fechaConfirmacion": "2025-06-23" },
-    { "familia": "Familia Torres", "cantidad": 1, "fechaConfirmacion": "2025-06-24" },
-    { "familia": "Familia Mendoza", "cantidad": 4, "fechaConfirmacion": "2025-06-25" },
-    { "familia": "Familia Cruz", "cantidad": 3, "fechaConfirmacion": "2025-06-26" },
-    { "familia": "Familia Morales", "cantidad": 2, "fechaConfirmacion": "2025-06-27" },
-    { "familia": "Familia Herrera", "cantidad": 3, "fechaConfirmacion": "2025-06-28" },
-    { "familia": "Familia Ríos", "cantidad": 1, "fechaConfirmacion": "2025-06-29" },
-    { "familia": "Familia Díaz", "cantidad": 6, "fechaConfirmacion": "2025-06-30" },
-    { "familia": "Familia Castillo", "cantidad": 2, "fechaConfirmacion": "2025-07-01" },
-    { "familia": "Familia Salinas", "cantidad": 4, "fechaConfirmacion": "2025-07-02" },
-    { "familia": "Familia Navarro", "cantidad": 2, "fechaConfirmacion": "2025-07-03" },
-    { "familia": "Familia Vargas", "cantidad": 3, "fechaConfirmacion": "2025-07-04" },
-    { "familia": "Familia Camacho", "cantidad": 1, "fechaConfirmacion": "2025-07-05" },
-    { "familia": "Familia Domínguez", "cantidad": 5, "fechaConfirmacion": "2025-07-06" },
-    { "familia": "Familia Soto", "cantidad": 2, "fechaConfirmacion": "2025-07-07" },
-    { "familia": "Familia Peña", "cantidad": 3, "fechaConfirmacion": "2025-07-08" },
-    { "familia": "Familia Serrano", "cantidad": 4, "fechaConfirmacion": "2025-07-09" },
-    { "familia": "Familia Aguilar", "cantidad": 2, "fechaConfirmacion": "2025-07-10" },
-    { "familia": "Familia Paredes", "cantidad": 3, "fechaConfirmacion": "2025-07-11" },
-    { "familia": "Familia Sandoval", "cantidad": 2, "fechaConfirmacion": "2025-07-12" },
-    { "familia": "Familia Silva", "cantidad": 5, "fechaConfirmacion": "2025-07-13" },
-    { "familia": "Familia Castañeda", "cantidad": 1, "fechaConfirmacion": "2025-07-14" },
-    { "familia": "Familia Rangel", "cantidad": 4, "fechaConfirmacion": "2025-07-15" },
-    { "familia": "Familia Treviño", "cantidad": 3, "fechaConfirmacion": "2025-07-16" },
-    { "familia": "Familia Estrada", "cantidad": 2, "fechaConfirmacion": "2025-07-17" },
-    { "familia": "Familia Alanís", "cantidad": 4, "fechaConfirmacion": "2025-07-18" },
-    { "familia": "Familia Beltrán", "cantidad": 2, "fechaConfirmacion": "2025-07-19" },
-    { "familia": "Familia Leal", "cantidad": 3, "fechaConfirmacion": "2025-07-20" },
-    { "familia": "Familia Orozco", "cantidad": 1, "fechaConfirmacion": "2025-07-21" },
-    { "familia": "Familia Luna", "cantidad": 5, "fechaConfirmacion": "2025-07-22" },
-    { "familia": "Familia Acosta", "cantidad": 3, "fechaConfirmacion": "2025-07-23" },
-    { "familia": "Familia Salazar", "cantidad": 2, "fechaConfirmacion": "2025-07-24" },
-    { "familia": "Familia Mejía", "cantidad": 4, "fechaConfirmacion": "2025-07-25" },
-    { "familia": "Familia Molina", "cantidad": 3, "fechaConfirmacion": "2025-07-26" },
-    { "familia": "Familia Robles", "cantidad": 2, "fechaConfirmacion": "2025-07-27" },
-    { "familia": "Familia Del Río", "cantidad": 3, "fechaConfirmacion": "2025-07-28" },
-    { "familia": "Familia Vázquez", "cantidad": 5, "fechaConfirmacion": "2025-07-29" },
-    { "familia": "Familia Rosales", "cantidad": 1, "fechaConfirmacion": "2025-07-30" },
-    { "familia": "Familia Solís", "cantidad": 4, "fechaConfirmacion": "2025-07-31" }
-]
+import Modal from '../../components/modal/Modal.vue'
+import { ref, onMounted, nextTick } from 'vue'
 
+const modalLogin = ref(null)
+const datosRecibidos = ref(null)
+const invitados = ref([])
+const link = ref(null)
 
+const familias = ref(0)
+const TotalInvitados = ref(0)
+function handleDatos(datos) {
+    datosRecibidos.value = datos 
+
+    var id = datos.id
+    link.value = 'http://localhost:5173/Invitacion/' + id
+
+    fetch(`http://localhost:3000/cargar/${id}`)
+        .then(res => res.json())                 // Convierte la respuesta en JSON
+        .then(data => { 
+            invitados.value = data.Invitados
+            familias.value = data.Invitados.length
+            var Total = 0
+
+             data.Invitados.forEach(element => {
+                Total = Total + element.cantidad
+            });
+
+            TotalInvitados.value = Total 
+        })
+        .catch(err => console.error('Error cargando configuración:', err)) // Muestra error si falla la carga
+}
+
+onMounted(async () => {
+    await nextTick()
+    if (modalLogin.value && modalLogin.value.showModal) {
+        modalLogin.value.showModal() // ¡OJO! Aquí con paréntesis para llamar la función
+    } else {
+        console.error('modalLogin no tiene showModal')
+    }
+})
 </script>
 
 <template>
     <h1>Mi evento</h1>
     <div class="dashboard">
         <div class="Familias">
-             <div class="widget">
+            <div class="widget">
                 <h3>Familias</h3>
-                <span>12</span>
+                <span>{{ familias }}</span>
             </div>
         </div>
         <div class="PanelPrincipal">
             <h2>Invitados confirmados</h2>
 
+            <div class="input-group"> 
+                
+ 
+                <input type="text" placeholder="Enlace de invitación..." v-model="link">
+                <a :href="link" target="_blank"><i class="fa-solid fa-square-arrow-up-right"></i></a>
+         <!--        <button><i class="fa-solid fa-square-arrow-up-right"></i></button>  -->
+            </div>
+
             <div class="tarjeta tarjetaHeader">
-                <div class="datos familia">
+                <div class="datos">
                     <span>Invitiados</span>
                 </div>
                 <div class="datos">
                     <span>Cantidad</span>
                 </div>
-                <div class="datos fecha">
+                <div class="datos">
                     <span>Fecha de confirmación</span>
                 </div>
             </div>
+
 
             <div class="tarjeta" v-for="(invitado, index) in invitados" :key="index">
                 <div class="datos familia">
@@ -87,11 +91,14 @@ const invitados = [
         <div class="Invitados">
             <div class="widget">
                 <h3>Invitados</h3>
-                <span>85</span>
+                <span>{{ TotalInvitados }}</span>
             </div>
         </div>
     </div>
 
+
+
+    <Modal ref="modalLogin" @enviar-datos="handleDatos" />
 
 </template>
 
@@ -102,10 +109,10 @@ const invitados = [
     padding: 0 20px;
 }
 
-.Familias, .Invitados {
+.Familias,
+.Invitados {
     width: 400px;
 }
- 
 
 .widget {
     margin: 20px auto;
@@ -119,8 +126,7 @@ const invitados = [
     box-shadow: var(--box-shadow);
     border-radius: 16px;
     background: var(--Widget)
-
-/* 
+        /* 
     background: radial-gradient( #aa4b6b, #3b8d99); */
 }
 
@@ -136,12 +142,6 @@ const invitados = [
     font-weight: 900;
 }
 
-
-
-
-
-
-
 .PanelPrincipal {
     min-height: 85vh;
     max-height: 80vh;
@@ -155,6 +155,7 @@ const invitados = [
     gap: 15px;
     box-shadow: var(--box-shadow);
     border-radius: 16px;
+    justify-content: start;
 }
 
 h1,
@@ -166,6 +167,7 @@ h3 {
 
 .tarjeta {
     width: 80%;
+    height: 55px;
     background-color: var(--Bg-color-sec);
     color: var(--main-Font);
     margin: 5px auto;
@@ -210,4 +212,57 @@ h3 {
 #app {
     overflow-y: hidden !important;
 }
+
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 40%;
+    padding: 3px 10px;
+    margin: 0 auto;
+    border: 2px solid var(--sec-border);
+    border-radius: 24px;
+}
+
+.input-group:hover{
+    border: 2px solid var(--hover-links);
+}
+
+.input-group input {
+    flex: 1;
+    padding: 0.5em;
+    border: none;
+    background-color: transparent;
+    color: var(--main-Font); 
+}
+
+.input-group input:focus {
+  outline: none;
+}
+
+.input-group button {
+    font-size: 1.3rem;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+ 
+
+
+.input-group a {
+    font-size: 1.4rem;
+    text-decoration: none;
+    padding: 0;
+    margin-right: 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+
+
 </style>

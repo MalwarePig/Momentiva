@@ -168,6 +168,11 @@ export default {
                     <div class="sub">
 
                         <div class="element">
+                            <label for="fotoCentral">Link de imagen</label>
+                            <input type="text" id="fotoCentral" name="fotoCentral" placeholder="Link de imagen">
+                        </div>
+
+                        <!-- <div class="element">
                             <label for="fotoCentral">Imagen principal</label>
                             <select id="fotoCentral">
                                 <option value="">(Sin imagen)</option>
@@ -177,7 +182,7 @@ export default {
                                 <option value="../../../public/img/perfil/niña.webp">niña</option>
                                 <option value="../../../public/img/perfil/xv.webp">XVS</option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="element">
                             <label for="imgPrimEstilo">Estilo</label>

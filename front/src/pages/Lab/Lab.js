@@ -107,7 +107,6 @@ export function iniciarConfigurador(callbackActualizacion) {
 export function Exportar() {
   const config = obtenerConfig();
 
-
   fetch('http://localhost:3000/Exportar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

@@ -1,23 +1,14 @@
 const Controller = {};
 const fs = require('fs');
 const path = require('path');
+const revolverStrings = require('../functions/encript')
 /* const EnviarCorreos = require('../functions/email') */
 /* const iniciarWhatsApp = require('../functions/whatsapp'); */
 Controller.Exportar = (req, res) => {
 
-    // ✅ Llama a la función de correo
-    /*  EnviarCorreos(); */
-
-    
-/* (async () => {
-  await iniciarWhatsApp();
-})();
-
- */
     const config = req.body;
-    console.clear()
-    console.log(config)
-    const id = config.user.user + config.user.pass;
+    
+    const id = revolverStrings(config.user.user,config.user.pass);
 
     // Ruta base donde guardar los archivos
     const userFolder = path.join(__dirname, '..', 'data', id);

@@ -1,11 +1,11 @@
 {
   "user": {
-    "user": "",
-    "pass": ""
+    "user": "Sergio",
+    "pass": "0205"
   },
   "fondo": {
     "color": "#000000",
-    "imagen": "",
+    "imagen": "http://localhost:5173/@fs/C:/Users/Gaspar/Desktop/Proyectos/Vue/Momentiva/front/public/img/bg/Fondo3.webp",
     "estilo": "cover",
     "RepetirBG": false,
     "escalaGrises": false
