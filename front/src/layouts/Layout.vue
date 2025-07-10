@@ -2,9 +2,10 @@
 <template>
   <div class="Nav">
     <ul>
-      <li><a href="/">Home</a></li>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/PanelCreative">Panel creativo</a></li>
       <li><a href="/MyParty">MyPanel</a></li>
-      <li><a href="/Tarjeta">Tarjeta</a></li>
+    
 
       <button class="theme-toggle" @click="toggleTheme" v-html="theme === 'Dark' ? 
   '<i class=\'fa-solid fa-sun\'></i>' : 
@@ -75,6 +76,9 @@ li:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
+li a{
+  font-family: "Montserrat";
+}
 
 
 footer {

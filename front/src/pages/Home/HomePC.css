@@ -1,0 +1,53 @@
+/* Responsive PC */
+@media (min-width: 1024px) {
+  /* Barra de navegación */
+  .navbar {
+    padding: 10px 40px;
+  }
+
+  .deskOnly {
+    display: block;
+  }
+
+  .navbar-logo img {
+    width: 300px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  #Burguer {
+    display: none;
+  }
+
+  /* Section portada PC */
+  #Portada {
+    flex-direction: row;
+  }
+
+  .Ptd-album {
+    align-items: center;
+  }
+
+  .Ptd-album img {
+    width: 350px;
+  }
+
+  .Slogan h1 {
+    font-size: 5rem;
+    font-family: "Faculty Glyphic", serif;
+
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  .Slogan h2 {
+    font-family: "Faculty Glyphic", serif;
+  }
+
+  .cardFree {
+    margin: 50px 10px;
+  }
+} /* fin del media query */

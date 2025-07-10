@@ -5,10 +5,8 @@ const revolverStrings = require('../functions/encript')
 /* const EnviarCorreos = require('../functions/email') */
 /* const iniciarWhatsApp = require('../functions/whatsapp'); */
 Controller.Exportar = (req, res) => {
-
     const config = req.body;
-    
-    const id = revolverStrings(config.user.user,config.user.pass);
+    const id = revolverStrings(config.user.user, config.user.pass);
 
     // Ruta base donde guardar los archivos
     const userFolder = path.join(__dirname, '..', 'data', id);
@@ -16,7 +14,7 @@ Controller.Exportar = (req, res) => {
     // Crear carpeta del usuario si no existe
     fs.mkdir(userFolder, { recursive: true }, (err) => {
         if (err) {
-            console.error("Error al crear carpeta:", err);
+            console.error("❌ Error al crear carpeta:", err);
             return res.status(500).json({ mensaje: "Error al crear carpeta del usuario" });
         }
 
@@ -26,18 +24,15 @@ Controller.Exportar = (req, res) => {
         // Guardar JSON en archivo
         fs.writeFile(filePath, JSON.stringify(config, null, 2), (err) => {
             if (err) {
-                console.error("Error al guardar archivo:", err);
+                console.error("❌ Error al guardar archivo:", err);
                 return res.status(500).json({ mensaje: "Error al guardar invitación" });
             }
 
-            console.log("Archivo guardado en:", filePath);
+            console.log("✅ Archivo guardado en:", filePath);
+            return res.status(200).json({ mensaje: "Invitación guardada exitosamente" });
         });
     });
-
-
-    res.json({ mensaje: '¡Hola desde el servidor!' });
 };
-
 
 Controller.Cargar = (req, res) => {
     const id = String(req.params.usuario || "desconocido");

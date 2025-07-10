@@ -1,5 +1,5 @@
 <script setup>
-import Modal from '../../components/modal/Modal.vue'
+import Modal from '../../components/Modals/ModalCarga/ModalCarga.vue'
 import { ref, onMounted, nextTick } from 'vue'
 
 const modalLogin = ref(null)

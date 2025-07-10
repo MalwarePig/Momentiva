@@ -1,71 +1,47 @@
-<script>
+<script setup>
 // Importa funciones necesarias de Vue
 import { onMounted, nextTick, ref } from 'vue'
 // Importa funciones personalizadas desde tu archivo Lab.js
-import { iniciarConfigurador, Exportar, obtenerConfig, initSelectorFondo  } from './Lab.js'
-
-export default {
-    setup() {
-        //Define el componente Vue usando la función setup, que se ejecuta cuando el componente se monta.
-        const iframeRef = ref(null);//Crea una referencia reactiva para acceder al <iframe> desde el DOM (lo usarás para comunicarte con él usando postMessage).
-        // Esta función envía la configuración actual al iframe incrustado en la página.
-        // Se asegura primero de que el iframe exista y tenga acceso a su ventana interna (contentWindow).
-        // Luego obtiene la configuración actual desde la función obtenerConfig()
-        // y la envía al iframe usando postMessage, con un objeto que indica
-        // el tipo de mensaje ('ACTUALIZAR_CONFIGURACION') y los datos a transmitir (payload: config). 
-        const enviarConfiguracionAlIframe = () => {
-            if (iframeRef.value && iframeRef.value.contentWindow) {
-                const config = obtenerConfig();
-                iframeRef.value.contentWindow.postMessage({
-                    type: 'ACTUALIZAR_CONFIGURACION',
-                    payload: config
-                }, 'http://localhost:5173'); //  origen del iframe receptor
-            }
-        };
-
-        // Esta función se ejecuta automáticamente cuando el componente Vue se monta en el DOM.
-        // Primero espera al siguiente "tick" del DOM para asegurarse de que todos los elementos estén renderizados.
-        // Luego, inicia el configurador pasando la función 'enviarConfiguracionAlIframe' como callback,
-        // para que cada vez que cambie algo, se actualice el iframe en tiempo real.
-
-        // También se agrega un evento al botón con ID 'Exportar' (si existe),
-        // que al hacer clic, primero ejecuta la función Exportar (para guardar o descargar algo),
-        // y luego vuelve a enviar la configuración actual al iframe para reflejar los cambios.
-        onMounted(async () => {
-             initSelectorFondo();  // <--- Aquí la llamas para que agregue los event listeners a las imágenes
-
-            await nextTick(); // Espera a que el DOM esté completamente listo
-            iniciarConfigurador(enviarConfiguracionAlIframe); // Inicia el configurador con la función de actualización
- 
-            // Agrega un evento al botón Exportar si existe en el DOM
-            document.getElementById('Exportar')?.addEventListener('click', () => {
-                Exportar(); // Ejecuta la exportación
-                enviarConfiguracionAlIframe(); // Reenvía la configuración al iframe
-            });
-        });
-
-        /* const seleccionarFondo = (ruta) => {
-            const input = document.getElementById("imagenFondo");
-            if (input) input.value = ruta;
-
-            // Dispara el evento 'change' para forzar que se actualice el iframe
-            input?.dispatchEvent(new Event("change", { bubbles: true }));
-        }; */
+import { iniciarConfigurador, Exportar, obtenerConfig, initSelectorFondo } from './Lab.js'
+import Modal from '../../components/Modals/ModalMsg/ModalMsg.vue'
 
 
-        // Retorna las referencias y funciones que estarán disponibles en el template del componente Vue.
-        // Exportar: por si quieres usar la función directamente desde el template.
-        // iframeRef: para vincular el iframe con ref="iframeRef".
-        return {
-            Exportar,
-            iframeRef 
-        };
+const modalMsg = ref(null)
+//Define el componente Vue usando la función setup, que se ejecuta cuando el componente se monta.
+const iframeRef = ref(null);//Crea una referencia reactiva para acceder al <iframe> desde el DOM (lo usarás para comunicarte con él usando postMessage).
+
+const enviarConfiguracionAlIframe = () => {
+    if (iframeRef.value && iframeRef.value.contentWindow) {
+        const config = obtenerConfig();
+        iframeRef.value.contentWindow.postMessage({
+            type: 'ACTUALIZAR_CONFIGURACION',
+            payload: config
+        }, 'http://localhost:5173'); //  origen del iframe receptor
     }
-}
+};
+
+onMounted(async () => {
+    initSelectorFondo();  // <--- Aquí la llamas para que agregue los event listeners a las imágenes
+
+    await nextTick(); // Espera a que el DOM esté completamente listo
+    iniciarConfigurador(enviarConfiguracionAlIframe); // Inicia el configurador con la función de actualización
+
+    // Agrega un evento al botón Exportar si existe en el DOM
+    document.getElementById('Exportar')?.addEventListener('click', () => {
+        Exportar(modalMsg); // Ejecuta la exportación
+        enviarConfiguracionAlIframe(); // Reenvía la configuración al iframe
+    });
+
+});
+
+
+
 </script>
 
-
 <template>
+    <Modal ref="modalMsg" />
+
+
     <div class="Laboratorio">
         <!-- Panel izquierdo -->
         <div class="panel opciones">
@@ -166,6 +142,14 @@ export default {
                 <div class="control">
 
                     <div class="sub">
+                        <!--  <div class="element">
+                            <label for="">Imagen central</label>
+                            <label class="file-input">
+                           <span><i class="fa-solid fa-image"></i></span>
+                                <input type="file" accept="image/*" id="fotoCentral">
+                            </label>
+                        </div>   -->
+
 
                         <div class="element">
                             <label for="fotoCentral">Link de imagen</label>
@@ -184,6 +168,7 @@ export default {
                             </select>
                         </div> -->
 
+
                         <div class="element">
                             <label for="imgPrimEstilo">Estilo</label>
                             <select id="imgPrimEstilo">
@@ -195,6 +180,11 @@ export default {
                         </div>
 
                         <div class="element">
+                            <label for="imgPrimGray">Escala de grises</label>
+                            <input type="checkbox" name="imgPrimGray" id="imgPrimGray">
+                        </div>
+
+                        <div class="element">
                             <label for="imgPrimSize">Tamaño</label>
                             <input type="range" name="imgPrimSize" id="imgPrimSize" min="0" max="100" value="100">
                         </div>
@@ -202,6 +192,12 @@ export default {
                         <div class="element">
                             <label for="imgPrimHeight">Altura</label>
                             <input type="range" name="imgPrimHeight" id="imgPrimHeight" min="0" max="100" value="50">
+                        </div>
+
+                        <div class="element">
+                            <label for="imgPrimPosicion">Posicion</label>
+                            <input type="range" name="imgPrimPosicion" id="imgPrimPosicion" min="-200" max="1000"
+                                value="0">
                         </div>
 
                         <div class="element">
@@ -217,19 +213,12 @@ export default {
                         <div class="element">
                             <label for="imgPrimTransparencia">Transparencia</label>
                             <input type="range" name="imgPrimTransparencia" id="imgPrimTransparencia" min="0" max="100"
-                                   value="0">
+                                value="0">
                         </div>
 
-                        <div class="element">
-                            <label for="imgPrimPosicion">Posicion</label>
-                            <input type="range" name="imgPrimPosicion" id="imgPrimPosicion" min="-200" max="1000"
-                                   value="0">
-                        </div>
 
-                        <div class="element">
-                            <label for="imgPrimGray">Escala de grises</label>
-                            <input type="checkbox" name="imgPrimGray" id="imgPrimGray">
-                        </div>
+
+
 
                     </div>
                 </div>
@@ -252,7 +241,7 @@ export default {
                         <div class="element">
                             <label for="anfitrionHeight">Altura</label>
                             <input type="range" name="anfitrionHeight" id="anfitrionHeight" min="0" max="1000"
-                                   value="300">
+                                value="300">
                         </div>
 
                         <div class="element">
@@ -522,7 +511,7 @@ export default {
                         <div class="element">
                             <label for="ubicacionHeight">Altura</label>
                             <input type="range" name="ubicacionHeight" id="ubicacionHeight" min="0" max="1300"
-                                   value="800">
+                                value="800">
                         </div>
 
                         <div class="element">
@@ -639,7 +628,7 @@ export default {
             </details>
 
             <div id="Botones">
-                <button @click="Exportar()" id="Exportar">Exportar</button> 
+                <button @click="Exportar()" id="Exportar">Exportar</button>
             </div>
         </div>
         <!-- Panel derecho -->
@@ -650,6 +639,10 @@ export default {
         </div>
 
     </div>
+
+
+
+
 </template>
 
-<style src="./Lab.css"></style>
+<style src="./Lab.css" scoped></style>

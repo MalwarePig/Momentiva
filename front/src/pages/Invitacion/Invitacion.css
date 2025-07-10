@@ -1,19 +1,18 @@
-
 .Vista {
   /* width: 100vw !important; */
   position: relative;
   max-width: 100vw !important;
   overflow-x: hidden !important;
-  height: 150%; 
+  height: 150%;
   background-size: cover;
-  background-position: center; 
+  background-position: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
   color: white;
   transition: all 0.3s ease;
-  text-align: center; 
+  text-align: center;
   background-attachment: scroll; /* que se mueva con el contenido */
 }
 
@@ -26,7 +25,7 @@
 .fechaVista,
 .spotifyVista {
   position: absolute;
-  padding: 0; 
+  padding: 0;
   line-height: 0.9;
   z-index: 999;
   width: 80%;
@@ -34,16 +33,30 @@
   animation: subirRevelar 2s ease-out both;
 }
 
-
-.tituloVista   { animation-delay: 0.10s; }
-.eventoVista   { animation-delay: 0.20s; }
-.anfitrionVista { animation-delay: 0.30s; }
-.fechaVista    { animation-delay: 0.40s; }
-.horaVista     { animation-delay: 0.50s; }
-.ubicacionVista { animation-delay: 0.60s; }
-.mensajeVista  { animation-delay: 0.70s; }
-.spotifyVista  { animation-delay: 0.80s; }
-
+.tituloVista {
+  animation-delay: 0.1s;
+}
+.eventoVista {
+  animation-delay: 0.2s;
+}
+.anfitrionVista {
+  animation-delay: 0.3s;
+}
+.fechaVista {
+  animation-delay: 0.4s;
+}
+.horaVista {
+  animation-delay: 0.5s;
+}
+.ubicacionVista {
+  animation-delay: 0.6s;
+}
+.mensajeVista {
+  animation-delay: 0.7s;
+}
+.spotifyVista {
+  animation-delay: 0.8s;
+}
 
 .tituloVista {
   font-size: 1.6rem;
@@ -51,7 +64,7 @@
 }
 
 .eventoVista {
-  font-size: 1.4rem; 
+  font-size: 1.4rem;
 }
 
 .anfitrionVista {
@@ -86,17 +99,17 @@
   background-position: center;
   z-index: 1;
   position: relative;
-  padding: 0; 
+  padding: 0;
 }
 
 .confirmacion {
-  width: 100%; 
+  width: 100%;
   position: absolute;
   bottom: 0;
   z-index: 999;
 
   padding: 10px 0;
-   background-color: rgba(46, 46, 46, 0.226); /* Fondo semitransparente */
+  background-color: rgba(46, 46, 46, 0.226); /* Fondo semitransparente */
   backdrop-filter: blur(10px); /* Desenfoca lo que está detrás */
 
   display: flex;
@@ -107,8 +120,8 @@
 .element {
   padding: 0 20px;
   display: flex;
-  flex: 1;   
-  justify-content:  space-between;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .confirmacion label {
@@ -132,30 +145,29 @@
   width: 150px;
 }
 
-
 #Botones {
   width: 100%;
-  display: flex; 
+  display: flex;
   justify-content: center;
-  margin:15px 0 10px 0;
+  margin: 15px 0 10px 0;
+  border: 1px solid var(--dark-gray);
 }
 
 #Confirmacion {
   width: 150px;
   height: 50px;
   font-size: 1.2rem;
-  color: whitesmoke;
-  background-color: var(--dark-gray);
-  border: 2px solid var(--lightGray-border);
+  color: var(--main-Font);
+  background-color: var(--Bg-color-ter);
+  border: 2px solid var(--sec-border);
   border-radius: 8px;
 }
 
- #Confirmacion:hover {
-  color: #15e8ff;
+#Confirmacion:hover {
+  color: var(--hover-links);
   border: 2px solid var(--blue-border);
   cursor: pointer;
 }
- 
 
 @keyframes subirRevelar {
   from {
@@ -168,3 +180,75 @@
   }
 }
 
+@media (min-width: 1024px) {
+  .confirmacion {
+    width: 50% !important;
+    position: absolute;
+    bottom: 0;
+    z-index: 999;
+
+    padding: 10px 0;
+    background-color: rgba(46, 46, 46, 0.226); /* Fondo semitransparente */
+    backdrop-filter: blur(10px); /* Desenfoca lo que está detrás */
+
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .element {
+    padding: 0 20px;
+    display: flex;
+    flex: 1;
+    align-items: center;
+  }
+
+  .confirmacion label {
+    margin-top: 10px;
+    font-size: 1.1rem;
+
+    font-family: Poppins-Bold, "Lora", "Roboto Mono", sans-serif;
+    line-height: 1.2;
+    font-weight: 500;
+    letter-spacing: -0.01rem;
+    flex: 1;
+    text-align: end;
+    padding-right: 10px;
+  }
+
+  .confirmacion input[type="text"] {
+    flex: 2;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    padding: 4px;
+    font-family: Poppins-Bold, "Lora", "Roboto Mono", sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.01rem;
+    width: 35%;
+  }
+
+  #Botones {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    margin: 15px auto 10px auto;
+    border-radius: 16px;
+  }
+
+  #Confirmacion {
+    width: 150px;
+    height: 50px;
+    font-size: 1.2rem;
+    color: var(--main-Font);
+    background-color: var(--Bg-color-ter);
+    border: 2px solid var(--sec-border);
+    border-radius: 8px;
+  }
+
+  #Confirmacion:hover {
+    color: var(--hover-links);
+    border: 2px solid var(--hover-links);
+    cursor: pointer;
+  }
+}

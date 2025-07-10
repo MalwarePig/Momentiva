@@ -1,0 +1,448 @@
+.app {
+  background-color: #fff;
+}
+/* Header base */
+header {
+  margin: 0;
+  padding: 0;
+  height: 10vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--Bg-color-sec); /* Blanco cálido */
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Barra de navegación */
+.navbar {
+  width: 100%;
+  padding: 10px 20px;
+  border-bottom: 1px solid #f0e6e3;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Lista de ítems del menú */
+.navbar-menu {
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 30px;
+}
+
+/* Ítem individual */
+.navbar-item {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.deskOnly {
+  display: none;
+}
+
+/* Enlace dentro del ítem del menú */
+.navbar-item a {
+  text-decoration: none;
+  color: var(--home-rosa);
+  font-size: 1.5rem;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+  position: relative;
+  padding-bottom: 4px;
+  display: inline-block;
+  transition: color 0.3s ease, transform 0.25s ease;
+}
+
+/* Efecto al pasar el cursor */
+.navbar-item a:hover,
+.navbar-item a.active {
+  color: var(--home-rosa);
+  transform: scale(1.05);
+}
+
+/* Línea inferior decorativa animada */
+.navbar-item a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background-color: var(--home-rosa);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.navbar-item a:hover::after,
+.navbar-item a.active::after {
+  transform: scaleX(1);
+}
+
+/* Línea decorativa al pasar hover */
+.navbar-item a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background-color: var(--home-rosa);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.navbar-item a:hover::after,
+.navbar-item a.active::after {
+  transform: scaleX(1);
+}
+
+/* Botón dentro del navbar */
+.btnFree {
+  background-color: var(--home-dark); /* Rosa empolvado */
+  color: var(--home-rosa); /* Marrón claro */
+  border: none;
+  padding: 10px 20px !important;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif !important;
+  border-radius: 999px; /* Full rounded */
+  cursor: pointer;
+  box-shadow: var(--box-shadow);
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Hover del botón */
+.btnFree:hover {
+  background-color: var(--home-aqua);
+  color: var(--home-dark);
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón dentro del navbar */
+#btnCloseBgr {
+  margin-bottom: 50px;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 50%; /* Full rounded */
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Hover del botón */
+#btnCloseBgr:hover {
+  background-color: var(--bg-elegant); /* Un poco más intenso al pasar */
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+#btnCloseBgr button {
+  cursor: pointer;
+  border: none;
+  font-size: 1.8rem;
+  background-color: transparent;
+  color: red;
+}
+
+.navbar-logo {
+  margin-right: auto; /* Empuja los demás elementos a la derecha */
+}
+
+.navbar-logo img {
+  width: 250px;
+}
+
+.sidebar {
+  background-color: #fffaf8;
+  width: 80%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  transition: transform 0.4s ease-in-out;
+  z-index: 999;
+  display: block; /* ya no usaremos display: none */
+}
+
+/* Cuando está activa (visible) */
+.sidebar.active {
+  transform: translateX(0%);
+}
+
+.sidebar-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+#Burguer button {
+  width: 60px;
+  height: 60px;
+  background-color: var(--Bg-color-sec);
+  font-size: 1.8rem;
+  border: none;
+}
+
+#Burguer button:active {
+  border: 1px solid var(--bg-elegant);
+  border-radius: 8px;
+}
+
+/* Sections */
+
+section {
+  height: 100vh; /* toda la altura del viewport */
+  padding-top: 10vh; /* para evitar que contenido quede bajo el header */
+  box-sizing: border-box;
+  overflow-y: auto; /* scroll interno si es necesario */
+}
+
+/* Section portada PC */
+#Portada {
+  background-image: linear-gradient(0deg, #fff 40%, var(--home-naranja) 90%),
+    url("/ruta-a-tu-textura-floral.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Ptd-album {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.Ptd-album img {
+  width: 180px;
+  margin-top: 10px;
+  left: 50%;
+  transform: translateX(-150%); /* comienza bien fuera del centro */
+  position: absolute;
+  animation: MoverDerecha 3s infinite;
+  z-index: 999;
+}
+
+@keyframes MoverDerecha {
+  0% {
+    transform: translateX(-150%);
+  }
+  50% {
+    transform: translateX(-50%); /* centrado relativo a left: 50% */
+  }
+  55% {
+    opacity: 1;
+    transform: translateX(-60%); /* centrado relativo a left: 50% */
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateX(150%);
+    opacity: 0;
+  }
+}
+
+.Slogan {
+  margin-top: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Slogan h1 {
+  margin: 0;
+  padding: 0;
+  color: var(--home-dark);
+  font-size: 2.7rem;
+  font-family: "Faculty Glyphic", serif;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: var(--home-rojo) 3px 2px 2px;
+}
+
+.Slogan h1 span {
+  display: inline-block;
+  color: var(--home-rosa);
+  animation: inclinar 1s infinite alternate ease-in-out;
+  transform-origin: bottom center;
+}
+
+.Slogan h1 span:nth-child(1) {
+  animation-delay: 0s;
+}
+.Slogan h1 span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.Slogan h1 span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.Slogan h1 span:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.Slogan h1 span:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.Slogan h1 span:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.Slogan h1 span:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.Slogan h1 span:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.Slogan h1 span:nth-child(9) {
+  animation-delay: 0.8s;
+}
+
+@keyframes inclinar {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+.Slogan h2 {
+  color: var(--home-dark);
+  font-size: 2.3rem;
+  font-family: "Faculty Glyphic", serif;
+  font-weight: 800;
+  text-align: center;
+  text-shadow: #a09f9f 1px 1px 1px;
+}
+
+.cardFree {
+  margin: 10px 10px;
+  /* background-color: #ebf708; */
+  backdrop-filter: blur(9px);
+  background: linear-gradient(
+    215deg,
+    var(--home-aqua) 15%,
+    var(--home-rosa) 70%
+  );
+
+  color: #000;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 1);
+}
+
+/* Botón dentro del navbar */
+.btnFreeHome {
+  background-color: var(--home-rosa); /* Rosa empolvado */
+  color: var(--home-aqua); /* Marrón claro */
+  border: none;
+  padding: 10px 20px !important;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: "Playfair Display", serif;
+  border-radius: 999px; /* Full rounded */
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+  text-decoration: none;
+}
+
+/* Hover del botón */
+.btnFreeHome:hover {
+  background-color: var(--home-naranja);
+  color: var(--home-dark);
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 1);
+}
+
+/* Inicio de Galeria */
+#Galeria {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#Galeria h2 {
+  font-size: 4rem;
+  margin-top: 50px;  
+  letter-spacing: 0.3rem; 
+  color: var(--home-dark); 
+  font-family: "Faculty Glyphic", serif;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: #a09f9f 3px 5px 1px;
+}
+.contenedorGaleria {
+  width: 90%;
+  height: 90%;
+  background-color: #000;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+.contenedorGaleria img {
+  width: 10%;
+}
+
+#Precios {
+  background-color: chocolate;
+}
+
+#Contacto {
+  background-color: blueviolet;
+}
+
+.mainCards{
+  border: 1px solid black;
+  display: flex;
+
+}
+
+.cardPrice{
+  border: 1px solid black;
+  margin: 20px 30px;
+}
+
+.cardPrice ul li{
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  gap: 15px;
+}

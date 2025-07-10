@@ -142,7 +142,7 @@ summary {
 
 details[open] {
   background-color: var(--Bg-color-ter);
-  border: 2px solid var(--ter-border);
+  border: 2px solid var(--ter-border) !important;
 }
 
 details summary {
@@ -276,5 +276,8 @@ input[type="color"] {
 
 .miniatura-fondo:hover {
   transform: scale(1.05);
-  border: 2px solid #007bff;
+  border: 1px solid var(--hover-links);
 }
+
+
+ 

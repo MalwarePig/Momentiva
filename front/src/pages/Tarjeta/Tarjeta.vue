@@ -1,4 +1,4 @@
-<style src="./Tarjeta.css"></style>
+<style src="./Tarjeta.css" scoped></style>
 
 
 <template>
@@ -162,8 +162,7 @@ const config = ref(null)
 
 const fechaFormateada = computed(() => {
   const fecha = config.value?.datos?.fecha
-  const formato = config.value?.datos?.fechaFormato
-  console.log(fecha, formato)
+  const formato = config.value?.datos?.fechaFormato 
 
   if (formato === 'corto') {
     return fecha
@@ -206,9 +205,7 @@ onMounted(() => {
   // Cuando se monta el componente, se configura un 'event listener' para escuchar mensajes que vengan del iframe padre
   window.addEventListener('message', manejarMensaje)
   var usuario;
-  watch(config, (nuevoValor) => {
-    console.log('User:', nuevoValor.user)  // Esto te mostrará el objeto user
-    console.log('User ID:', nuevoValor.user?.user + nuevoValor.user?.pass)  // Por ejemplo, mostrar solo el id del user
+  watch(config, (nuevoValor) => { 
     usuario = nuevoValor.user?.user + nuevoValor.user?.pass
   })
 
@@ -224,8 +221,7 @@ onMounted(() => {
   } else {
     usuario = 'Yumiko1702'
   }
-
-  console.log("¿Está en iframe?", estaEnIframe.value)
+ 
 
   // También, al cargar la página, se intenta obtener una configuración guardada en el backend
   // Aquí podrías cambiarlo por un valor dinámico si lo necesitas

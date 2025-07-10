@@ -1,27 +1,25 @@
-
 .Vista {
   /* width: 100vw !important; */
   position: relative;
   max-width: 100vw !important;
   overflow-x: hidden !important;
-  height: 150%; 
+  height: 150%;
   background-size: cover;
-  background-position: center; 
+  background-position: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
   color: white;
   transition: all 0.3s ease;
-  text-align: center; 
+  text-align: center;
   background-attachment: scroll; /* que se mueva con el contenido */
 
-
   background-attachment: fixed; /* <-- esto es clave */
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
   scrollbar-width: none;
 }
 
@@ -34,7 +32,7 @@
 .fechaVista,
 .spotifyVista {
   position: absolute;
-  padding: 0; 
+  padding: 0;
   line-height: 0.9;
   z-index: 999;
   width: 80%;
@@ -42,16 +40,30 @@
   animation: subirRevelar 2s ease-out both;
 }
 
-
-.tituloVista   { animation-delay: 0.10s; }
-.eventoVista   { animation-delay: 0.20s; }
-.anfitrionVista { animation-delay: 0.30s; }
-.fechaVista    { animation-delay: 0.40s; }
-.horaVista     { animation-delay: 0.50s; }
-.ubicacionVista { animation-delay: 0.60s; }
-.mensajeVista  { animation-delay: 0.70s; }
-.spotifyVista  { animation-delay: 0.80s; }
-
+.tituloVista {
+  animation-delay: 0.1s;
+}
+.eventoVista {
+  animation-delay: 0.2s;
+}
+.anfitrionVista {
+  animation-delay: 0.3s;
+}
+.fechaVista {
+  animation-delay: 0.4s;
+}
+.horaVista {
+  animation-delay: 0.5s;
+}
+.ubicacionVista {
+  animation-delay: 0.6s;
+}
+.mensajeVista {
+  animation-delay: 0.7s;
+}
+.spotifyVista {
+  animation-delay: 0.8s;
+}
 
 .tituloVista {
   font-size: 1.6rem;
@@ -59,7 +71,7 @@
 }
 
 .eventoVista {
-  font-size: 1.4rem; 
+  font-size: 1.4rem;
 }
 
 .anfitrionVista {
@@ -94,17 +106,18 @@
   background-position: center;
   z-index: 1;
   position: relative;
-  padding: 0; 
+  padding: 0;
 }
 
+/* archivo tarjeta */
 .confirmacion {
-  width: 100%; 
+  width: 100%;
   position: absolute;
   bottom: 0;
   z-index: 999;
 
   padding: 10px 0;
-   background-color: rgba(46, 46, 46, 0.226); /* Fondo semitransparente */
+  background-color: rgba(46, 46, 46, 0.226); /* Fondo semitransparente */
   backdrop-filter: blur(10px); /* Desenfoca lo que está detrás */
 
   display: flex;
@@ -115,8 +128,8 @@
 .element {
   padding: 0 20px;
   display: flex;
-  flex: 1;   
-  justify-content:  space-between;
+  flex: 1;
+  justify-content: space-between;
 }
 
 .confirmacion label {
@@ -140,12 +153,11 @@
   width: 150px;
 }
 
-
 #Botones {
   width: 100%;
-  display: flex; 
+  display: flex;
   justify-content: center;
-  margin:15px 0 10px 0;
+  margin: 15px 0 10px 0;
 }
 
 #Confirmacion {
@@ -158,12 +170,11 @@
   border-radius: 8px;
 }
 
- #Confirmacion:hover {
+#Confirmacion:hover {
   color: #15e8ff;
   border: 2px solid var(--blue-border);
   cursor: pointer;
 }
- 
 
 @keyframes subirRevelar {
   from {
@@ -175,4 +186,3 @@
     transform: translateY(0);
   }
 }
-

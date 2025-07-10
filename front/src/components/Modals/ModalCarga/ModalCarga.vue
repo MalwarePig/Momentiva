@@ -1,6 +1,6 @@
 <script setup>
 import { ref, defineExpose } from 'vue'
-import revolverStrings from '../../scripts/encript'
+import revolverStrings from '../../../scripts/encript'
 
 const modalLogin = ref(null)
 const user = ref('')

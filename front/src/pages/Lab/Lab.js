@@ -104,18 +104,33 @@ export function iniciarConfigurador(callbackActualizacion) {
   actualizarVista();
 }
 
-export function Exportar() {
+export function Exportar(modalMsg) {
   const config = obtenerConfig();
+  document.getElementById('user').value = ''
+  document.getElementById('pass').value = ''
 
   fetch('http://localhost:3000/Exportar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(config)
   })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data.mensaje); // Hola, Sergio!
+    .then(res => {
+      return res.json().then(data => {
+        const exito = res.status === 200 // Verificamos si la respuesta fue exitosa
+        if (modalMsg.value?.showModal) {
+          modalMsg.value.showModal(data.mensaje, exito)
+        } else {
+          console.error('modalMsg no tiene showModal')
+        }
+      })
+    })
+    .catch(err => {
+      console.error("❌ Error de red:", err)
+      if (modalMsg.value?.showModal) {
+        modalMsg.value.showModal("Error al guardar invitación", false)
+      }
     });
+
   console.table(config);
 }
 
@@ -127,7 +142,7 @@ export function initSelectorFondo() {
   imagenes.forEach(img => {
     img.addEventListener('click', () => {
       const urlImagen = img.src;
-      document.getElementById('imagenFondo').value = urlImagen; 
+      document.getElementById('imagenFondo').value = urlImagen;
     });
   });
 }

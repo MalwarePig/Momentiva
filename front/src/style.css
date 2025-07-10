@@ -1,7 +1,7 @@
 :root {
   --bg-color-prim: #fbfbfe;
 
-  --Bg-color-sec: #f8f9fa;
+  --Bg-color-sec: #f8f5f8;
   --sec-border: #dee2e6;
 
   --Bg-color-ter: #eae6f8;
@@ -22,6 +22,15 @@
 
   --Widget: linear-gradient(to right, #ffffff, #e9e4fc);
   --font-gradient: #9a91ac;
+
+  /* Home */
+  --home-rosa:#FF4D8B;
+  --home-aqua: #00e8d2;
+  --home-naranja:#fa9303; 
+  --home-rojo: #ff4027;
+  --home-dark:#081329;
+  
+   
 }
 
 /* Estilo oscuro */
@@ -43,9 +52,9 @@
   --Widget: linear-gradient(to right, #1e132a, #3d2259);
 }
 
-body {
-  background-color: var(--Bg-body);
+body { 
   margin: 0;
+  padding: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
@@ -55,39 +64,10 @@ body {
   scrollbar-color: red;
 }
 
-.card {
-  padding: 2em;
-}
-
-
-
-/* Estilo general del scroll */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-/* El track (fondo) */
-::-webkit-scrollbar-track {
-  background: #f0f0f0;
-  border-radius: 6px;
-}
-
-/* El thumb (barra que se mueve) */
-::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 6px;
-  border: 3px solid #f0f0f0;
-}
-
-/* Hover del thumb */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
 #app {
   width: 100%;
   height: 100vh;
   overflow-y: auto;
-   
+  margin: 0;
+  padding: 0;
 }
-

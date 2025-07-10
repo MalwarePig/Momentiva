@@ -4,6 +4,7 @@ import Tarjeta from '../pages/Tarjeta/Tarjeta.vue'
 import MyPanel from '../pages/MyPanel/MyPanel.vue'
 import Layout from '../layouts/Layout.vue'
 import Invitacion from '../pages/Invitacion/Invitacion.vue'
+import Home from '../pages/Home/Home.vue'
 
 /* const routes = [
   { path: '/', component: Lab },
@@ -16,10 +17,14 @@ import Invitacion from '../pages/Invitacion/Invitacion.vue'
 const routes = [
   {
     path: '/',
+    component: Home
+  },
+  {
+    path: '/PanelCreative',
     component: Layout,
     children: [
       { path: '', component: Lab },
-      { path: 'MyParty', component: MyPanel }
+      { path: '/MyParty', component: MyPanel }
     ]
   },
   {

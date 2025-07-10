@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <BG/>
-    <!-- Aquí se renderiza la página correspondiente según la ruta -->
     <router-view></router-view>
   </div>
 </template>
@@ -11,8 +9,19 @@
 
 export default {
   name: 'App',
- /*  components: {
-    BG
-  } */
+  /*  components: {
+     BG
+   } */
 }
 </script>
+
+<style>
+/* Estilos Globales */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  /* Es buena práctica definir una fuente base */
+  text-wrap: balance;
+}
+</style>

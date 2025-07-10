@@ -1,4 +1,4 @@
-<style src="./Invitacion.css"></style>
+<style src="./Invitacion.css" scoped></style>
 
 
 <template>
