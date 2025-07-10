@@ -1,5 +1,6 @@
 /* Responsive PC */
 @media (min-width: 1024px) {
+
   /* Barra de navegación */
   .navbar {
     padding: 10px 40px;
@@ -50,4 +51,124 @@
   .cardFree {
     margin: 50px 10px;
   }
-} /* fin del media query */
+
+
+
+  .contenedorGaleria {
+    overflow: hidden;
+  }
+
+  .contenedorGaleria img {
+    position: absolute;
+    width: 25%;
+    filter: drop-shadow(20px, 20px, 10px, #ffcc00);
+
+  }
+
+  .carril1 {
+    left: 0;
+    animation: runer 4s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  .carril2 {
+    animation: runer 4s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+
+  .carril3 {
+    right: 0;
+    animation: runer 4s ease-in-out infinite;
+    animation-delay: 3s;
+  }
+
+  .galeriaNone {
+    display: block;
+  }
+
+  @keyframes runer {
+    0% {
+      transform: translateY(150%);
+    }
+
+    50% {
+      transform: translateY(10%);
+    }
+
+    100% {
+      transform: translateY(-100%);
+    }
+
+  }
+
+
+  #Precios h2 {
+    font-size: 4rem;
+  }
+
+  .mainCards {
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .cardPrice {
+    width: 25%;
+    text-align: center;
+    margin: 20px 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+  }
+
+
+  #Contacto {
+    flex-direction: row;
+    padding: 20px 20px;
+  }
+
+  .manual {
+    flex-direction: row;
+    align-items: center;
+    flex: 4;
+  }
+
+  .laptop {
+    width: 70%;
+  }
+
+  .steps {
+    background-color: #fff;
+    text-align: center;
+    width: 30%;
+    margin : 0 10px;
+    
+  }
+
+  .step{
+    border-radius: 24px;
+  }
+
+  .contact-info {
+    flex: 1;
+    width: 30%;
+    position: relative;
+    top: 50px;
+  }
+
+
+  .idea-contact {
+    margin-top: 60px;
+    border-radius: 24px;
+  }
+
+  .cel-contact img {
+    margin-top: 80px;
+    width: 100%;
+
+    /*      filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8)); */
+    /*  border-radius: 50%; */
+    /*   border: var(--border-gray) 1px solid;  */
+    
+  }
+}
+
+/* fin del media query */
