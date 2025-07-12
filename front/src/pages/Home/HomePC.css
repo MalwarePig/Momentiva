@@ -31,8 +31,8 @@
     align-items: center;
   }
 
-  .Ptd-album img {
-    width: 350px;
+#imgPortada {
+    width: 400px;
   }
 
   .Slogan h1 {

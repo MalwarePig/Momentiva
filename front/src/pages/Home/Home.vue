@@ -1,31 +1,56 @@
 <script setup>
+import {animacionConCambioImagen} from './script'
+import { onMounted, ref, onUnmounted } from 'vue';
 
-import { onMounted } from 'vue';
+const imgPortada = ref(null);
+const imgFlipPhone = ref(null);
+const sidebarRef = ref(null); // NUEVO
 
-function burger(option) {
-    const sidebar = document.querySelector('.sidebar');
 
-    if (option) {
-        sidebar.classList.add('active');
+
+function burger(open) {
+    if (!sidebarRef.value) return;
+    if (open) {
+        sidebarRef.value.classList.add('active');
     } else {
-        sidebar.classList.remove('active');
+        sidebarRef.value.classList.remove('active');
     }
 }
 
 onMounted(() => {
-  const pasos = document.querySelectorAll('.step');
-  let index = 0;
+   const imagenesPortada = [
+  '/img/Home/Portada/Modelo.png',
+  '/img/Home/Portada/Modelo2.png',
+  '/img/Home/Portada/Modelo3.png'
+];
 
-  setInterval(() => {
-    // Quitar clase a todos
-    pasos.forEach(p => p.classList.remove('stepActive'));
+// Para la animación de portada
+animacionConCambioImagen(document.getElementById('imgPortada'), 'animarPortada', imagenesPortada);
 
-    // Agregar clase al paso actual
-    pasos[index].classList.add('stepActive');
+// Para la animación flip
+animacionConCambioImagen(imgFlipPhone.value, 'carril1', imagenesPortada);
 
-    // Avanzar al siguiente, o reiniciar al inicio
-    index = (index + 1) % pasos.length;
-  }, 2000); // Cada 2 segundos
+    //Inicio animacion de tutorial
+    const pasos = document.querySelectorAll('.step');
+    let index = 0;
+
+    setInterval(() => {
+        // Quitar clase a todos
+        pasos.forEach(p => p.classList.remove('stepActive'));
+
+        // Agregar clase al paso actual
+        pasos[index].classList.add('stepActive');
+
+        // Avanzar al siguiente, o reiniciar al inicio
+        index = (index + 1) % pasos.length;
+    }, 2000); // Cada 2 segundos
+
+    //Fin animacion de tutorial
+});
+
+
+onUnmounted(() => {
+    clearInterval(intervaloPasos);
 });
 
 
@@ -34,27 +59,68 @@ onMounted(() => {
 
 
 <template>
-    <header>
-        <nav class="navbar">
+    <header role="banner">
+        <!-- Navegación principal -->
+        <nav class="navbar" role="navigation" aria-label="Navegación principal">
             <ul class="navbar-menu">
-                <li class="navbar-logo"><a href="#Portada"><img src="../../../public/img/Home/Logo.png" alt=""></a>
+                <li class="navbar-logo">
+                    <a href="#Portada">
+                        <img src="/img/Home/Logo.png" alt="Logo de la página" />
+                    </a>
                 </li>
-                <li class="navbar-item deskOnly"><a href="#Galeria">Galeria</a></li>
-                <li class="navbar-item deskOnly"><a href="#Precios">Precios</a></li>
-                <li class="navbar-item deskOnly"><a href="#Contacto">Contacto</a></li>
-                <li class="navbar-item deskOnly"><a class="btnFree" href="/PanelCreative">Generar gratis</a></li>
-                <li id="Burguer"><button @click="burger(true)"><i class="fas fa-bars"></i></button></li>
+                <li class="navbar-item deskOnly">
+                    <a href="#Galeria">Galería</a>
+                </li>
+                <li class="navbar-item deskOnly">
+                    <a href="#Precios">Precios</a>
+                </li>
+                <li class="navbar-item deskOnly">
+                    <a href="#Contacto">Contacto</a>
+                </li>
+                <li class="navbar-item deskOnly">
+                    <a class="btnFree" href="/PanelCreative">Generar gratis</a>
+                </li>
+                <!-- Botón para abrir menú móvil -->
+                <li id="Burguer">
+                    <button
+                            @click="burger(true)"
+                            aria-label="Abrir menú de navegación"
+                            aria-controls="sidebarMenu"
+                            aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </li>
             </ul>
         </nav>
 
-        <nav class="sidebar">
+        <!-- Menú lateral (sidebar) móvil -->
+        <nav
+             class="sidebar"
+             ref="sidebarRef"
+             id="sidebarMenu"
+             role="navigation"
+             aria-label="Menú móvil"
+             aria-hidden="true">
             <ul class="sidebar-menu">
-                <li class="navbar-item" id="btnCloseBgr"><button @click="burger(false)"><i
-                           class="fas fa-times"></i></button></li>
-                <li class="navbar-item"><a href="#Galeria">Galeria</a></li>
-                <li class="navbar-item"><a href="#Precios">Precios</a></li>
-                <li class="navbar-item"><a href="#Contacto">Contacto</a></li>
-                <li class="navbar-item"><a id="btnFree" href="/PanelCreative">Generar gratis</a></li>
+                <li class="navbar-item" id="btnCloseBgr">
+                    <button
+                            @click="burger(false)"
+                            aria-label="Cerrar menú de navegación">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </li>
+                <li class="navbar-item">
+                    <a href="#Galeria">Galería</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="#Precios">Precios</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="#Contacto">Contacto</a>
+                </li>
+                <li class="navbar-item">
+                    <a id="btnFree" href="/PanelCreative">Generar gratis</a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -63,9 +129,7 @@ onMounted(() => {
         <!-- Portada -->
         <section id="Portada">
             <div class="Ptd-album">
-                <!--  <img src="../../../public/img/Home/Portada/Cel1.webp" alt="">
-                <img src="../../../public/img/Home/Portada/Cel2.webp" alt=""> -->
-                <img src="../../../public/img/Home/Portada/Modelo.png" alt="">
+                <img ref="imgPortada" id="imgPortada" class="animarPortada" src="/img/Home/Portada/Modelo.png" alt="">
             </div>
 
 
@@ -88,7 +152,7 @@ onMounted(() => {
             <p>¿Boda? ¿Cumpleaños? ¿Evento empresarial? Tenemos la invitación perfecta para cualquier evento.
                 Personaliza al 100% o déjalo en nuestras manos.</p>
             <div class="contenedorGaleria">
-                <img class="carril1" src="../../../public/img/Home/Portada/Modelo.png" alt="">
+                <img ref="imgFlipPhone" class="carril1" src="../../../public/img/Home/Portada/Modelo.png" alt="">
                 <img class="carril2 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
                 <img class="carril3 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
             </div>
@@ -238,8 +302,6 @@ onMounted(() => {
                 </div>
             </div>
         </section>
-
-
 
         <section id="Contacto">
             <div class="manual">
