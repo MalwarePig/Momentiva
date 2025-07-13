@@ -1,9 +1,12 @@
 <script setup>
-import {animacionConCambioImagen} from './script'
+import { animacionConCambioImagen } from './script'
 import { onMounted, ref, onUnmounted } from 'vue';
 
 const imgPortada = ref(null);
 const imgFlipPhone = ref(null);
+const carril1 = ref(null);
+const carril2 = ref(null);
+const carril3 = ref(null);
 const sidebarRef = ref(null); // NUEVO
 
 
@@ -18,17 +21,22 @@ function burger(open) {
 }
 
 onMounted(() => {
-   const imagenesPortada = [
-  '/img/Home/Portada/Modelo.png',
-  '/img/Home/Portada/Modelo2.png',
-  '/img/Home/Portada/Modelo3.png'
-];
+    const imagenesPortada = [
+        '/img/Home/Portada/Modelo.png',
+        '/img/Home/Portada/Modelo2.png',
+        '/img/Home/Portada/Modelo3.png'
+    ];
 
-// Para la animación de portada
-animacionConCambioImagen(document.getElementById('imgPortada'), 'animarPortada', imagenesPortada);
+    // Para la animación de portada
+    animacionConCambioImagen(document.getElementById('imgPortada'), 'animarPortada', imagenesPortada);
 
-// Para la animación flip
-animacionConCambioImagen(imgFlipPhone.value, 'carril1', imagenesPortada);
+    // Para la animación flip
+    animacionConCambioImagen(imgFlipPhone.value, 'galeriaFlip', imagenesPortada);
+
+    //Para la animacion de carriles
+    animacionConCambioImagen(carril1.value, 'carril1', imagenesPortada);
+    animacionConCambioImagen(carril2.value, 'carril2', imagenesPortada);
+    animacionConCambioImagen(carril3.value, 'carril3', imagenesPortada);
 
     //Inicio animacion de tutorial
     const pasos = document.querySelectorAll('.step');
@@ -152,9 +160,11 @@ onUnmounted(() => {
             <p>¿Boda? ¿Cumpleaños? ¿Evento empresarial? Tenemos la invitación perfecta para cualquier evento.
                 Personaliza al 100% o déjalo en nuestras manos.</p>
             <div class="contenedorGaleria">
-                <img ref="imgFlipPhone" class="carril1" src="../../../public/img/Home/Portada/Modelo.png" alt="">
-                <img class="carril2 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
-                <img class="carril3 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
+                <img ref="imgFlipPhone" class="galeriaFlip galeriaMobileNone"
+                     src="../../../public/img/Home/Portada/Modelo.png" alt="">
+                <img ref="carril1" class="carril1 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
+                <img ref="carril2" class="carril2 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
+                <img ref="carril3" class="carril3 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
             </div>
 
         </section>
@@ -162,144 +172,157 @@ onUnmounted(() => {
             <h2>Compara precios</h2>
 
             <div class="mainCards">
-                <div class="cardPrice modFree">
-                    <h3>Casual</h3>
-                    <p>Dale tu toque, deja tu creatividad volar y haz que tu evento brille, sin costo!.</p>
-                    <ul>
-                        <li>
-                            <p>1 Fondo</p> <i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>1 Fotografia</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Nombre de anfitrión</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Nombre del Evento</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Título</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Fecha del evento</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Hora del evento</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Ubicación</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Mensaje</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Panel de invitados</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>25 dias activa</p><i class="fas fa-check-square"></i>
-                        </li>
-                    </ul>
+                <div class="Padre">
+                    <div class="cardPrice modFree">
+                        <h3>Casual</h3>
+                        <h5>Gratis</h5>
+                        <p>Dale tu toque, deja tu creatividad volar y haz que tu evento brille, sin costo!.</p>
+                        <ul>
+                            <li>
+                                <p>1 Fondo</p> <i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>1 Fotografia</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Nombre de anfitrión</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Nombre del Evento</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Título</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Fecha del evento</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Hora del evento</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Ubicación</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Mensaje</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Panel de invitados</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>25 dias activa</p><i class="fas fa-check-square"></i>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="cardPrice modPro">
-                    <h3>Evento</h3>
-                    <p>Cuéntanos tu idea y nosotros creamos la invitación perfecta para tu evento.</p>
-                    <ul>
-                        <li>
-                            <p>Fondo animados</p> <i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Fotografias necesarias</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Nombre de anfitrión</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Nombre del Evento</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Título</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Fecha del evento</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Hora del evento</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Ubicación</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Mensaje</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Tema especial (cancion sugerida)</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Lista de regalo</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Panel de invitados</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>100 dias activa</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Imagen panoramica</p><i class="fas fa-check-square"></i>
-                        </li>
-                    </ul>
+
+                <div class="Padre">
+                    <div class="cardPrice modFree">
+                        <h3>Evento</h3>
+                        <h5>$299 mxn</h5>
+                        <p>Cuéntanos tu idea y nosotros creamos la invitación perfecta para tu evento.</p>
+                        <ul>
+                            <li>
+                                <p>Fondo animados</p> <i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Fotografias necesarias</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Nombre de anfitrión</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Nombre del Evento</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Título</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Fecha del evento</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Hora del evento</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Ubicación</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Mensaje</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Tema especial (cancion sugerida)</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Lista de regalo</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Panel de invitados</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>100 dias activa</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Imagen panoramica</p><i class="fas fa-check-square"></i>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="cardPrice modCombo">
-                    <h3>Paquete</h3>
-                    <p>Tienes una empresa o eventos multiples?, ahorra más con un paquete de invitaciones.</p>
-                    <ul>
-                        <li>
-                            <p>1 Fondo</p> <i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>1 Fotografia</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Nombre de anfitrión</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Nombre del Evento</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Título</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Fecha del evento</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Hora del evento</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Ubicación</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Mensaje</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Panel de invitados</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Tema especial (cancion sugerida)</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Lista de regalo</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Panel de invitados</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>100 dias activa</p><i class="fas fa-check-square"></i>
-                        </li>
-                        <li>
-                            <p>Imagen panoramica</p><i class="fas fa-check-square"></i>
-                        </li>
-                    </ul>
+
+                <div class="Padre">
+                    <div class="cardPrice modFree">
+                        <h3>Paquete</h3>
+                        <h5>$199 c/u</h5>
+                        <p>Tienes una empresa o eventos multiples?, ahorra más con un paquete de invitaciones.</p>
+                        <ul>
+                            <li>
+                                <p>1 Fondo</p> <i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>1 Fotografia</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Nombre de anfitrión</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Nombre del Evento</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Título</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Fecha del evento</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Hora del evento</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Ubicación</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Mensaje</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Panel de invitados</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Tema especial (cancion sugerida)</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Lista de regalo</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Panel de invitados</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>100 dias activa</p><i class="fas fa-check-square"></i>
+                            </li>
+                            <li>
+                                <p>Imagen panoramica</p><i class="fas fa-check-square"></i>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+
+
             </div>
         </section>
 
@@ -378,6 +401,7 @@ onUnmounted(() => {
                 </div>
             </div>
         </section>
+ 
     </main>
 
 

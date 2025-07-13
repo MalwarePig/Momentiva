@@ -1,0 +1,32 @@
+
+
+.Padre {
+  position: relative;
+  width: 300px;
+  height: 400px;
+   /*background: rgb(20, 20, 20); Fondo oscuro para que resalte el neón */
+  z-index: 1;
+  overflow: hidden;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.Padre::after {
+  content: '';
+  position: absolute;
+  bottom: 50%;
+  left: -40%;
+  width: 600px;
+  height: 80px; /* franja delgada */
+  background: linear-gradient(90deg, 
+    #00fff7,  /* cian neón */
+    #ff00d9,  /* rosa neón */
+    #ff007f,  /* magenta neón */
+    #00fff7   /* cian neón para cerrar el ciclo */
+  );
+  filter: blur(35px);
+  opacity: 0.6;
+  transform: rotate(-50deg);
+  z-index: 0;
+  pointer-events: none;
+}
