@@ -83,7 +83,10 @@ onMounted(async () => {
                                 <img src="../../../public/img/bg/Fondo13.webp" alt="" class="miniatura-fondo">
                                 <img src="../../../public/img/bg/Fondo14.webp" alt="" class="miniatura-fondo">
                                 <img src="../../../public/img/bg/Fondo15.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo16.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo17.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo18.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo19.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo20.webp" alt="" class="miniatura-fondo">
                             </div>
                             <input type="hidden" id="imagenFondo" value="" />
                         </div>
@@ -137,7 +140,7 @@ onMounted(async () => {
             </details>
 
             <details>
-                <summary>Seccion#: Imagen principal</summary>
+                <summary>Sección 2: Imagen principal</summary>
 
                 <div class="control">
 
@@ -225,7 +228,7 @@ onMounted(async () => {
             </details>
 
             <details>
-                <summary>Sección 2: Título</summary>
+                <summary>Sección 3: Título</summary>
                 <div class="control">
                     <div class="sub">
                         <div class="element">
@@ -386,7 +389,7 @@ onMounted(async () => {
             </details>
 
             <details>
-                <summary>Sección 3: Datos</summary>
+                <summary>Sección 4: Datos</summary>
                 <div class="control">
                     <div class="sub">
                         <div class="element">
@@ -552,7 +555,7 @@ onMounted(async () => {
             </details>
 
             <details>
-                <summary>Sección 4: Mensaje</summary>
+                <summary>Sección 5: Mensaje</summary>
                 <div class="control">
                     <div class="sub">
                         <div class="element">
@@ -614,14 +617,13 @@ onMounted(async () => {
                     <div class="sub">
                         <div class="element">
                             <label for="user">Usuario</label>
-                            <input type="text" id="user" placeholder="Registra un usuario" required>
+                            <input type="text" id="user" placeholder="Registra un usuario" required min="4">
                         </div>
 
                         <div class="element">
                             <label for="pass">Contraseña</label>
                             <input type="text" id="pass" placeholder="Registra una contraseña" required>
                         </div>
-
 
                     </div>
                 </div>

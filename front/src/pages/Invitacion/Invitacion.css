@@ -251,4 +251,15 @@
     border: 2px solid var(--hover-links);
     cursor: pointer;
   }
+
+  .foto-centralVista { 
+    position: relative;
+    background-color: transparent;
+    width: 80%; 
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    position: relative;
+    padding: 0;
+  }
 }

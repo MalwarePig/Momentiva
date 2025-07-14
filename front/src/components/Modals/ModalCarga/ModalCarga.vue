@@ -32,19 +32,22 @@ defineExpose({
 
 
   <dialog ref="modalLogin">
-    <div class="formElement">
-      <label>Usuario</label>
-      <input v-model="user" placeholder="Usuario" value="Yumiko" />
-    </div>
+    <div class="dialog-content">
+      <div class="formElement">
+        <label>Usuario</label>
+        <input v-model="user" placeholder="Usuario" value="Yumiko" />
+      </div>
 
-    <div class="formElement">
-      <label>Contraseña</label>
-      <input type="password" v-model="pass" placeholder="Contraseña" value="1702" />
-    </div>
-    <div class="formElement">
-      <button @click="Enviar" id="btnEnviar"><i class="fas fa-smile-wink"></i> </button>
-    </div>
+      <div class="formElement">
+        <label>Contraseña</label>
+        <input type="password" v-model="pass" placeholder="Contraseña" value="1702" />
+      </div>
+      <div class="formElement">
+        <button @click="Enviar" id="btnEnviar"><i class="fas fa-smile-wink"></i> </button>
+      </div>
 
+
+    </div>
     <button @click="modalLogin?.close()" id="btnClose"><i class="fas fa-times"></i></button>
   </dialog>
 </template>
@@ -53,13 +56,25 @@ defineExpose({
 dialog {
   width: 450px;
   height: 280px;
-  display: flex;
-  flex-direction: column;
+  padding: 0;
   gap: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
   border: none;
   border-radius: 8px;
+  
+  overflow: hidden;
 }
+
+.dialog-content {
+  margin: 20px auto; 
+  display: flex;
+  flex-direction: column;
+ gap: 21px;
+  position: relative;
+  border-radius: 10px;
+
+}
+
 
 .formElement {
   display: flex;
@@ -120,7 +135,7 @@ button {
 }
 
 
-#btnClose{
+#btnClose {
   position: absolute;
   top: 0;
   right: 0;
@@ -130,7 +145,7 @@ button {
   margin: 5px 5px 0 0;
 }
 
-button:hover{
+button:hover {
   transform: scale(1.1);
   cursor: pointer;
 }

@@ -4,7 +4,7 @@
     <ul>
       <li><a href="/">Inicio</a></li>
       <li><a href="/PanelCreative">Panel creativo</a></li>
-      <li><a href="/MyParty">MyPanel</a></li>
+      <li><a href="/MyParty">Mi evento</a></li>
     
 
       <button class="theme-toggle" @click="toggleTheme" v-html="theme === 'Dark' ? 

@@ -22,9 +22,9 @@ function burger(open) {
 
 onMounted(() => {
     const imagenesPortada = [
-        '/img/Home/Portada/Modelo.png',
-        '/img/Home/Portada/Modelo2.png',
-        '/img/Home/Portada/Modelo3.png'
+        '/img/Home/Portada/Modelo1.webp',
+        '/img/Home/Portada/Modelo2.webp',
+        '/img/Home/Portada/Modelo3.webp'
     ];
 
     // Para la animación de portada
@@ -90,11 +90,8 @@ onUnmounted(() => {
                 </li>
                 <!-- Botón para abrir menú móvil -->
                 <li id="Burguer">
-                    <button
-                            @click="burger(true)"
-                            aria-label="Abrir menú de navegación"
-                            aria-controls="sidebarMenu"
-                            aria-expanded="false">
+                    <button @click="burger(true)" aria-label="Abrir menú de navegación" aria-controls="sidebarMenu"
+                        aria-expanded="false">
                         <i class="fas fa-bars"></i>
                     </button>
                 </li>
@@ -102,18 +99,11 @@ onUnmounted(() => {
         </nav>
 
         <!-- Menú lateral (sidebar) móvil -->
-        <nav
-             class="sidebar"
-             ref="sidebarRef"
-             id="sidebarMenu"
-             role="navigation"
-             aria-label="Menú móvil"
-             aria-hidden="true">
+        <nav class="sidebar" ref="sidebarRef" id="sidebarMenu" role="navigation" aria-label="Menú móvil"
+            aria-hidden="true">
             <ul class="sidebar-menu">
                 <li class="navbar-item" id="btnCloseBgr">
-                    <button
-                            @click="burger(false)"
-                            aria-label="Cerrar menú de navegación">
+                    <button @click="burger(false)" aria-label="Cerrar menú de navegación">
                         <i class="fas fa-times"></i>
                     </button>
                 </li>
@@ -137,7 +127,7 @@ onUnmounted(() => {
         <!-- Portada -->
         <section id="Portada">
             <div class="Ptd-album">
-                <img ref="imgPortada" id="imgPortada" class="animarPortada" src="/img/Home/Portada/Modelo.png" alt="">
+                <img ref="imgPortada" id="imgPortada" class="animarPortada" src="/img/Home/Portada/Modelo1.webp" alt=""> 
             </div>
 
 
@@ -154,18 +144,34 @@ onUnmounted(() => {
             </div>
         </section>
 
+         <section id="Galeria">
         <!-- Inicio de Galeria -->
-        <section id="Galeria">
-            <h2>Para todo tipo de <span>ocasion</span> y <span>estilo</span></h2>
-            <p>¿Boda? ¿Cumpleaños? ¿Evento empresarial? Tenemos la invitación perfecta para cualquier evento.
-                Personaliza al 100% o déjalo en nuestras manos.</p>
-            <div class="contenedorGaleria">
-                <img ref="imgFlipPhone" class="galeriaFlip galeriaMobileNone"
-                     src="../../../public/img/Home/Portada/Modelo.png" alt="">
-                <img ref="carril1" class="carril1 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
-                <img ref="carril2" class="carril2 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
-                <img ref="carril3" class="carril3 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
+        <div class="tituloGaleria">
+            <p id="tituloGeleriaStatic">Para todo tipo de&nbsp;</p>
+            <div class="tituloSwitch">
+                <div class="switchInner">
+                    <p>ocasión</p>
+                    <p>estilo</p>
+                </div>
             </div>
+        </div>
+
+
+
+
+
+
+
+        <!--  <h2>Para todo tipo de <span>ocasion</span> y <span>estilo</span></h2> -->
+        <p class="desGaleria">¿Boda? ¿Cumpleaños? ¿Evento empresarial? Tenemos la invitación perfecta para cualquier evento.
+            Personaliza al 100% o déjalo en nuestras manos.</p>
+        <div class="contenedorGaleria">
+            <img ref="imgFlipPhone" class="galeriaFlip galeriaMobileNone"
+                src="../../../public/img/Home/Portada/Modelo.png" alt="">
+            <img ref="carril1" class="carril1 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
+            <img ref="carril2" class="carril2 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
+            <img ref="carril3" class="carril3 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
+        </div>
 
         </section>
         <section id="Precios">
@@ -387,11 +393,11 @@ onUnmounted(() => {
 
                     <!-- WhatsApp Button -->
                     <a href="https://wa.me/521XXXXXXXXXX" target="_blank" class="whatsapp-button"
-                       aria-label="Chatea por WhatsApp">
+                        aria-label="Chatea por WhatsApp">
                         <svg class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"
-                             fill="currentColor">
+                            fill="currentColor">
                             <path
-                                  d="M16 .5A15.5 15.5 0 0 0 1 16c0 2.7.7 5.2 2 7.4L0 32l8.8-2.9A15.5 15.5 0 1 0 16 .5zm0 28.4c-2.3 0-4.6-.6-6.6-1.8l-.5-.3-5.2 1.7 1.7-5.1-.3-.5A12.5 12.5 0 1 1 28.5 16 12.5 12.5 0 0 1 16 28.9zm7.3-9.4c-.4-.2-2.4-1.2-2.8-1.3-.4-.2-.7-.2-1 .2-.3.4-1.1 1.3-1.3 1.5-.2.2-.5.3-.9.1s-1.8-.7-3.4-2.2c-1.3-1.2-2.2-2.7-2.4-3.2-.2-.4 0-.6.2-.9.2-.2.4-.5.6-.8.2-.3.3-.5.4-.8.2-.2.1-.6 0-.8-.2-.2-1-2.3-1.4-3.2-.3-.7-.7-.6-1-.6h-.9c-.3 0-.8.1-1.2.6-.4.4-1.6 1.5-1.6 3.7s1.7 4.2 2 4.5c.2.3 3.3 5 8.1 7 1.1.5 2 .7 2.7.9 1.1.3 2 .3 2.7.2.8-.1 2.4-1 2.8-1.9.3-.9.3-1.6.2-1.9-.2-.3-.5-.4-1-.6z" />
+                                d="M16 .5A15.5 15.5 0 0 0 1 16c0 2.7.7 5.2 2 7.4L0 32l8.8-2.9A15.5 15.5 0 1 0 16 .5zm0 28.4c-2.3 0-4.6-.6-6.6-1.8l-.5-.3-5.2 1.7 1.7-5.1-.3-.5A12.5 12.5 0 1 1 28.5 16 12.5 12.5 0 0 1 16 28.9zm7.3-9.4c-.4-.2-2.4-1.2-2.8-1.3-.4-.2-.7-.2-1 .2-.3.4-1.1 1.3-1.3 1.5-.2.2-.5.3-.9.1s-1.8-.7-3.4-2.2c-1.3-1.2-2.2-2.7-2.4-3.2-.2-.4 0-.6.2-.9.2-.2.4-.5.6-.8.2-.3.3-.5.4-.8.2-.2.1-.6 0-.8-.2-.2-1-2.3-1.4-3.2-.3-.7-.7-.6-1-.6h-.9c-.3 0-.8.1-1.2.6-.4.4-1.6 1.5-1.6 3.7s1.7 4.2 2 4.5c.2.3 3.3 5 8.1 7 1.1.5 2 .7 2.7.9 1.1.3 2 .3 2.7.2.8-.1 2.4-1 2.8-1.9.3-.9.3-1.6.2-1.9-.2-.3-.5-.4-1-.6z" />
                         </svg>
                         <span class="whatsapp-text">Chatea con nosotros</span>
                     </a>
@@ -401,7 +407,7 @@ onUnmounted(() => {
                 </div>
             </div>
         </section>
- 
+
     </main>
 
 

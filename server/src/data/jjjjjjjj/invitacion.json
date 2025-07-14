@@ -1,0 +1,86 @@
+{
+  "user": {
+    "user": "jjjj",
+    "pass": "jjjj",
+    "fechaCreacion": "2025-07-13T23:53:37.255Z",
+    "fechaVencimiento": "2025-08-07T23:53:37.255Z"
+  },
+  "fondo": {
+    "color": "#000000",
+    "imagen": "http://localhost:5173/public/img/bg/Fondo19.webp",
+    "estilo": "contain ",
+    "RepetirBG": true,
+    "escalaGrises": false
+  },
+  "imagenPrincipal": {
+    "archivo": "https://scontent.fntr11-1.fna.fbcdn.net/v/t39.30808-6/472561776_1315142742837940_2576634897248993164_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeFD2na6UIrwwQ9QW99vSGNHl2JRS5obGPKXYlFLmhsY8oK1ryngDYUL13PcHhDJyKP1AsKdDdxXeALDt4PwWo4b&_nc_ohc=MTN16N7lfkoQ7kNvwFS0DXR&_nc_oc=AdkilscGOhq1AQ1LEMtDPTORB3fsZVnzuP2Tt0RhInH5hcFb-GON18uLn-MgbbsojqTcOQLfdU-J9R7Ua2t1NBVt&_nc_zt=23&_nc_ht=scontent.fntr11-1.fna&_nc_gid=OVyTptWA7JOCRW012Wi9gA&oh=00_AfRixLImvcPrHx6jmm0Snwdhp3JJP34IrjqDXFvEagz2XQ&oe=687A2E93",
+    "estilo": "fill",
+    "tamano": "100",
+    "altura": "88",
+    "bordes": "0",
+    "transparencia": "0",
+    "desvanecido": "19",
+    "posicion": "-200",
+    "escalaGrises": false
+  },
+  "anfitrion": {
+    "nombre": "2025",
+    "tamano": "100",
+    "altura": "563",
+    "fuente": "Allura",
+    "color": "#b39142",
+    "negrita": true,
+    "bg": false
+  },
+  "evento": {
+    "nombre": "",
+    "tamano": "30",
+    "altura": "380",
+    "fuente": "Allura",
+    "color": "#000000",
+    "negrita": false,
+    "bg": false
+  },
+  "titulo": {
+    "nombre": "",
+    "tamano": "40",
+    "altura": "450",
+    "fuente": "Allura",
+    "color": "#000000",
+    "negrita": false,
+    "bg": false
+  },
+  "datos": {
+    "fecha": "",
+    "fechaFormato": "corto",
+    "fechaTamano": "20",
+    "fechaAltura": "550",
+    "fechaFuente": "Allura",
+    "fechaColor": "#000000",
+    "fechaNegrita": false,
+    "fechaBg": false,
+    "hora": "",
+    "horaTamano": "20",
+    "horaAltura": "620",
+    "horaFuente": "Allura",
+    "horaColor": "#000000",
+    "horaNegrita": false,
+    "horaBg": false,
+    "ubicacion": "",
+    "ubicacionTamano": "25",
+    "ubicacionAltura": "800",
+    "ubicacionFuente": "Allura",
+    "ubicacionColor": "#000000",
+    "ubicacionNegrita": false,
+    "ubicacionBg": false
+  },
+  "mensaje": {
+    "mensaje": "",
+    "mensajeTamano": "25",
+    "mensajeAltura": "900",
+    "mensajeFuente": "Allura",
+    "mensajeColor": "#000000",
+    "mensajeNegrita": false,
+    "mensajeBg": false
+  }
+}

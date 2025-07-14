@@ -14,8 +14,7 @@
   transition: all 0.3s ease;
   text-align: center;
   background-attachment: scroll; /* que se mueva con el contenido */
-
-  background-attachment: fixed; /* <-- esto es clave */
+ 
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -186,3 +185,5 @@
     transform: translateY(0);
   }
 }
+
+ 

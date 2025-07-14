@@ -180,6 +180,7 @@ h3 {
 }
 
 .tarjetaHeader {
+    padding: 0px 20px;
     background-color: var(--main-Font);
     color: var(--main-Font-inverter);
 }

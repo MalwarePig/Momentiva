@@ -4,7 +4,9 @@ export function obtenerConfig() {
   return {
     user: {
       user: document.getElementById("user").value, /* Math.floor(Math.random() * 99999) */
-      pass: document.getElementById("pass").value /* Math.floor(Math.random() * 99999) */
+      pass: document.getElementById("pass").value, /* Math.floor(Math.random() * 99999) */
+      fechaCreacion: new Date().toISOString(),
+      fechaVencimiento: new Date(new Date().setDate(new Date().getDate() + 25)).toISOString()
     },
     fondo: {
       color: document.getElementById("colorFondo").value || "#ffffff",
@@ -106,10 +108,17 @@ export function iniciarConfigurador(callbackActualizacion) {
 
 export function Exportar(modalMsg) {
   const config = obtenerConfig();
-  document.getElementById('user').value = ''
-  document.getElementById('pass').value = ''
+  const validacion = validarInputs(config.user.user, config.user.pass)
 
-  fetch('http://localhost:3000/Exportar', {
+  if (!validacion.valido) {
+    if (modalMsg.value?.showModal) {
+      modalMsg.value.showModal(validacion.mensaje, false)
+    } else {
+      console.error('modalMsg no tiene showModal')
+    }
+    return
+  }else{
+    fetch('http://localhost:3000/Exportar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(config)
@@ -119,6 +128,8 @@ export function Exportar(modalMsg) {
         const exito = res.status === 200 // Verificamos si la respuesta fue exitosa
         if (modalMsg.value?.showModal) {
           modalMsg.value.showModal(data.mensaje, exito)
+          document.getElementById("user").value = ''
+          document.getElementById("pass").value = ''
         } else {
           console.error('modalMsg no tiene showModal')
         }
@@ -130,8 +141,11 @@ export function Exportar(modalMsg) {
         modalMsg.value.showModal("Error al guardar invitación", false)
       }
     });
+  }
 
-  console.table(config);
+ 
+ 
+  /* console.table(config); */
 }
 
 
@@ -145,4 +159,33 @@ export function initSelectorFondo() {
       document.getElementById('imagenFondo').value = urlImagen;
     });
   });
+}
+
+function validarInputs(valor1, valor2) {
+  const regex = /^[a-zA-Z0-9]{4,}$/; // Solo letras y números, mínimo 4 caracteres
+  let errores = [];
+
+  if (!valor1) {
+    errores.push("El primer campo está vacío.");
+  } else if (!regex.test(valor1)) {
+    errores.push("El primer campo debe tener al menos 4 caracteres y solo letras o números.");
+  }
+
+  if (!valor2) {
+    errores.push("El segundo campo está vacío.");
+  } else if (!regex.test(valor2)) {
+    errores.push("El segundo campo debe tener al menos 4 caracteres y solo letras o números.");
+  }
+
+  if (errores.length > 0) {
+    return {
+      valido: false,
+      mensaje: errores.join(" ")
+    };
+  }
+
+  return {
+    valido: true,
+    mensaje: "Los campos son válidos."
+  };
 }

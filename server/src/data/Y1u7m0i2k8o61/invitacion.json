@@ -1,0 +1,86 @@
+{
+  "user": {
+    "user": "Yumiko",
+    "pass": "1702861",
+    "fechaCreacion": "2025-07-13T22:05:16.070Z",
+    "fechaVencimiento": "2025-08-07T22:05:16.070Z"
+  },
+  "fondo": {
+    "color": "#000000",
+    "imagen": "http://localhost:5173/public/img/bg/Fondo13.webp",
+    "estilo": "cover",
+    "RepetirBG": false,
+    "escalaGrises": false
+  },
+  "imagenPrincipal": {
+    "archivo": "https://scontent.fntr11-1.fna.fbcdn.net/v/t39.30808-6/505988177_24613897388200535_6857542048859451466_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeH-BSU7_mwVMzvfS8_l2R41Euocwbmew5wS6hzBuZ7DnLy3LTOSFsxevQnz5J9U5ygsviGnyVjGsQEnMo7RcaMD&_nc_ohc=aDE7H4ePD2sQ7kNvwFWoD6b&_nc_oc=AdkjmrKsyrYw9yvCNSLfIe_wONOK4WbF01gfbs7Djuj09Pa6O844euLmYRTDe_zReuusEsgJywmGy3quCjiCbhGK&_nc_zt=23&_nc_ht=scontent.fntr11-1.fna&_nc_gid=8Yhiukf8BvcFHeqvBCKsTw&oh=00_AfQFFPI1rMTIGGBtytO4dRh2wiXqXuRkbDiY06f6VL1GKw&oe=687A0EDF",
+    "estilo": "cover",
+    "tamano": "100",
+    "altura": "61",
+    "bordes": "0",
+    "transparencia": "0",
+    "desvanecido": "38",
+    "posicion": "-68",
+    "escalaGrises": false
+  },
+  "anfitrion": {
+    "nombre": "Yumiko",
+    "tamano": "74",
+    "altura": "300",
+    "fuente": "Pinyon Script",
+    "color": "#ffffff",
+    "negrita": true,
+    "bg": false
+  },
+  "evento": {
+    "nombre": "Cena 33",
+    "tamano": "46",
+    "altura": "380",
+    "fuente": "Allura",
+    "color": "#ff0080",
+    "negrita": true,
+    "bg": false
+  },
+  "titulo": {
+    "nombre": "",
+    "tamano": "40",
+    "altura": "450",
+    "fuente": "Allura",
+    "color": "#000000",
+    "negrita": false,
+    "bg": false
+  },
+  "datos": {
+    "fecha": "2025-07-30",
+    "fechaFormato": "corto",
+    "fechaTamano": "30",
+    "fechaAltura": "638",
+    "fechaFuente": "Allura",
+    "fechaColor": "#ffffff",
+    "fechaNegrita": false,
+    "fechaBg": false,
+    "hora": "19:00",
+    "horaTamano": "29",
+    "horaAltura": "699",
+    "horaFuente": "Allura",
+    "horaColor": "#ffffff",
+    "horaNegrita": false,
+    "horaBg": false,
+    "ubicacion": "Salón de eventos Monterrey, N.L.",
+    "ubicacionTamano": "31",
+    "ubicacionAltura": "780",
+    "ubicacionFuente": "Allura",
+    "ubicacionColor": "#ffffff",
+    "ubicacionNegrita": false,
+    "ubicacionBg": false
+  },
+  "mensaje": {
+    "mensaje": "Celebra conmigo este día tan especial!",
+    "mensajeTamano": "39",
+    "mensajeAltura": "991",
+    "mensajeFuente": "Allura",
+    "mensajeColor": "#ff0080",
+    "mensajeNegrita": true,
+    "mensajeBg": false
+  }
+}

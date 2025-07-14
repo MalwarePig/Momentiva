@@ -6,7 +6,6 @@ html {
   scroll-behavior: smooth !important;
 }
 
-
 /* Header base */
 header {
   margin: 0;
@@ -267,7 +266,7 @@ section {
   transform: translateX(-150%);
   /* comienza bien fuera del centro */
   position: absolute;
- /*  animation: MoverDerecha 3s; */
+  /*  animation: MoverDerecha 3s; */
   z-index: 999;
 }
 
@@ -387,9 +386,11 @@ section {
   margin: 10px 10px;
   /* background-color: #ebf708; */
   backdrop-filter: blur(9px);
-  background: linear-gradient(215deg,
-      var(--home-aqua) 15%,
-      var(--home-rosa) 70%);
+  background: linear-gradient(
+    215deg,
+    var(--home-aqua) 15%,
+    var(--home-rosa) 70%
+  );
 
   color: #000;
   padding: 10px 20px;
@@ -438,41 +439,84 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: start;
+  font-family: "Anton", sans-serif;
 }
 
-#Galeria  span:first-child{
-  color: var(--home-rojo);
-}
-#Galeria  span:last-child{
-  color: var(--home-aqua);
-}
 
-#Galeria h2 {
-  font-size: 2.5rem;
-  padding: 0 10px;
-  margin: 0 10px;
-  letter-spacing: 0.3rem;
-  color: var(--home-dark);
-  font-family: 'Anton', sans-serif;
-  font-weight: 600;
-  text-align: center;
-  text-shadow: #a09f9f 3px 5px 1px;
-}
+
+
+
+  .tituloGaleria {   
+    display: flex;
+    align-items: center;
+    font-size: 2.1rem;
+    height: 4rem;
+    font-family: "Anton", sans-serif;
+  }
+
+
+  #tituloGeleriaStatic {
+    margin: 0; 
+  }
+
+  .tituloSwitch {
+    position: relative;
+    overflow: hidden;
+    height: 3rem; /* Altura de una palabra */
+    width: 9rem; /* Ajusta según tu palabra más larga */
+  }
+
+  .switchInner {
+    display: flex;
+    flex-direction: column;
+    animation: switchWord 4s infinite;
+  }
+
+  .switchInner p {
+    margin: 0;
+    padding: 0;
+    height: 3rem;
+    line-height: 3rem;
+    color: #ffcc00;
+    text-align: left;
+  }
+
+  .switchInner p:nth-child(1) {
+    color: var(--home-aqua);
+  }
+
+  @keyframes switchWord {
+    0%,
+    25% {
+      transform: translateY(0%);
+    }
+    30%,
+    55% {
+      transform: translateY(-50%);
+    }
+    60%,
+    100% {
+      transform: translateY(0%);
+    }
+  }
+
 
  
 
-#Galeria p {
-  margin: 10px;
-  padding: 2px;
-  text-align: center;
-  font-family: "Faculty Glyphic", serif;
-  font-size: 1.3rem;
 
+
+
+.desGaleria { 
+  background-color: var(--home-naranja);
+  font-family: "Montserrat", serif;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
 }
 
 .contenedorGaleria {
   width: 90%;
-  min-height: 70vh;
+  min-height: 60vh;
   /* o el valor que desees */
   display: flex;
   flex-wrap: wrap;
@@ -486,9 +530,8 @@ section {
   /*  animation: flipPhone 2s infinite;  */
 }
 
-
 .galeriaFlip {
-  animation: flipPhone 3s linear ;
+  animation: flipPhone 3s linear;
 }
 
 .galeriaNone {
@@ -496,50 +539,104 @@ section {
 }
 
 .galeriaMobileNone {
-    display: block;
-  }
-
+  display: block;
+}
 
 @keyframes flipPhone {
-  0%{
+  0% {
     transform: rotateY(90deg);
   }
 
-  100%{
+  100% {
     transform: rotateY(-90deg);
   }
-
 }
-
 
 #Precios h2 {
   font-size: 2.5rem;
   padding: 0 10px;
   letter-spacing: 0.3rem;
   color: var(--home-dark);
-  font-family: 'Anton', sans-serif;
+  font-family: "Anton", sans-serif;
   font-weight: 600;
   text-align: center;
   text-shadow: #a09f9f 3px 5px 1px;
 }
 
-.mainCards {
+.mainCards { 
+  font-family: "Anton", sans-serif;
   display: flex;
   flex-direction: column;
-  margin: 20px 30px;
-  gap: 0; 
+  align-items: center;
+  margin: 0px 30px;
+  gap: 0;
 }
 
-
 .cardPrice {
-  width: 100%;
+  margin: 0 10px;
+  width: 90%;
   height: 100%;
   text-align: center;
   margin: 20px 0;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
 }
 
-.modFree { 
+.Padre {
+  position: relative;
+  width: 90%;
+  text-align: center;
+  margin: 20px 0;
+  padding: 1rem 0;
+  border-radius: 16px;
+  background: rgb(0, 0, 0);
+  z-index: 1;
+  overflow: hidden;
+  box-shadow: 8px 16px 16px rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+}
+
+/* Animación para skewX */
+@keyframes skewNeon {
+  0%,
+  100% {
+    transform: skewX(35deg);
+  }
+  50% {
+    transform: skewX(-35deg);
+  }
+}
+
+.Padre::before {
+  content: " ";
+  position: absolute;
+  bottom: 0;
+  right: 30%;
+  width: 50%;
+  height: 100%;
+  padding: 50px 0;
+  background: linear-gradient(0deg, #00fff7, #ff00d9, #ff007f, #00fff7);
+  filter: blur(20px);
+  opacity: 0.9;
+  border-radius: 8px;
+  animation: skewNeon 10s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.Padre:nth-child(1)::before {
+  animation-delay: 0s;
+}
+
+.Padre:nth-child(2)::before {
+  animation-delay: 1s;
+}
+
+.Padre:nth-child(3)::before {
+  animation-delay: 2s;
+}
+
+.modFree {
   color: #e6dede;
   background-color: #ffffff15;
   backdrop-filter: blur(12px); /* ✨ el cristal */
@@ -547,10 +644,10 @@ section {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
 }
 
-.modPro { 
+.modPro {
 }
 
-.modCombo { 
+.modCombo {
 }
 
 .modFree h3,
@@ -568,7 +665,6 @@ section {
   margin: 20px;
   padding: 0;
 }
-
 
 .cardPrice ul {
   width: 100%;
@@ -592,8 +688,6 @@ section {
   margin-right: 10px;
   font-size: 1.5rem;
 }
-
-
 
 #Contacto {
   display: flex;
@@ -660,16 +754,12 @@ Aqui se va cambiando segun los pasos */
 .stepActive {
   color: var(--home-rosa);
   background-color: rgba(49, 49, 49, 0.9);
-  backdrop-filter: blur(2px); 
+  backdrop-filter: blur(2px);
 }
 
- .step.stepActive .step-info p {
+.step.stepActive .step-info p {
   color: var(--home-aqua);
 }
-
-
-
-
 
 .contact-info {
   width: 100%;
@@ -696,7 +786,7 @@ Aqui se va cambiando segun los pasos */
   align-items: center;
   gap: 0.6em;
   padding: 0.75em 1.2em;
-  background-color: #25D366;
+  background-color: #25d366;
   color: white;
   border-radius: 999px;
   text-decoration: none;
@@ -734,7 +824,7 @@ Aqui se va cambiando segun los pasos */
   align-items: center;
   gap: 0.6em;
   padding: 0.75em 1.2em;
-  background-color: #25D366;
+  background-color: #25d366;
   color: white;
   border-radius: 999px;
   text-decoration: none;
@@ -770,35 +860,6 @@ Aqui se va cambiando segun los pasos */
   width: 100%;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 footer {
   margin-top: 60px;
   height: 160px;
@@ -810,7 +871,6 @@ footer {
   align-items: center;
   justify-content: center;
 }
-
 
 .footer-content {
   margin-top: 20px;

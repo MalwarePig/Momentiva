@@ -1,0 +1,86 @@
+{
+  "user": {
+    "user": "Yumiko",
+    "pass": "2025",
+    "fechaCreacion": "2025-07-13T23:15:40.399Z",
+    "fechaVencimiento": "2025-08-07T23:15:40.399Z"
+  },
+  "fondo": {
+    "color": "#000000",
+    "imagen": "http://localhost:5173/public/img/bg/Fondo13.webp",
+    "estilo": "cover",
+    "RepetirBG": false,
+    "escalaGrises": false
+  },
+  "imagenPrincipal": {
+    "archivo": "https://scontent.fntr11-1.fna.fbcdn.net/v/t39.30808-6/505988177_24613897388200535_6857542048859451466_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_ohc=aDE7H4ePD2sQ7kNvwFWoD6b&_nc_oc=AdkjmrKsyrYw9yvCNSLfIe_wONOK4WbF01gfbs7Djuj09Pa6O844euLmYRTDe_zReuusEsgJywmGy3quCjiCbhGK&_nc_zt=23&_nc_ht=scontent.fntr11-1.fna&_nc_gid=avP7_gLuQfaImEoendmBNA&oh=00_AfTdIyGUYptpZSzq_RQytOpC88LjSgLa5TsV7BxUMz2SAw&oe=687A0EDF",
+    "estilo": "fill",
+    "tamano": "100",
+    "altura": "68",
+    "bordes": "0",
+    "transparencia": "0",
+    "desvanecido": "48",
+    "posicion": "-73",
+    "escalaGrises": false
+  },
+  "anfitrion": {
+    "nombre": "Yumiko",
+    "tamano": "73",
+    "altura": "300",
+    "fuente": "Pinyon Script",
+    "color": "#ffffff",
+    "negrita": true,
+    "bg": false
+  },
+  "evento": {
+    "nombre": "Mi cena 33",
+    "tamano": "35",
+    "altura": "380",
+    "fuente": "Allura",
+    "color": "#ffffff",
+    "negrita": false,
+    "bg": false
+  },
+  "titulo": {
+    "nombre": "",
+    "tamano": "40",
+    "altura": "450",
+    "fuente": "Allura",
+    "color": "#000000",
+    "negrita": false,
+    "bg": false
+  },
+  "datos": {
+    "fecha": "2025-07-31",
+    "fechaFormato": "corto",
+    "fechaTamano": "30",
+    "fechaAltura": "550",
+    "fechaFuente": "Allura",
+    "fechaColor": "#fa0000",
+    "fechaNegrita": true,
+    "fechaBg": false,
+    "hora": "18:30",
+    "horaTamano": "34",
+    "horaAltura": "615",
+    "horaFuente": "Allura",
+    "horaColor": "#ff0000",
+    "horaNegrita": false,
+    "horaBg": false,
+    "ubicacion": "Mi casa, lo saben!",
+    "ubicacionTamano": "47",
+    "ubicacionAltura": "770",
+    "ubicacionFuente": "Allura",
+    "ubicacionColor": "#ffffff",
+    "ubicacionNegrita": false,
+    "ubicacionBg": false
+  },
+  "mensaje": {
+    "mensaje": "Te espero, comparte este momento conmigo!",
+    "mensajeTamano": "35",
+    "mensajeAltura": "1021",
+    "mensajeFuente": "Allura",
+    "mensajeColor": "#ffffff",
+    "mensajeNegrita": false,
+    "mensajeBg": false
+  }
+}
