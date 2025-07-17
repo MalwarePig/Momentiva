@@ -63,8 +63,7 @@
     text-align: center;
   }
 
-  .contenedorGaleria {
-    background-color: #ffcc00;
+  .contenedorGaleria { 
     overflow: hidden;
     width: 70%; 
   }

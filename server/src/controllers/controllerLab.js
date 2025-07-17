@@ -1,4 +1,5 @@
 const Controller = {};
+const pool = require('../db/db.js'); // importa el pool de conexión
 const fs = require('fs');
 const path = require('path');
 const revolverStrings = require('../functions/encript')
@@ -34,26 +35,18 @@ Controller.Exportar = (req, res) => {
     });
 };
 
-Controller.Cargar = (req, res) => {
+Controller.Cargar = async (req, res) => {
     const id = String(req.params.usuario || "desconocido");
 
-    const filePath = path.join(__dirname, '..', 'data', id, 'invitacion.json');
+    // Verificar que la solicitud existe
+    const [existingSolicitud] = await pool.query(
+        'SELECT * FROM Invitados WHERE serial = ?',
+        [id]
+    );
 
-    // Verifica si existe el archivo
-    fs.readFile(filePath, 'utf-8', (err, data) => {
-        if (err) {
-            console.error("Error al leer archivo:", err);
-            return res.status(404).json({ mensaje: "Invitación no encontrada" });
-        }
+    res.status(200).json(existingSolicitud);
 
-        try {
-            const json = JSON.parse(data);
-            res.json(json);
-        } catch (e) {
-            console.error("Error al parsear JSON:", e);
-            res.status(500).json({ mensaje: "Error al interpretar el archivo" });
-        }
-    });
+    console.log(existingSolicitud);
 };
 
 

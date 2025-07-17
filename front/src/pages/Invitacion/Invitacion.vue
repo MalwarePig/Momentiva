@@ -137,16 +137,16 @@
     <div class="confirmacion">
       <div class="element">
         <label for="Familia">A nombre de:</label>
-        <input type="text" id="Familia" placeholder="Familia Luna" required>
+        <input type="text" id="Familia" placeholder="Familia Luna" v-model="getFamilias" required>
       </div>
 
       <div class="element">
         <label for="Cantidad">Confirmo:</label>
-        <input type="text" id="Cantidad" placeholder="Cantidad de asistentes" required>
+        <input type="text" id="Cantidad" placeholder="Cantidad de asistentes" v-model="getTotalInvitados" required>
       </div>
 
       <div id="Botones">
-        <button id="Confirmacion"> Confirmar</button>
+        <button id="Confirmacion" @click="ConfirmarAsistencia()"> Confirmar</button>
       </div>
     </div>
 
@@ -158,19 +158,22 @@
 import { onMounted, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
+/* Variables para asistencia */
+const getFamilias = ref(null)
+const getTotalInvitados = ref(null)
 
 /* Manejar datos de url */
 const route = useRoute()
 
 // ✅ Parámetro dinámico de ruta
-const id = route.params.id     
+const id = route.params.id
 
 // Se crea una variable reactiva que va a guardar la configuración recibida
 const config = ref(null)
 
 const fechaFormateada = computed(() => {
   const fecha = config.value?.datos?.fecha
-  const formato = config.value?.datos?.fechaFormato 
+  const formato = config.value?.datos?.fechaFormato
 
   if (formato === 'corto') {
     return fecha
@@ -191,7 +194,7 @@ const fechaFormateada = computed(() => {
   }
 
 })
- 
+
 // Esta función recibe una configuración nueva (nuevaConfig) y la aplica a la variable reactiva 'config'
 // Se asegura de que cada propiedad importante tenga un valor por defecto si no está definida
 const aplicarConfiguracion = (nuevaConfig) => {
@@ -199,6 +202,8 @@ const aplicarConfiguracion = (nuevaConfig) => {
     ...nuevaConfig
   }
 }
+
+
 
 onMounted(() => {
 
@@ -208,6 +213,29 @@ onMounted(() => {
     .then(res => res.json())                 // Convierte la respuesta en JSON
     .then(data => aplicarConfiguracion(data)) // Aplica esa configuración
     .catch(err => console.error('Error cargando configuración:', err)) // Muestra error si falla la carga
+
 })
 
+// Esta función se encarga de enviar los datos del formulario al backend
+function ConfirmarAsistencia() {
+  const data = {
+    id: id, // ID de la invitación
+    familia: getFamilias.value,
+    cantidad: getTotalInvitados.value,
+  }
+
+  fetch('http://localhost:3000/setInvitados', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+    .then(res => {
+      return res.json().then(data => {
+        console.error("👍 Confirmado:", err)
+      })
+    })
+    .catch(err => {
+      console.error("❌ Error de red:", err)
+    });
+}
 </script>

@@ -3,10 +3,23 @@ const app = express();//servidor
 const morgan = require('morgan');//ver las peticiones
 const OS = require("os");
 const cors = require('cors');
+const pool = require('./db/db.js'); // <-- importa el pool
 
 //Configuracion Servidor
 app.set('port',process.env.PORT || 3000)//asignar puerto, si lo da el So que lo tome, sino el 3000 
- 
+  
+
+async function testDB() {
+  try {
+    const connection = await pool.getConnection();
+    console.log('✅ Conexión exitosa a MySQL (modo pool y async/await)');
+    connection.release(); // ¡No olvides liberar la conexión!
+  } catch (error) {
+    console.error('❌ Error de conexión a MySQL:', error.message);
+  }
+}
+
+testDB();
 
 // middlewares
 /* app.use(cors({

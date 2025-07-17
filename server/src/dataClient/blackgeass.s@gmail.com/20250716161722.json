@@ -1,0 +1,19 @@
+{
+  "nombreFestejado": "123",
+  "fechaEvento": "0123-03-12",
+  "lugarEvento": "123123",
+  "horaInicio": "21:31",
+  "horaFinalizacion": "",
+  "horaShow": "",
+  "codigoVestimenta": "",
+  "mensajeEspecial": "",
+  "cancionEntrada": "",
+  "estiloInvitacion": "Clásico",
+  "estado": "Pendiente",
+  "fechaSolicitud": "2025-07-16",
+  "contacto": {
+    "telefono": "",
+    "email": "blackgeass.s@gmail.com",
+    "contrasena": "1702"
+  }
+}

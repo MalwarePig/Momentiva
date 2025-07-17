@@ -49,8 +49,7 @@ defineExpose({
 <style scoped>
 /* Estilos del <dialog> */
 dialog {
-  width: 400px;
-  height: 200px;
+  width: 450px; 
   border: none;
   border-radius: 10px;
   padding: 0;
@@ -58,11 +57,12 @@ dialog {
 }
 
 /* Contenedor interno con flex */
-.dialog-content {
+.dialog-content { 
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: space-evenly;
+  align-items: center;
   position: relative;
   background: var(--Bg-color-sec, white);
   border-radius: 10px;
@@ -78,9 +78,10 @@ dialog::backdrop {
 .formElement {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
-  margin: 15px 0;
+  margin: 50px 0;
+  text-align: center;
 }
 
 .formElement p {

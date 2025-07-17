@@ -26,15 +26,20 @@ onMounted(() => {
         '/img/Home/Portada/Modelo2.webp',
         '/img/Home/Portada/Modelo3.webp'
     ];
+    const imagenesCarril1 = [
+        '/img/Home/Galeria/Modelo4.webp',
+        '/img/Home/Galeria/Modelo5.webp',
+        '/img/Home/Portada/Modelo3.webp'
+    ];
 
     // Para la animación de portada
     animacionConCambioImagen(document.getElementById('imgPortada'), 'animarPortada', imagenesPortada);
 
     // Para la animación flip
-    animacionConCambioImagen(imgFlipPhone.value, 'galeriaFlip', imagenesPortada);
+    animacionConCambioImagen(imgFlipPhone.value, 'galeriaFlip', imagenesCarril1);
 
     //Para la animacion de carriles
-    animacionConCambioImagen(carril1.value, 'carril1', imagenesPortada);
+    animacionConCambioImagen(carril1.value, 'carril1', imagenesCarril1);
     animacionConCambioImagen(carril2.value, 'carril2', imagenesPortada);
     animacionConCambioImagen(carril3.value, 'carril3', imagenesPortada);
 
@@ -84,6 +89,12 @@ onUnmounted(() => {
                 </li>
                 <li class="navbar-item deskOnly">
                     <a href="#Contacto">Contacto</a>
+                </li>
+                <li class="navbar-item deskOnly">
+                    <a href="/Solicitud">Solicitud</a>
+                </li>
+                <li class="navbar-item deskOnly">
+                    <a href="/PanelAdmin">PanelAdmin</a>
                 </li>
                 <li class="navbar-item deskOnly">
                     <a class="btnFree" href="/PanelCreative">Generar gratis</a>
@@ -168,9 +179,9 @@ onUnmounted(() => {
         <div class="contenedorGaleria">
             <img ref="imgFlipPhone" class="galeriaFlip galeriaMobileNone"
                 src="../../../public/img/Home/Portada/Modelo.png" alt="">
-            <img ref="carril1" class="carril1 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
-            <img ref="carril2" class="carril2 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
-            <img ref="carril3" class="carril3 galeriaNone" src="../../../public/img/Home/Portada/Modelo.png" alt="">
+            <img ref="carril1" class="carril1 galeriaNone" src="../../../public/img/Home/Galeria/Modelo4.png" alt="">
+            <img ref="carril2" class="carril2 galeriaNone" src="../../../public/img/Home/Galeria/Modelo4.png" alt="">
+            <img ref="carril3" class="carril3 galeriaNone" src="../../../public/img/Home/Galeria/Modelo4.png" alt="">
         </div>
 
         </section>

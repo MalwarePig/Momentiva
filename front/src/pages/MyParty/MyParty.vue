@@ -1,6 +1,7 @@
 <script setup>
 import Modal from '../../components/Modals/ModalCarga/ModalCarga.vue'
-import { ref, onMounted, nextTick } from 'vue'
+import dateFormat from '../../scripts/dateFormat.js'
+import { ref, onMounted, nextTick } from 'vue' 
 
 const modalLogin = ref(null)
 const datosRecibidos = ref(null)
@@ -10,23 +11,23 @@ const link = ref(null)
 const familias = ref(0)
 const TotalInvitados = ref(0)
 function handleDatos(datos) {
-    datosRecibidos.value = datos 
-
+    datosRecibidos.value = datos  
     var id = datos.id
     link.value = 'http://localhost:5173/Invitacion/' + id
 
     fetch(`http://localhost:3000/cargar/${id}`)
         .then(res => res.json())                 // Convierte la respuesta en JSON
         .then(data => { 
-            invitados.value = data.Invitados
-            familias.value = data.Invitados.length
+            console.log(data) // Muestra los datos en la consola
+            invitados.value = data
+            familias.value = data.length
             var Total = 0
 
-             data.Invitados.forEach(element => {
-                Total = Total + element.cantidad
+             data.forEach(element => {
+                Total = Total + parseInt(element.cantidad) 
             });
 
-            TotalInvitados.value = Total 
+            TotalInvitados.value = Total  
         })
         .catch(err => console.error('Error cargando configuración:', err)) // Muestra error si falla la carga
 }
@@ -53,12 +54,9 @@ onMounted(async () => {
         <div class="PanelPrincipal">
             <h2>Invitados confirmados</h2>
 
-            <div class="input-group"> 
-                
- 
+            <div class="input-group">
                 <input type="text" placeholder="Enlace de invitación..." v-model="link">
                 <a :href="link" target="_blank"><i class="fa-solid fa-square-arrow-up-right"></i></a>
-         <!--        <button><i class="fa-solid fa-square-arrow-up-right"></i></button>  -->
             </div>
 
             <div class="tarjeta tarjetaHeader">
@@ -83,7 +81,7 @@ onMounted(async () => {
                         invitado.cantidad }}</span>
                 </div>
                 <div class="datos fecha">
-                    <span>{{ invitado.fechaConfirmacion }}</span>
+                    <span>{{ dateFormat(invitado.fechaConfirmacion)  }}</span>
                 </div>
             </div>
         </div>
