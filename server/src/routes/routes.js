@@ -5,7 +5,8 @@ const conClients = require('../controllers/controllerClients');
 
 //Iniciar logueo
 router.post('/Exportar', conLab.Exportar);//Registra una nueva invitación gratis
-router.get('/cargar/:usuario', conLab.Cargar);// Cargar invitación por usuario gratuito json
+router.get('/cargarInvitadosLab/:usuario', conLab.Cargar);// Cargar invitación por usuario gratuito json
+router.get('/cargarInvitacionLab/:usuario', conLab.render);// Cargar invitación por usuario gratuito json
 
 //Iniciar logueo
 router.post('/setSolicitud', conClients.setSolicitud);//Registra una nueva solicitud

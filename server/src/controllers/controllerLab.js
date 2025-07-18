@@ -49,5 +49,27 @@ Controller.Cargar = async (req, res) => {
     console.log(existingSolicitud);
 };
 
+Controller.render = (req, res) => {
+    const id = String(req.params.usuario || "desconocido");
+
+    const filePath = path.join(__dirname, '..', 'data', id, 'invitacion.json');
+
+    // Verifica si existe el archivo
+    fs.readFile(filePath, 'utf-8', (err, data) => {
+        if (err) {
+            console.error("Error al leer archivo:", err);
+            return res.status(404).json({ mensaje: "Invitación no encontrada" });
+        }
+
+        try {
+            const json = JSON.parse(data);
+            res.json(json);
+        } catch (e) {
+            console.error("Error al parsear JSON:", e);
+            res.status(500).json({ mensaje: "Error al interpretar el archivo" });
+        }
+    });
+};
+
 
 module.exports = Controller;

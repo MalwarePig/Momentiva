@@ -15,7 +15,7 @@ function handleDatos(datos) {
     var id = datos.id
     link.value = 'http://localhost:5173/Invitacion/' + id
 
-    fetch(`http://localhost:3000/cargar/${id}`)
+    fetch(`http://localhost:3000/cargarInvitadosLab/${id}`)
         .then(res => res.json())                 // Convierte la respuesta en JSON
         .then(data => { 
             console.log(data) // Muestra los datos en la consola

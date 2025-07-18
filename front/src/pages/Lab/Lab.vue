@@ -87,6 +87,9 @@ onMounted(async () => {
                                 <img src="../../../public/img/bg/Fondo18.webp" alt="" class="miniatura-fondo">
                                 <img src="../../../public/img/bg/Fondo19.webp" alt="" class="miniatura-fondo">
                                 <img src="../../../public/img/bg/Fondo20.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo21.jpg" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo22.jpg" alt="" class="miniatura-fondo">
+                                <img src="../../../public/img/bg/Fondo23.jpg" alt="" class="miniatura-fondo">
                             </div>
                             <input type="hidden" id="imagenFondo" value="" />
                         </div>
