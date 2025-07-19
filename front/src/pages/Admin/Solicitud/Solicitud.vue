@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import Modal from '../../components/Modals/ModalMsg/ModalMsg.vue'
+import Modal from '../../../components/Modals/ModalMsg/ModalMsg.vue'
 
 const modalMsg = ref(null);
 // Objeto reactivo para almacenar todos los datos del formulario

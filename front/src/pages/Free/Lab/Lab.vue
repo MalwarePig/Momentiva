@@ -3,7 +3,7 @@
 import { onMounted, nextTick, ref } from 'vue'
 // Importa funciones personalizadas desde tu archivo Lab.js
 import { iniciarConfigurador, Exportar, obtenerConfig, initSelectorFondo } from './Lab.js'
-import Modal from '../../components/Modals/ModalMsg/ModalMsg.vue'
+import Modal from '../../../components/Modals/ModalMsg/ModalMsg.vue'
 
 
 const modalMsg = ref(null)
@@ -68,28 +68,28 @@ onMounted(async () => {
                         <div class="element">
                             <label>Elige un fondo</label>
                             <div class="galeria-scroll" id="galeriaFondos">
-                                <img src="../../../public/img/bg/Fondo1.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo2.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo3.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo4.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo5.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo6.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo7.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo8.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo9.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo10.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo11.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo12.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo13.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo14.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo15.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo17.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo18.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo19.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo20.webp" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo21.jpg" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo22.jpg" alt="" class="miniatura-fondo">
-                                <img src="../../../public/img/bg/Fondo23.jpg" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo1.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo2.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo3.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo4.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo5.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo6.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo7.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo8.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo9.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo10.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo11.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo12.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo13.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo14.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo15.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo17.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo18.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo19.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo20.webp" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo21.jpg" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo22.jpg" alt="" class="miniatura-fondo">
+                                <img src="../../../../public/img/bg/Fondo23.jpg" alt="" class="miniatura-fondo">
                             </div>
                             <input type="hidden" id="imagenFondo" value="" />
                         </div>

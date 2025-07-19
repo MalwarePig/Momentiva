@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Lab from '../pages/Lab/Lab.vue'
-import Tarjeta from '../pages/Tarjeta/Tarjeta.vue'
-import MyParty from '../pages/MyParty/MyParty.vue'
+import Lab from '../pages/Free/Lab/Lab.vue'
+import Tarjeta from '../pages/Free/Tarjeta/Tarjeta.vue'
+import MyParty from '../pages/Free/MyParty/MyParty.vue'
 import Layout from '../layouts/Layout.vue'
 import LayoutAdmin from '../layouts/LayoutAdmin.vue'
-import Invitacion from '../pages/Invitacion/Invitacion.vue'
+import Invitacion from '../pages/Free/Invitacion/Invitacion.vue'
 import Home from '../pages/Home/Home.vue'
-import Solicitud from '../pages/Solicitud/Solicitud.vue'
-import PanelAdmin from '../pages/PanelAdmin/PanelAdmin.vue'
-import Asignacion from '../pages/Asignacion/Asignacion.vue'
+import Solicitud from '../pages/Admin/Solicitud/Solicitud.vue'
+import PanelAdmin from '../pages/Admin/PanelAdmin/PanelAdmin.vue'
+import Asignacion from '../pages/Admin/Asignacion/Asignacion.vue'
 
 /* const routes = [
   { path: '/', component: Lab },

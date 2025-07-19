@@ -1,6 +1,6 @@
 <script setup>
-import Modal from '../../components/Modals/ModalCarga/ModalCarga.vue'
-import dateFormat from '../../scripts/dateFormat.js'
+import Modal from '../../../components/Modals/ModalCarga/ModalCarga.vue'
+import dateFormat from '../../../scripts/dateFormat.js'
 import { ref, onMounted, nextTick } from 'vue' 
 
 const modalLogin = ref(null)
