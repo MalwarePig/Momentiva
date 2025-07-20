@@ -134,24 +134,25 @@ Controller.updateSolicitud = async (req, res) => {
 };
 
 
+
 Controller.updateSolicitudDetalle = async (req, res) => {
   try {
     const { id } = req.params;
-    const { genero_fiesta, version } = req.body;
-
+    const { genero_fiesta, version, imgUno, imgDos } = req.body;
+   
     // Validar que el ID sea un número válido
     if (!id || isNaN(id)) {
       return res.status(400).json({ error: 'ID de solicitud inválido' });
     }
-
-    // Validar género de fiesta
+   
+    // Validar género de fiesta (usando el campo tematica de la BD)
     const generosValidos = ['Boda', 'XV', 'Infantil', 'Religiosa', 'Laboral', 'Otro'];
     if (!genero_fiesta || !generosValidos.includes(genero_fiesta)) {
       return res.status(400).json({
         error: 'Género de fiesta inválido. Géneros permitidos: ' + generosValidos.join(', ')
       });
     }
-
+   
     // Validar versión
     const versionesValidas = ['V1', 'V2', 'V3', 'V4'];
     if (!version || !versionesValidas.includes(version)) {
@@ -159,54 +160,78 @@ Controller.updateSolicitudDetalle = async (req, res) => {
         error: 'Versión inválida. Versiones permitidas: ' + versionesValidas.join(', ')
       });
     }
-
+   
+    // Simplemente convertir a string o null si está vacío
+    const imgUnoLimpia = imgUno ? imgUno.toString() : null;
+    const imgDosLimpia = imgDos ? imgDos.toString() : null;
+    
+    console.log('URLs recibidas:', { imgUno, imgDos });
+    console.log('URLs que se guardarán:', { imgUnoLimpia, imgDosLimpia });
+   
     // Verificar que la solicitud existe y está activa
     const [existingSolicitud] = await pool.query(
-      'SELECT id, estado, genero_fiesta, version FROM solicitudes WHERE id = ?',
+      'SELECT id, estado, tematica, version, imgUno, imgDos FROM solicitudes WHERE id = ?',
       [id]
     );
-
+   
     if (existingSolicitud.length === 0) {
       return res.status(404).json({ error: 'Solicitud no encontrada' });
     }
-
+   
     if (existingSolicitud[0].estado !== 'Activo') {
       return res.status(400).json({
         error: 'Solo se pueden actualizar solicitudes con estado Activo'
       });
     }
-
-    // Actualizar género y versión de la solicitud
+   
+    console.log('Actualizando solicitud con valores:', {
+      tematica: genero_fiesta,
+      version: version,
+      imgUno: imgUnoLimpia,
+      imgDos: imgDosLimpia,
+      id: id
+    });
+   
+    // Actualizar temática (genero_fiesta), versión y URLs de imágenes de la solicitud
     const [result] = await pool.query(
-      'UPDATE solicitudes SET genero_fiesta = ?, version = ? WHERE id = ?',
-      [genero_fiesta, version, id]
+      'UPDATE solicitudes SET tematica = ?, version = ?, imgUno = ?, imgDos = ? WHERE id = ?',
+      [genero_fiesta, version, imgUnoLimpia, imgDosLimpia, id]
     );
-
+   
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'No se pudo actualizar la solicitud' });
     }
-
-    console.log(`Solicitud ${id} actualizada - Género: ${genero_fiesta}, Versión: ${version}`);
-
+   
+    console.log(`Solicitud ${id} actualizada exitosamente`);
+    console.log(`- Temática: ${genero_fiesta}`);
+    console.log(`- Versión: ${version}`);
+    console.log(`- Imagen 1: ${imgUnoLimpia || 'Sin imagen'}`);
+    console.log(`- Imagen 2: ${imgDosLimpia || 'Sin imagen'}`);
+   
     // Respuesta exitosa
     res.status(200).json({
       message: 'Solicitud actualizada correctamente',
       id: parseInt(id),
-      genero_fiesta: genero_fiesta,
+      tematica: genero_fiesta,
       version: version,
+      imgUno: imgUnoLimpia,
+      imgDos: imgDosLimpia,
       anterior: {
-        genero_fiesta: existingSolicitud[0].genero_fiesta,
-        version: existingSolicitud[0].version
+        tematica: existingSolicitud[0].tematica,
+        version: existingSolicitud[0].version,
+        imgUno: existingSolicitud[0].imgUno,
+        imgDos: existingSolicitud[0].imgDos
       }
     });
-
+   
   } catch (error) {
-    console.error('Error al actualizar detalle de solicitud:', error.message);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    console.error('Error al actualizar detalle de solicitud:', error);
+    res.status(500).json({ 
+      error: 'Error interno del servidor',
+      details: error.message 
+    });
   }
 };
-
-
 
 
 

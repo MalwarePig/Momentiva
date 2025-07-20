@@ -47,7 +47,12 @@
           </td>
           <td>{{ solicitud.telefono }}</td>
           <td>{{ solicitud.email }}</td>
-          <td>{{ solicitud.serial }}</td>
+          <td>
+            <a :href="`http://localhost:5173/Evento/${solicitud.serial}`" target="_blank">
+              {{ solicitud.serial }}
+            </a>
+          </td>
+
           <td>
             <div class="acciones-grupo">
               <button v-if="solicitud.estado === 'Pendiente'" @click="cambiarEstado(solicitud.id, 'Activo')"
@@ -147,34 +152,34 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.menu-tools { 
+.menu-tools {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-bottom: 1.5rem; 
+  margin-bottom: 1.5rem;
 }
 
 
 
 .input-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    width: 40%;  
-    border: 2px solid var(--sec-border);
-    border-radius: 24px;
-    padding: 2px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  width: 40%;
+  border: 2px solid var(--sec-border);
+  border-radius: 24px;
+  padding: 2px 10px;
 }
 
-.input-group:hover{
-    border: 2px solid var(--hover-links);
+.input-group:hover {
+  border: 2px solid var(--hover-links);
 }
 
-.input-group input {  
-    border: none;
-    background-color: transparent;
-    color: var(--main-Font); 
-    width: 100%;
+.input-group input {
+  border: none;
+  background-color: transparent;
+  color: var(--main-Font);
+  width: 100%;
 }
 
 .input-group input:focus {
@@ -182,12 +187,12 @@ onMounted(() => {
 }
 
 .input-group button {
-    font-size: 1rem;
-    padding: 0;
-    margin: 0;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 
@@ -210,7 +215,7 @@ h2 {
   letter-spacing: 1.2px;
 }
 
-.filter { 
+.filter {
   display: flex;
   align-items: center;
   gap: 0.8rem;

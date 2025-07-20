@@ -15,8 +15,10 @@
           <th>Teléfono</th>
           <th>Email</th>
           <th>Serial</th>
-          <th>Género de Fiesta</th>
+          <th>Temática</th>
           <th>Versión</th>
+          <th>URL Imagen 1</th>
+          <th>URL Imagen 2</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -30,14 +32,15 @@
           <td>{{ solicitud.serial }}</td>
           <td>
             <select 
-              v-model="solicitud.genero_fiesta" 
+              v-model="solicitud.tematica" 
               class="select-genero"
               @change="marcarCambio(solicitud.id)"
             >
               <option value="">-- Seleccionar --</option>
               <option value="Boda">Boda</option>
               <option value="XV">XV Años</option>
-              <option value="Infantil">Infantil</option> 
+              <option value="Infantil">Infantil</option>
+              <option value="Religiosa">Religiosa</option>
               <option value="Laboral">Laboral</option>
               <option value="Otro">Otro</option>
             </select>
@@ -56,6 +59,24 @@
             </select>
           </td>
           <td>
+            <input 
+              type="url" 
+              v-model="solicitud.imgUno" 
+              class="input-imagen"
+              placeholder="https://ejemplo.com/imagen1.jpg"
+              @input="marcarCambio(solicitud.id)"
+            />
+          </td>
+          <td>
+            <input 
+              type="url" 
+              v-model="solicitud.imgDos" 
+              class="input-imagen"
+              placeholder="https://ejemplo.com/imagen2.jpg"
+              @input="marcarCambio(solicitud.id)"
+            />
+          </td>
+          <td>
             <button 
               @click="actualizarSolicitud(solicitud)"
               class="btn-actualizar"
@@ -67,7 +88,7 @@
           </td>
         </tr>
         <tr v-if="solicitudesActivas.length === 0">
-          <td colspan="9" style="text-align:center;">No hay solicitudes activas para mostrar</td>
+          <td colspan="11" style="text-align:center;">No hay solicitudes activas para mostrar</td>
         </tr>
       </tbody>
     </table>
@@ -98,27 +119,36 @@ async function cargarSolicitudesActivas() {
   }
 }
 
-// Actualizar género y versión de solicitud
+// Actualizar temática, versión e imágenes de solicitud
 async function actualizarSolicitud(solicitud) {
-  if (!solicitud.genero_fiesta || !solicitud.version) {
-    alert('Por favor selecciona tanto el género de fiesta como la versión')
+  if (!solicitud.tematica || !solicitud.version) {
+    alert('Por favor selecciona tanto la temática como la versión')
     return
   }
 
   cargando.value = true
   try {
+    const payload = { 
+      genero_fiesta: solicitud.tematica,
+      version: solicitud.version,
+      imgUno: solicitud.imgUno || '',
+      imgDos: solicitud.imgDos || ''
+    }
+    
+    console.log('Enviando payload:', payload) // Para debug
+    
     const res = await fetch(`http://localhost:3000/updateSolicitudDetalle/${solicitud.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ 
-        genero_fiesta: solicitud.genero_fiesta,
-        version: solicitud.version
-      })
+      body: JSON.stringify(payload)
     })
     
-    if (!res.ok) throw new Error('Error al actualizar solicitud')
+    if (!res.ok) {
+      const errorData = await res.json()
+      throw new Error(errorData.error || 'Error al actualizar solicitud')
+    }
     
     const resultado = await res.json()
     console.log('Solicitud actualizada:', resultado)
@@ -131,7 +161,7 @@ async function actualizarSolicitud(solicitud) {
     
   } catch (error) {
     console.error('Error al actualizar solicitud:', error)
-    alert('Error al actualizar la solicitud')
+    alert(`Error al actualizar la solicitud: ${error.message}`)
   } finally {
     cargando.value = false
   }
@@ -160,7 +190,7 @@ onMounted(() => {
 
 <style scoped>
 .solicitudes-panel {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 2rem auto;
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -237,7 +267,7 @@ h2 {
   border: none;
 }
 
-.tabla-solicitudes tbody tr td[colspan="9"] {
+.tabla-solicitudes tbody tr td[colspan="11"] {
   text-align: center;
   font-style: italic;
   color: #7f8c8d;
@@ -276,6 +306,34 @@ h2 {
 
 .select-version {
   min-width: 80px;
+}
+
+/* Estilos para los inputs de imagen */
+.input-imagen {
+  width: 100%;
+  max-width: 200px;
+  padding: 0.5rem;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #495057;
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-imagen:hover {
+  border-color: #80bdff;
+}
+
+.input-imagen:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.input-imagen::placeholder {
+  color: #adb5bd;
+  font-size: 0.75rem;
 }
 
 /* Estilos para el botón actualizar */
@@ -329,6 +387,7 @@ h2 {
 @media (max-width: 768px) {
   .solicitudes-panel {
     padding: 1rem;
+    max-width: 100%;
   }
   
   .tabla-solicitudes {
@@ -339,7 +398,7 @@ h2 {
   
   .tabla-solicitudes th,
   .tabla-solicitudes td {
-    padding: 0.8rem 0.5rem;
+    padding: 0.8rem 0.4rem;
     font-size: 0.8rem;
   }
   
@@ -349,10 +408,25 @@ h2 {
     font-size: 0.8rem;
   }
   
+  .input-imagen {
+    max-width: 150px;
+    font-size: 0.75rem;
+  }
+  
   .btn-actualizar {
     padding: 0.5rem 0.8rem;
     font-size: 0.75rem;
     min-width: 80px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .solicitudes-panel {
+    max-width: 95%;
+  }
+  
+  .input-imagen {
+    max-width: 150px;
   }
 }
 </style>

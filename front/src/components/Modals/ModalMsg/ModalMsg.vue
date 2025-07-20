@@ -76,9 +76,11 @@ dialog::backdrop {
 
 /* Elementos de formulario */
 .formElement {
+background-color: aqua;
   width: 100%;
+ flex: 1;
   display: flex;
-  justify-content: end;
+  justify-content: start;
   align-items: center;
   margin: 50px 0;
   text-align: center;

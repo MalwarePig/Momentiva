@@ -163,14 +163,14 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 // ✅ Parámetro dinámico de ruta
-const id = route.params.id     
+const id = route.params.id
 
 // Se crea una variable reactiva que va a guardar la configuración recibida
 const config = ref(null)
 
 const fechaFormateada = computed(() => {
   const fecha = config.value?.datos?.fecha
-  const formato = config.value?.datos?.fechaFormato 
+  const formato = config.value?.datos?.fechaFormato
 
   if (formato === 'corto') {
     return fecha
@@ -191,7 +191,7 @@ const fechaFormateada = computed(() => {
   }
 
 })
- 
+
 // Esta función recibe una configuración nueva (nuevaConfig) y la aplica a la variable reactiva 'config'
 // Se asegura de que cada propiedad importante tenga un valor por defecto si no está definida
 const aplicarConfiguracion = (nuevaConfig) => {
@@ -210,4 +210,55 @@ onMounted(() => {
     .catch(err => console.error('Error cargando configuración:', err)) // Muestra error si falla la carga
 })
 
+
+
+// Esta función se encarga de enviar los datos del formulario al backend
+
+
+function ConfirmarAsistencia() {
+
+
+  const data = {
+
+
+    id: id, // ID de la invitación
+
+
+    familia: getFamilias.value,
+
+
+    cantidad: getTotalInvitados.value,
+
+  }
+
+
+
+
+
+  fetch('http://localhost:3000/setInvitados', {
+    method: 'POST',
+ 
+    headers: { 'Content-Type': 'application/json' },
+ 
+    body: JSON.stringify(data)
+ 
+  })
+ 
+    .then(res => {
+ 
+      return res.json().then(data => {
+ 
+        console.error("👍 Confirmado:", err)
+ 
+      }) 
+
+    })
+
+
+    .catch(err => { 
+      console.error("❌ Error de red:", err) 
+    });
+
+
+}
 </script>
