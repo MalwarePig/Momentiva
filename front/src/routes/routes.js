@@ -9,6 +9,7 @@ import Home from '../pages/Home/Home.vue'
 import Solicitud from '../pages/Admin/Solicitud/Solicitud.vue'
 import PanelAdmin from '../pages/Admin/PanelAdmin/PanelAdmin.vue'
 import Asignacion from '../pages/Admin/Asignacion/Asignacion.vue'
+import Evento from '../pages/Pro/Evento.vue'
 
 /* const routes = [
   { path: '/', component: Lab },
@@ -48,7 +49,8 @@ const routes = [
       { path: '', component: PanelAdmin },
       { path: '/Asignacion', component: Asignacion }
     ]
-  }
+  },
+   { path: '/Evento/:id', component: Evento }
 ]
 
 const router = createRouter({

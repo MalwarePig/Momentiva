@@ -5,17 +5,20 @@ import Modal from '../../../components/Modals/ModalMsg/ModalMsg.vue'
 const modalMsg = ref(null);
 // Objeto reactivo para almacenar todos los datos del formulario
 const formData = ref({
-    nombreFestejado: '',
+    nombreFestejado1: '',
+    nombreFestejado2: '',
     fechaEvento: '',
+    fechaLimiteRespuesta: '', // Nuevo campo agregado
     lugarEvento: '',
-    horaInicio: '',
-    horaFinalizacion: '',
+    lugarCeremonia: '', // Nuevo campo agregado
+    horaEvento: '', 
     horaShow: '',
+    horaCeremonia: '', // Nuevo campo agregado
     codigoVestimenta: '',
-    tematica: '',
+    version: '',
     mensajeEspecial: '',
     cancionEntrada: '',
-    estiloInvitacion: 'Clásico', // Valor por defecto para el select
+    tematica: 'Clásico', // Valor por defecto para el select
     estado: 'Pendiente',
     fechaSolicitud: new Date().toISOString().split('T')[0], // Fecha actual en formato YYYY-MM-DD
     contacto: {
@@ -27,17 +30,20 @@ const formData = ref({
 
 const resetForm = () => {
     formData.value = {
-        nombreFestejado: '',
+        nombreFestejado1: '',
+        nombreFestejado2: '',
         fechaEvento: '',
+        fechaLimiteRespuesta: '',
         lugarEvento: '',
-        horaInicio: '',
-        horaFinalizacion: '',
+        lugarCeremonia: '',
+        horaEvento: '', 
         horaShow: '',
+        horaCeremonia: '',
         codigoVestimenta: '',
-        tematica: '',
+        version: '',
         mensajeEspecial: '',
         cancionEntrada: '',
-        estiloInvitacion: 'Clásico',
+        tematica: 'Clásico',
         estado: 'Pendiente',
         fechaSolicitud: new Date().toISOString().split('T')[0],
         contacto: {
@@ -49,7 +55,6 @@ const resetForm = () => {
     errors.value = {}; // También reseteamos los errores
 };
 
-
 // Objeto reactivo para almacenar los errores de validación
 const errors = ref({});
 
@@ -60,10 +65,14 @@ const validateForm = () => {
     // --- Reglas de validación ---
 
     // Campos obligatorios
-    if (!formData.value.nombreFestejado.trim()) newErrors.nombreFestejado = 'El nombre es obligatorio.';
+    if (!formData.value.nombreFestejado1.trim()) newErrors.nombreFestejado1 = 'El primer nombre es obligatorio.';
+    // El segundo festejado es opcional, pero si se llena, validamos que no esté vacío
+    if (formData.value.nombreFestejado2.trim() === '' && formData.value.nombreFestejado2 !== '') {
+        newErrors.nombreFestejado2 = 'Complete el segundo nombre o déjelo vacío.';
+    }
     if (!formData.value.fechaEvento) newErrors.fechaEvento = 'La fecha es obligatoria.';
     if (!formData.value.lugarEvento.trim()) newErrors.lugarEvento = 'El lugar es obligatorio.';
-    if (!formData.value.horaInicio) newErrors.horaInicio = 'La hora de inicio es obligatoria.';
+    if (!formData.value.horaEvento) newErrors.horaEvento = 'La hora de inicio es obligatoria.';
 
     // Validación de Correo Electrónico (solo si se ingresó uno)
     const email = formData.value.contacto.email.trim();
@@ -99,7 +108,7 @@ const handleSubmit = () => {
                     const exito = res.status === 200 // Verificamos si la respuesta fue exitosa
                     /*   alert(exito ? "Invitación guardada exitosamente" : "Error al guardar la invitación"); */
                     modalMsg.value.showModal('Invitación guardada exitosamente, recibira un correo con los detalles', exito)
-                   /*  resetForm();  */// ← resetea el formulario solo si fue exitoso
+                     resetForm();  // ← resetea el formulario solo si fue exitoso
                 })
             })
             .catch(err => {
@@ -127,36 +136,64 @@ const handleSubmit = () => {
             <!-- Datos del Evento -->
             <div class="form-section">
                 <h3>Información del Evento</h3>
-                <div class="form-group">
-                    <label for="nombre-festejado">Nombre del festejado(a):</label>
-                    <!-- Se agrega una clase dinámica para resaltar el error -->
-                    <input type="text" id="nombre-festejado" v-model="formData.nombreFestejado"
-                        :class="{ 'has-error': errors.nombreFestejado }">
-                    <!-- Se muestra el mensaje de error si existe -->
-                    <p v-if="errors.nombreFestejado" class="error-message">{{ errors.nombreFestejado }}</p>
-                </div>
-                <div class="form-group">
-                    <label for="fecha-evento">Fecha del evento:</label>
-                    <input type="date" id="fecha-evento" v-model="formData.fechaEvento"
-                        :class="{ 'has-error': errors.fechaEvento }">
-                    <p v-if="errors.fechaEvento" class="error-message">{{ errors.fechaEvento }}</p>
-                </div>
-                <div class="form-group">
-                    <label for="lugar-evento">Lugar del evento:</label>
-                    <input type="text" id="lugar-evento" v-model="formData.lugarEvento"
-                        placeholder="Ej: Salón de Fiestas 'El Roble'" :class="{ 'has-error': errors.lugarEvento }">
-                    <p v-if="errors.lugarEvento" class="error-message">{{ errors.lugarEvento }}</p>
-                </div>
+
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="hora-inicio">Hora de inicio:</label>
-                        <input type="time" id="hora-inicio" v-model="formData.horaInicio"
-                            :class="{ 'has-error': errors.horaInicio }">
-                        <p v-if="errors.horaInicio" class="error-message">{{ errors.horaInicio }}</p>
+                        <label for="nombre-festejado1">Nombre del primer festejado(a):</label>
+                        <input type="text" id="nombre-festejado1" v-model="formData.nombreFestejado1"
+                            :class="{ 'has-error': errors.nombreFestejado1 }"
+                            placeholder="Primer nombre o nombre completo">
+                        <p v-if="errors.nombreFestejado1" class="error-message">{{ errors.nombreFestejado1 }}</p>
                     </div>
                     <div class="form-group">
-                        <label for="hora-finalizacion">Hora de finalización:</label>
-                        <input type="time" id="hora-finalizacion" v-model="formData.horaFinalizacion">
+                        <label for="nombre-festejado2">Nombre del segundo festejado(a) (opcional):</label>
+                        <input type="text" id="nombre-festejado2" v-model="formData.nombreFestejado2"
+                            :class="{ 'has-error': errors.nombreFestejado2 }"
+                            placeholder="Segundo nombre (opcional para bodas o eventos conjuntos)">
+                        <p v-if="errors.nombreFestejado2" class="error-message">{{ errors.nombreFestejado2 }}</p>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fecha-evento">Fecha del evento:</label>
+                        <input type="date" id="fecha-evento" v-model="formData.fechaEvento"
+                            :class="{ 'has-error': errors.fechaEvento }">
+                        <p v-if="errors.fechaEvento" class="error-message">{{ errors.fechaEvento }}</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha-limite-respuesta">Fecha límite de respuesta:</label>
+                        <input type="date" id="fecha-limite-respuesta" v-model="formData.fechaLimiteRespuesta"
+                            :class="{ 'has-error': errors.fechaLimiteRespuesta }">
+                        <p v-if="errors.fechaLimiteRespuesta" class="error-message">{{ errors.fechaLimiteRespuesta }}</p>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="lugar-evento">Lugar del evento:</label>
+                        <input type="text" id="lugar-evento" v-model="formData.lugarEvento"
+                            placeholder="Ej: Salón de Fiestas 'El Roble'" :class="{ 'has-error': errors.lugarEvento }">
+                        <p v-if="errors.lugarEvento" class="error-message">{{ errors.lugarEvento }}</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="lugar-ceremonia">Lugar de la ceremonia:</label>
+                        <input type="text" id="lugar-ceremonia" v-model="formData.lugarCeremonia"
+                            placeholder="Ej: Iglesia San José" :class="{ 'has-error': errors.lugarCeremonia }">
+                        <p v-if="errors.lugarCeremonia" class="error-message">{{ errors.lugarCeremonia }}</p>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hora-inicio">Hora del evento:</label>
+                        <input type="time" id="hora-inicio" v-model="formData.horaEvento"
+                            :class="{ 'has-error': errors.horaEvento }">
+                        <p v-if="errors.horaEvento" class="error-message">{{ errors.horaEvento }}</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora-ceremonia">Hora de la ceremonia:</label>
+                        <input type="time" id="hora-ceremonia" v-model="formData.horaCeremonia">
                     </div>
                     <div class="form-group">
                         <label for="hora-show">Hora del show:</label>
@@ -178,22 +215,35 @@ const handleSubmit = () => {
                     <input type="text" id="cancion-entrada" v-model="formData.cancionEntrada"
                         placeholder="Ej: 'Viva La Vida' - Coldplay">
                 </div>
-                <div class="form-group">
-                    <label for="estilo-invitacion">Estilo de invitación:</label>
-                    <select id="estilo-invitacion" v-model="formData.estiloInvitacion">
-                        <option>Clásico</option>
-                        <option>Moderno</option>
-                        <option>Minimalista</option>
-                        <option>Rústico</option>
-                        <option>Elegante</option>
-                        <option>Temático</option>
-                        <option>Infantil</option>
-                    </select>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tematica-invitacion">Temática de invitación:</label>
+                        <select id="tematica-invitacion" v-model="formData.tematica">
+                            <option value="Clásico">Clásico</option>
+                            <option value="Boda">Boda</option>
+                            <option value="XV">XV Años</option>
+                            <option value="Infantil">Infantil</option>
+                            <option value="Religiosa">Religiosa</option>
+                            <option value="Laboral">Laboral</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="version-invitacion">Versión de invitación:</label>
+                        <select id="version-invitacion" v-model="formData.version">
+                            <option value="">Seleccionar versión</option>
+                            <option value="V1">V1</option>
+                            <option value="V2">V2</option>
+                            <option value="V3">V3</option>
+                            <option value="V4">V4</option>
+                            <option value="V5">V5</option>
+                            <option value="V6">V6</option>
+                            <option value="V7">V7</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="tematica">Personaje o tematica</label>
-                    <input type="text" id="tematica" v-model="formData.tematica"></input>
-                </div>
+
                 <div class="form-group">
                     <label for="mensaje-especial">Mensaje especial o dedicatoria:</label>
                     <textarea id="mensaje-especial" v-model="formData.mensajeEspecial" rows="4"></textarea>
@@ -221,7 +271,6 @@ const handleSubmit = () => {
                         placeholder="Escribe una contraseña segura" :class="{ 'has-error': errors.contrasena }">
                     <p v-if="errors.contrasena" class="error-message">{{ errors.contrasena }}</p>
                 </div>
-
             </div>
 
             <button type="submit" class="submit-btn">Crear Invitación</button>

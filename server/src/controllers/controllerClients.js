@@ -2,7 +2,7 @@ const Controller = {};
 const pool = require('../db/db.js'); // importa el pool de conexión
 const setSerial = require('../functions/serial');
 
-
+/* 
 Controller.setSolicitud = async (req, res) => {
   const config = req.body;
   const serial = setSerial();
@@ -10,48 +10,123 @@ Controller.setSolicitud = async (req, res) => {
   console.log(config);
   console.log(idClient);
   console.log("Serial generado:", serial);
-
+  
+  try {
+    // Concatenar los nombres de los festejados si ambos existen
+    let nombresFestejados = config.nombreFestejado1;
+    if (config.nombreFestejado2 && config.nombreFestejado2.trim()) {
+      nombresFestejados += ` & ${config.nombreFestejado2}`;
+    }
+    
+    const [result] = await pool.query(
+      `INSERT INTO solicitudes (
+                serial, nombre_festejado, fecha_evento, fecha_limite_respuesta, 
+                lugar_evento, lugar_ceremonia, hora_inicio, hora_finalizacion, 
+                hora_show, hora_ceremonia, codigo_vestimenta, mensaje_especial, 
+                cancion_entrada, tematica, estado, fecha_solicitud, telefono, 
+                email, contrasena, url, version
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        serial,                                    // serial
+        nombresFestejados,                         // nombre_festejado (concatenado)
+        config.fechaEvento,                        // fecha_evento
+        config.fechaLimiteRespuesta || null,      // fecha_limite_respuesta (nuevo campo)
+        config.lugarEvento,                        // lugar_evento
+        config.lugarCeremonia || null,            // lugar_ceremonia (nuevo campo)
+        config.horaInicio,                         // hora_inicio
+        config.horaFinalizacion || null,          // hora_finalizacion
+        config.horaShow || null,                  // hora_show
+        config.horaCeremonia || null,             // hora_ceremonia (nuevo campo)
+        config.codigoVestimenta || null,          // codigo_vestimenta
+        config.mensajeEspecial || null,           // mensaje_especial
+        config.cancionEntrada || null,            // cancion_entrada
+        config.tematica || 'Clásico',             // tematica
+        config.estado || 'Pendiente',             // estado (con valor por defecto)
+        config.fechaSolicitud || new Date(),      // fecha_solicitud (con valor por defecto)
+        config.contacto.telefono || null,         // telefono
+        config.contacto.email,                    // email
+        config.contacto.contrasena,               // contrasena
+        '',                                       // url vacío
+        config.version || null                    // version
+      ]
+    );
+    
+    console.log('Solicitud guardada exitosamente. ID:', result.insertId);
+    res.status(201).json({
+      message: 'Solicitud guardada con éxito',
+      insertId: result.insertId,
+      serial: serial,
+      nombresFestejados: nombresFestejados  // Incluimos los nombres concatenados en la respuesta
+    });
+    
+  } catch (err) {
+    console.error('Error al guardar solicitud:', err.message);
+    console.error('Stack:', err.stack);
+    
+    // Manejo de errores específicos
+    if (err.code === 'ER_DUP_ENTRY') {
+      res.status(409).json({ error: 'Ya existe una solicitud con este email o serial' });
+    } else if (err.code === 'ER_BAD_NULL_ERROR') {
+      res.status(400).json({ error: 'Faltan campos requeridos' });
+    } else {
+      res.status(500).json({ error: 'Error al guardar la solicitud' });
+    }
+  }
+};
+ */
+// Alternativa: Si prefieres almacenar los nombres por separado en la BD
+Controller.setSolicitud = async (req, res) => {
+  const config = req.body;
+  const serial = setSerial();
+  const idClient = config.contacto.email;
+  console.log(config);
+  console.log(idClient);
+  console.log("Serial generado:", serial);
+  
   try {
     const [result] = await pool.query(
       `INSERT INTO solicitudes (
-                serial, nombre_festejado, fecha_evento, lugar_evento,
-                hora_inicio, hora_finalizacion, hora_show, codigo_vestimenta,
-                mensaje_especial, cancion_entrada, estilo_invitacion, estado, fecha_solicitud,
-                telefono, email, contrasena, url,tematica
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)`,
+                serial, nombre_festejado1, nombre_festejado2, fecha_evento, 
+                fecha_limite_respuesta, lugar_evento, lugar_ceremonia, 
+                hora_Evento, hora_Show, hora_Ceremonia, codigo_vestimenta, mensaje_especial, cancion_entrada, tematica, 
+                estado, fecha_solicitud, telefono, email, contrasena, url, version
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        serial,                          // serial
-        config.nombreFestejado,          // nombre_festejado
-        config.fechaEvento,              // fecha_evento
-        config.lugarEvento,              // lugar_evento
-        config.horaInicio,               // hora_inicio
-        config.horaFinalizacion,         // hora_finalizacion
-        config.horaShow,                 // hora_show
-        config.codigoVestimenta,         // codigo_vestimenta 
-        config.mensajeEspecial,          // mensaje_especial
-        config.cancionEntrada,           // cancion_entrada
-        config.estiloInvitacion,         // estilo_invitacion
-        config.estado || 'Pendiente',    // estado (con valor por defecto)
-        config.fechaSolicitud || new Date(), // fecha_solicitud (con valor por defecto)
-        config.contacto.telefono,        // telefono
-        config.contacto.email,           // email
-        config.contacto.contrasena,      // contrasena
-        '',                               // url vacío
-        config.tematica                 // tematica o personajes
+        serial,                                    // serial
+        config.nombreFestejado1,                   // nombre_festejado1
+        config.nombreFestejado2 || null,          // nombre_festejado2 (puede ser null)
+        config.fechaEvento,                        // fecha_evento
+        config.fechaLimiteRespuesta || null,      // fecha_limite_respuesta
+        config.lugarEvento,                        // lugar_evento
+        config.lugarCeremonia || null,            // lugar_ceremonia
+        config.horaEvento,                         // hora_inicio 
+        config.horaShow || null,                  // hora_show
+        config.horaCeremonia || null,             // hora_ceremonia
+        config.codigoVestimenta || null,          // codigo_vestimenta
+        config.mensajeEspecial || null,           // mensaje_especial
+        config.cancionEntrada || null,            // cancion_entrada
+        config.tematica || 'Clásico',             // tematica
+        config.estado || 'Pendiente',             // estado
+        config.fechaSolicitud || new Date(),      // fecha_solicitud
+        config.contacto.telefono || null,         // telefono
+        config.contacto.email,                    // email
+        config.contacto.contrasena,               // contrasena
+        '',                                       // url vacío
+        config.version || null                    // version
       ]
     );
-
+    
     console.log('Solicitud guardada exitosamente. ID:', result.insertId);
     res.status(201).json({
       message: 'Solicitud guardada con éxito',
       insertId: result.insertId,
       serial: serial
     });
-
+    
   } catch (err) {
     console.error('Error al guardar solicitud:', err.message);
     console.error('Stack:', err.stack);
-
+    
     // Manejo de errores específicos
     if (err.code === 'ER_DUP_ENTRY') {
       res.status(409).json({ error: 'Ya existe una solicitud con este email o serial' });
@@ -263,5 +338,6 @@ Controller.setInvitados = async (req, res) => {
     console.error('Stack:', err.stack);
   }
 };
+
 
 module.exports = Controller;
