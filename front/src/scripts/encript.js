@@ -10,7 +10,7 @@ export default function revolverStrings(str1, str2) {
 
     return resultado;
 }
-
+ 
 function desrevolverStrings(revuelto) {
   let str1 = '';
   let str2 = '';

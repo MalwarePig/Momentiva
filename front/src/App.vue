@@ -3,7 +3,7 @@
     <router-view></router-view>
   </div>
 </template>
-
+ 
 <script>
 /* import BG from './components/BG/BG.vue' */
 
