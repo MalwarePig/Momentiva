@@ -1,0 +1,649 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-width: 100vw;
+        min-height: 100vh;
+    }
+
+    .contentBody {
+        font-family: 'Cormorant Garamond', serif;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        overflow-x: hidden;
+
+        background:
+            radial-gradient(circle at 25% 25%, rgba(139, 69, 19, 0.02) 1px, transparent 1px),
+            radial-gradient(circle at 75% 75%, rgba(139, 69, 19, 0.015) 1px, transparent 1px),
+            radial-gradient(ellipse at 15% 30%, rgba(160, 82, 45, 0.03) 0%, transparent 40%),
+            radial-gradient(ellipse at 85% 60%, rgba(210, 180, 140, 0.025) 0%, transparent 50%),
+            radial-gradient(ellipse at 40% 80%, rgba(245, 245, 220, 0.04) 0%, transparent 35%),
+            linear-gradient(145deg, #fefcf8 0%, #f9f7f4 100%);
+
+        border-radius: 8px;
+        box-shadow:
+            0 0 0 1px rgba(139, 69, 19, 0.08),
+            0 10px 30px rgba(139, 69, 19, 0.12),
+            0 5px 15px rgba(139, 69, 19, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        animation: paperFloat 8s ease-in-out infinite;
+    }
+
+    @keyframes paperFloat {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-8px) rotate(0.5deg);
+        }
+    }
+
+    .invitation-container {
+        max-width: 700px;
+        width: 100%;
+        border-radius: 20px;
+        box-shadow: 0 8px 18px rgba(106, 109, 32, 0.06);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 1.5s ease-out;
+    }
+
+    .decorative-border {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        border: 2px solid rgba(255, 182, 193, 0.3);
+        border-radius: 4px;
+        pointer-events: none;
+    }
+
+    .decorative-border::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border: 1px solid rgba(173, 216, 230, 0.2);
+        border-radius: 6px;
+    }
+
+    .garland-top {
+        position: absolute;
+        top: 20px;
+        left: 10%;
+        right: 10%;
+        height: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+    }
+
+    .garland-flag {
+        width: 20px;
+        height: 30px;
+        position: relative;
+        animation: flagSway 6s ease-in-out infinite;
+    }
+
+    .garland-flag:nth-child(odd) {
+        animation-delay: 0.5s;
+    }
+
+    .garland-flag::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 10px solid #ff9a9e;
+        border-right: 10px solid #ff9a9e;
+        border-bottom: 25px solid transparent;
+    }
+
+    .garland-flag:nth-child(2n)::before {
+        border-left-color: #a8edea;
+        border-right-color: #a8edea;
+    }
+
+    .garland-flag:nth-child(3n)::before {
+        border-left-color: #ffeaa7;
+        border-right-color: #ffeaa7;
+    }
+
+    @keyframes flagSway {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(3px) rotate(2deg);
+        }
+    }
+
+    .main-header {
+        text-align: center;
+        margin-bottom: 35px;
+        position: relative;
+        z-index: 5;
+    }
+
+    .child-name {
+        margin-top: 5%;
+        font-size: 3.2rem;
+        font-weight: bold;
+        color: #CF7486;
+        text-shadow:
+            2px 2px 0px rgba(255, 255, 255, 0.8),
+            4px 4px 8px rgba(231, 76, 60, 0.2);
+        margin-bottom: 8px;
+        letter-spacing: 3px;
+        animation: nameGlow 4s ease-in-out infinite;
+        position: relative;
+    }
+
+    @keyframes nameGlow {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.02);
+        }
+    }
+
+    .celebration-text {
+        font-size: 1.6rem;
+        color: #F2BDCD;
+        font-weight: 600;
+        margin-bottom: 20px;
+        font-style: italic;
+        text-shadow: 1px 1px 2px rgba(46, 204, 113, 0.1);
+    }
+
+    .photo-container {
+        display: flex;
+        justify-content: center;
+        margin: 25px 0;
+        position: relative;
+    }
+
+    .photo-frame {
+        width: 170px;
+        height: 170px;
+        border-radius: 50%;
+        border: 5px solid #8c5897;
+        box-shadow:
+            0 0 0 3px rgba(235, 156, 255, 0.8),
+            0 8px 25px rgba(244, 123, 255, 0.3);
+        overflow: hidden;
+        position: relative;
+        animation: photoWiggle 7s ease-in-out infinite;
+    }
+
+    @keyframes photoWiggle {
+
+        0%,
+        100% {
+            transform: rotate(0deg) scale(1);
+        }
+
+        25% {
+            transform: rotate(-1deg) scale(1.02);
+        }
+
+        75% {
+            transform: rotate(1deg) scale(1.02);
+        }
+    }
+
+    .photo-frame img {
+        opacity: .8;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .invitation-text {
+        text-align: center;
+        margin: 30px 0;
+        font-size: 1.15rem;
+        color: #2c3e50;
+        line-height: 1.6;
+        font-style: italic;
+        position: relative;
+    }
+
+    .invitation-text::before {
+        content: '~';
+        position: absolute;
+        left: 50%;
+        top: -15px;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        color: #ff9a9e;
+        opacity: 0.6;
+    }
+
+    .invitation-text::after {
+        content: '~';
+        position: absolute;
+        left: 50%;
+        bottom: -15px;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        color: #ff9a9e;
+        opacity: 0.6;
+    }
+
+    .event-info {
+        text-align: center;
+        margin: 35px 0;
+        position: relative;
+    }
+
+    .date-highlight {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #CF7486;
+        margin-bottom: 15px;
+        text-shadow: 1px 1px 3px rgba(230, 126, 34, 0.2);
+        letter-spacing: 2px;
+    }
+
+    .event-details {
+        font-size: 1.1rem;
+        color: #34495e;
+        line-height: 1.8;
+        margin: 10px 0;
+    }
+
+    .event-details strong {
+        color: #2980b9;
+        font-weight: 600;
+    }
+
+    .rsvp-section {
+        margin-top: 40px;
+        animation: slideInRight 1s ease-out 2s both;
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .rsvp-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #CF7486, #F2BDCD);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: buttonPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes buttonPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .rsvp-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+    .globo {
+        width: 70%;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+        max-width: 100%;
+        /* SOLUCIÓN: Aplicar la posición inicial antes de la animación */
+        animation: float5Stable 8s ease-in-out infinite;
+    }
+
+    .floating-characters {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .character {
+        position: absolute;
+        font-size: 32px;
+        animation-duration: 8s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+    }
+
+    .char1 {
+        top: 20%;
+        left: 8%;
+        animation-name: float1;
+        animation-delay: 0s;
+    }
+
+    .char2 {
+        top: 20%;
+        right: 12%;
+        animation-name: float2;
+        animation-delay: 1s;
+    }
+
+    .char3 {
+        bottom: 25%;
+        left: 15%;
+        animation-name: float3;
+        animation-delay: 2s;
+    }
+
+    .char4 {
+        bottom: 20%;
+        right: 8%;
+        animation-name: float4;
+        animation-delay: 3s;
+    }
+
+    @keyframes float1 {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 0.7;
+        }
+
+        50% {
+            transform: translateY(-15px) rotate(5deg);
+            opacity: 1;
+        }
+    }
+
+    @keyframes float2 {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 0.8;
+        }
+
+        50% {
+            transform: translateY(-10px) rotate(-3deg);
+            opacity: 1;
+        }
+    }
+
+    @keyframes float3 {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 0.6;
+        }
+
+        50% {
+            transform: translateY(-12px) rotate(4deg);
+            opacity: 1;
+        }
+    }
+
+    @keyframes float4 {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 0.7;
+        }
+
+        50% {
+            transform: translateY(-18px) rotate(-2deg);
+            opacity: 1;
+        }
+    }
+
+    /* ANIMACIÓN CORREGIDA PARA LOS GLOBOS */
+    @keyframes float5Stable {
+
+        0%,
+        100% {
+            transform: translateX(-50%) translateY(0px) rotate(0deg);
+            opacity: 0.7;
+        }
+
+        50% {
+            transform: translateX(-50%) translateY(-18px) rotate(-2deg);
+            opacity: 1;
+        }
+    }
+
+    /* Estilos corregidos para los confetis */
+    .confetti {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #e74c3c;
+        border-radius: 50%;
+        animation: confettiDrift 12s linear infinite;
+        opacity: 0.6;
+        top: -20px;
+    }
+
+    .confetti:nth-child(5) {
+        /* Primer confeti */
+        left: 20%;
+        animation-delay: 0s;
+        background: #e74c3c;
+    }
+
+    .confetti:nth-child(6) {
+        /* Segundo confeti */
+        left: 40%;
+        animation-delay: 2s;
+        background: #f39c12;
+    }
+
+    .confetti:nth-child(7) {
+        /* Tercer confeti */
+        left: 60%;
+        animation-delay: 4s;
+        background: #2ecc71;
+    }
+
+    .confetti:nth-child(8) {
+        /* Cuarto confeti */
+        left: 80%;
+        animation-delay: 6s;
+        background: #9b59b6;
+    }
+
+    @keyframes confettiDrift {
+        0% {
+            top: -20px;
+            transform: rotate(0deg);
+            opacity: 0;
+        }
+
+        10% {
+            opacity: 0.8;
+        }
+
+        90% {
+            opacity: 0.8;
+        }
+
+        100% {
+            top: 100%;
+            transform: rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* Agregar más confetis para mejor efecto */
+    .confetti-extra {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        animation: confettiDrift 10s linear infinite;
+        opacity: 0.7;
+    }
+
+    .confetti-extra:nth-child(9) {
+        left: 10%;
+        animation-delay: 1s;
+        background: #3498db;
+    }
+
+    .confetti-extra:nth-child(10) {
+        left: 30%;
+        animation-delay: 3s;
+        background: #e67e22;
+    }
+
+    .confetti-extra:nth-child(11) {
+        left: 50%;
+        animation-delay: 5s;
+        background: #1abc9c;
+    }
+
+    .confetti-extra:nth-child(12) {
+        left: 70%;
+        animation-delay: 7s;
+        background: #e91e63;
+    }
+
+    .confetti-extra:nth-child(13) {
+        left: 90%;
+        animation-delay: 9s;
+        background: #8e44ad;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .child-name {
+            margin-top: 15%;
+            font-size: 1.7rem;
+        }
+
+        .date-highlight {
+            font-size: 1.5rem;
+        }
+
+        .event-details {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+<div class="contentBody">
+    <div class="invitation-container">
+        <div class="decorative-border"></div>
+
+        <div class="garland-top">
+            <div class="garland-flag"></div>
+            <div class="garland-flag"></div>
+            <div class="garland-flag"></div>
+            <div class="garland-flag"></div>
+            <div class="garland-flag"></div>
+            <div class="garland-flag"></div>
+            <div class="garland-flag"></div>
+        </div>
+
+        <div class="main-header">
+            <h1 class="child-name">{{festejado1}}</h1>
+            <p class="celebration-text">¡Cumple 5 años!</p>
+        </div>
+
+        <div class="photo-container">
+            <div class="photo-frame">
+                <img src="{{imgPrincipal}}" alt="Foto de niña">
+            </div>
+        </div>
+
+        <div class="invitation-text">
+            <p>{{mensajeEspecial}}</p>
+        </div>
+
+        <div class="event-info">
+            <div class="date-highlight">{{fechaEvento}} <br> {{horaEvento}}</div>
+            <div class="event-details">
+                <p><strong>Lugar:</strong> {{lugarEvento}}</p>
+                <p>{{direccionEvento}}</p>
+                <p><strong>Habrá:</strong> Juegos, música, pastel y sorpresas</p>
+            </div>
+
+            <div class="rsvp-section">
+                <a href="#" class="rsvp-button" onclick="handleRSVP()">
+                    Confirmar Asistencia
+                </a>
+                <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                    Por favor confirma tu asistencia antes del {{limiteRespuesta}}
+                </p>
+            </div>
+        </div>
+
+
+
+        <div class="floating-characters">
+            <div class="character char1">🎈</div>
+            <div class="character char2">🎁</div>
+            <div class="character char3">🧁</div>
+            <div class="character char4">🎉</div>
+
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+        </div>
+
+        <img src="https://i.ibb.co/CprKXLb6/Globos.webp" alt="Globos decorativos" class="globo">
+
+    </div>
+
+</div>

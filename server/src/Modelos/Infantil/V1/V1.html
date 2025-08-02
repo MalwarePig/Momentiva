@@ -1,16 +1,629 @@
-<div>
-    <h1>¡Estás invitado al cumpleaños de {{nombre}}!</h1>
-    <p>Fecha: {{fecha}}</p>
-    <p>Lugar: {{lugar}}</p>
-    <p>{{mensaje}}</p>
-</div>
-<style>
-    h1 {
-        color: #4CAF50;
-        font-size: 24px;
-    }
-    p {
-        font-size: 18px;
-        line-height: 1.5;
-    }
-</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Cumpleaños</title>
+    <style>
+        .evento-wrapper {
+            background-color: transparent !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8, #a29bfe);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .invitation-container {
+            background:
+                radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(173, 216, 230, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 224, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #fefefe 0%, #f8f9fa 100%);
+            border-radius: 25px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.15),
+                0 15px 35px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transform: perspective(1000px) rotateX(3deg) rotateY(-2deg);
+            animation: floatCard 6s ease-in-out infinite;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .invitation-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.03) 2px,
+                    rgba(255, 255, 255, 0.03) 4px);
+            pointer-events: none;
+        }
+
+        .invitation-container::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: paperShine 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes paperShine {
+
+            0%,
+            100% {
+                transform: translateX(-100%) translateY(-100%);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translateX(0%) translateY(0%);
+                opacity: 0.1;
+            }
+        }
+
+        @keyframes floatCard {
+
+            0%,
+            100% {
+                transform: perspective(1000px) rotateX(3deg) rotateY(-2deg) translateY(0px);
+                box-shadow:
+                    0 25px 50px rgba(0, 0, 0, 0.15),
+                    0 15px 35px rgba(0, 0, 0, 0.1),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+            }
+
+            50% {
+                transform: perspective(1000px) rotateX(3deg) rotateY(-2deg) translateY(-12px);
+                box-shadow:
+                    0 35px 70px rgba(0, 0, 0, 0.2),
+                    0 25px 50px rgba(0, 0, 0, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 20;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            color: #e84393;
+            text-shadow: 3px 3px 0px #ffffff, 6px 6px 0px rgba(232, 67, 147, 0.3);
+            margin-bottom: 10px;
+            animation: bounce 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-15px);
+            }
+
+            60% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #6c5ce7;
+            margin-bottom: 20px;
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(-2deg);
+            }
+
+            75% {
+                transform: rotate(2deg);
+            }
+        }
+
+        .event-details {
+            background:
+                linear-gradient(145deg, #667eea 0%, #764ba2 100%),
+                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+            border-radius: 18px;
+            padding: 25px;
+            margin: 25px 0;
+            color: white;
+            text-align: center;
+            box-shadow:
+                0 15px 35px rgba(102, 126, 234, 0.3),
+                0 5px 15px rgba(102, 126, 234, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 20;
+        }
+
+        .event-details::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                repeating-linear-gradient(-45deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(255, 255, 255, 0.05) 3px,
+                    rgba(255, 255, 255, 0.05) 6px);
+            pointer-events: none;
+        }
+
+        .event-details::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            animation: cardShimmer 4s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes cardShimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .event-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .event-details p {
+            font-size: 1.1rem;
+            margin: 8px 0;
+        }
+
+        .decorative-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 15;
+        }
+
+        .star {
+            position: absolute;
+            color: #ffeaa7;
+            font-size: 20px;
+            animation: twinkle 2s ease-in-out infinite alternate;
+        }
+
+        .star:nth-child(1) {
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .star:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            animation-delay: 0.5s;
+        }
+
+        .star:nth-child(3) {
+            bottom: 30%;
+            left: 10%;
+            animation-delay: 1s;
+        }
+
+        .star:nth-child(4) {
+            bottom: 15%;
+            right: 20%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes twinkle {
+            0% {
+                transform: scale(0.8) rotate(0deg);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1.2) rotate(180deg);
+                opacity: 1;
+            }
+        }
+
+        .balloon {
+            position: absolute;
+            font-size: 30px;
+            animation: sway 4s ease-in-out infinite;
+        }
+
+        .balloon:nth-child(5) {
+            top: 5%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .balloon:nth-child(6) {
+            top: 15%;
+            right: 5%;
+            animation-delay: 1s;
+        }
+
+        @keyframes sway {
+
+            0%,
+            100% {
+                transform: translateX(0px) translateY(0px);
+            }
+
+            25% {
+                transform: translateX(10px) translateY(-5px);
+            }
+
+            50% {
+                transform: translateX(0px) translateY(-10px);
+            }
+
+            75% {
+                transform: translateX(-10px) translateY(-5px);
+            }
+        }
+
+        .rsvp-section {
+            text-align: center;
+            margin-top: 30px;
+            position: relative;
+            z-index: 20;
+        }
+
+        .rsvp-button {
+            background: linear-gradient(45deg, #00b894, #00cec9);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0, 184, 148, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rsvp-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 184, 148, 0.4);
+        }
+
+        .rsvp-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: all 0.6s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .rsvp-button:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .party-emoji {
+            font-size: 2rem;
+            display: inline-block;
+            animation: spin 3s linear infinite;
+            margin: 0 10px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 15;
+        }
+
+        .heart {
+            position: absolute;
+            color: #fd79a8;
+            font-size: 16px;
+            animation: float-up 6s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        .heart:nth-child(1) {
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .heart:nth-child(2) {
+            left: 40%;
+            animation-delay: 2s;
+        }
+
+        .heart:nth-child(3) {
+            left: 60%;
+            animation-delay: 4s;
+        }
+
+        .heart:nth-child(4) {
+            left: 80%;
+            animation-delay: 1s;
+        }
+
+        @keyframes float-up {
+            0% {
+                bottom: -20px;
+                opacity: 0;
+                transform: translateX(0px);
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                bottom: 100%;
+                opacity: 0;
+                transform: translateX(20px);
+            }
+        }
+
+        .bg-img {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 5;
+            opacity: 0.3;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .invitation-container {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .event-details {
+                padding: 20px;
+            }
+
+            .event-details h3 {
+                font-size: 1.3rem;
+            }
+
+            .event-details p {
+                font-size: 1rem;
+            }
+
+            .rsvp-button {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+
+            .invitation-container {
+                padding: 20px 15px;
+                margin-top: 0;
+                transform: none;
+                animation: none;
+            }
+
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .party-emoji {
+                font-size: 1.5rem;
+            }
+
+            /* Mantener la imagen de fondo en la parte inferior en móviles */
+            .bg-img {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                z-index: 5;
+                opacity: 0.2;
+            }
+
+            .star {
+                font-size: 16px;
+            }
+
+            .balloon {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .invitation-container {
+                padding: 15px 10px;
+            }
+
+            .title {
+                font-size: 1.6rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .event-details {
+                padding: 15px;
+            }
+
+            .event-details h3 {
+                font-size: 1.2rem;
+            }
+
+            .event-details p {
+                font-size: 0.9rem;
+            }
+
+            .rsvp-button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+    <div class="invitation-container">
+        <div class="decorative-elements">
+            <div class="star">⭐</div>
+            <div class="star">✨</div>
+            <div class="star">⭐</div>
+            <div class="star">✨</div>
+            <div class="balloon">🎈</div>
+            <div class="balloon">🎈</div>
+        </div>
+
+        <div class="floating-hearts">
+            <div class="heart">💝</div>
+            <div class="heart">🎁</div>
+            <div class="heart">💝</div>
+            <div class="heart">🎁</div>
+        </div>
+        
+        <img class="bg-img" src="https://i.ibb.co/jk4Qc4yX/bg1.webp" alt="">
+        
+        <div class="header">
+            <h1 class="title">¡Estás Invitado!</h1>
+            <p class="subtitle">A la fiesta más divertida del año</p>
+            <div class="party-emoji">🎉</div>
+            <div class="party-emoji">🎊</div>
+            <div class="party-emoji">🎉</div>
+        </div>
+
+        <div class="event-details">
+            <h3>🎂 {{festejado1}} 🎂</h3>
+            <p><strong>📅 Fecha:</strong> {{fechaEvento}}</p>
+            <p><strong>🕐 Hora:</strong> {{horaEvento}}</p>
+            <p><strong>📍 Lugar:</strong> {{lugarEvento}}<br>{{direccionEvento}}</p>
+        </div>
+
+        <div class="rsvp-section">
+            <p style="margin-bottom: 15px; color: #6c5ce7; font-size: 1.1rem;">
+                ¡Habrá juegos, música, pastel y muchas sorpresas! 🍰🎮🎵
+            </p>
+            <button class="rsvp-button" onclick="alert('¡Gracias por confirmar! Te esperamos con muchas ganas 🎉')">
+                ¡Confirmar Asistencia! 🙋‍♀️
+            </button>
+        </div>
+    </div>

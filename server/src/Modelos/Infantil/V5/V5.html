@@ -1,0 +1,562 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-width: 100vw;
+        min-height: 100vh;
+    }
+
+    .contentBody {
+        font-family: 'Cormorant Garamond', serif;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        overflow-x: hidden;
+    }
+
+    .invitation-container {
+        max-width: 700px;
+        width: 100%;
+
+        border-radius: 20px;
+        box-shadow: 0 8px 18px rgba(106, 109, 32, 0.06);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 1.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .decorative-elements {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 15;
+    }
+
+    .star {
+        position: absolute;
+        color: #ffeaa7;
+        font-size: 20px;
+        animation: twinkle 2s ease-in-out infinite alternate;
+    }
+
+    .star:nth-child(1) {
+        top: 10%;
+        left: 15%;
+        animation-delay: 0s;
+    }
+
+    .star:nth-child(2) {
+        top: 20%;
+        right: 10%;
+        animation-delay: 0.5s;
+    }
+
+    .star:nth-child(3) {
+        bottom: 30%;
+        left: 10%;
+        animation-delay: 1s;
+    }
+
+    .star:nth-child(4) {
+        bottom: 15%;
+        right: 20%;
+        animation-delay: 1.5s;
+    }
+
+    @keyframes twinkle {
+        0% {
+            transform: scale(0.8) rotate(0deg);
+            opacity: 0.7;
+        }
+
+        100% {
+            transform: scale(1.2) rotate(180deg);
+            opacity: 1;
+        }
+    }
+
+    .balloon {
+        position: absolute;
+        font-size: 30px;
+        animation: sway 4s ease-in-out infinite;
+    }
+
+    .balloon:nth-child(5) {
+        top: 5%;
+        left: 5%;
+        animation-delay: 0s;
+    }
+
+    .balloon:nth-child(6) {
+        top: 15%;
+        right: 5%;
+        animation-delay: 1s;
+    }
+
+    @keyframes sway {
+
+        0%,
+        100% {
+            transform: translateX(0px) translateY(0px);
+        }
+
+        25% {
+            transform: translateX(10px) translateY(-5px);
+        }
+
+        50% {
+            transform: translateX(0px) translateY(-10px);
+        }
+
+        75% {
+            transform: translateX(-10px) translateY(-5px);
+        }
+    }
+
+    .bg-img {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 5;
+        opacity: 0.3;
+    }
+
+    .header {
+        margin-top: 20px;
+        text-align: center;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 20;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .title {
+        font-size: 2.5rem;
+        color: #e84393;
+        text-shadow: 3px 3px 0px #ffffff, 6px 6px 0px rgba(232, 67, 147, 0.3);
+        margin-bottom: 10px;
+        animation: bounce 2s ease-in-out infinite;
+        position: relative;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateY(0);
+        }
+
+        40% {
+            transform: translateY(-15px);
+        }
+
+        60% {
+            transform: translateY(-8px);
+        }
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+        color: #6c5ce7;
+        margin-bottom: 20px;
+        animation: wiggle 3s ease-in-out infinite;
+    }
+
+    @keyframes wiggle {
+
+        0%,
+        100% {
+            transform: rotate(0deg);
+        }
+
+        25% {
+            transform: rotate(-2deg);
+        }
+
+        75% {
+            transform: rotate(2deg);
+        }
+    }
+
+    .event-details {
+        background:
+            linear-gradient(145deg, #667eea 0%, #764ba2 100%),
+            radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+        border-radius: 18px;
+        padding: 25px;
+        margin: 25px 0;
+        color: white;
+        text-align: center;
+        box-shadow:
+            0 15px 35px rgba(102, 126, 234, 0.3),
+            0 5px 15px rgba(102, 126, 234, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 20;
+    }
+
+    .event-details::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+            repeating-linear-gradient(-45deg,
+                transparent,
+                transparent 3px,
+                rgba(255, 255, 255, 0.05) 3px,
+                rgba(255, 255, 255, 0.05) 6px);
+        pointer-events: none;
+    }
+
+    .event-details::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+        animation: cardShimmer 4s linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes cardShimmer {
+        0% {
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+
+        100% {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+    }
+
+    .event-details h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .event-details p {
+        font-size: 1.1rem;
+        margin: 8px 0;
+    }
+
+    .rsvp-section {
+        text-align: center;
+        margin-top: 30px;
+        position: relative;
+        z-index: 20;
+    }
+
+    .rsvp-button {
+        background: linear-gradient(45deg, #00b894, #00cec9);
+        color: white;
+        padding: 15px 30px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 8px 15px rgba(0, 184, 148, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .rsvp-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(0, 184, 148, 0.4);
+    }
+
+    .rsvp-button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transition: all 0.6s ease;
+        transform: translate(-50%, -50%);
+    }
+
+    .rsvp-button:active::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    .photo-frame {
+        width: 280px;
+        height: 400px;
+        background: white;
+        border-radius: 3px;
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.3),
+            0 2px 10px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        transform: rotate(-8deg);
+        animation: polaroidFloat 6s ease-in-out infinite;
+        position: relative;
+        padding: 15px 15px 120px 15px;
+        margin: 20px auto;
+    }
+
+    .photo-frame::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                rgba(0, 0, 0, 0.02) 100%);
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    .photo-frame img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 2px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .polaroid-text {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        text-align: center;
+        z-index: 3;
+        color: #333;
+        font-size: 0.9rem;
+        line-height: 1.2;
+    }
+
+    .polaroid-text h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        color: #e84393;
+    }
+
+    @keyframes polaroidFloat {
+
+        0%,
+        100% {
+            transform: rotate(-8deg) translateY(0px);
+        }
+
+        50% {
+            transform: rotate(-6deg) translateY(-8px);
+        }
+    }
+
+    .rsvp-section {
+        text-align: center;
+        margin-top: 30px;
+        position: relative;
+        z-index: 20;
+    }
+
+    .rsvp-button {
+        background: linear-gradient(45deg, #b80093, #9b00ce);
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 8px 15px rgba(184, 0, 160, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .rsvp-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(184, 0, 98, 0.4);
+    }
+
+    .rsvp-button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transition: all 0.6s ease;
+        transform: translate(-50%, -50%);
+    }
+
+    .rsvp-button:active::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    .globo {
+        width: 60%;
+        position: absolute;
+        bottom: -10%;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 100%;
+        /* SOLUCIÓN: Aplicar la posición inicial antes de la animación */
+        animation: floatStable 8s ease-in-out infinite;
+    }
+
+    /* ANIMACIÓN CORREGIDA PARA LOS GLOBOS */
+    @keyframes floatStable {
+
+        0%,
+        100% {
+            transform: translateX(-50%) translateY(0px) rotate(0deg);
+            opacity: 0.7;
+        }
+
+        50% {
+            transform: translateX(-50%) translateY(-18px) rotate(-2deg);
+            opacity: 1;
+        }
+    }
+
+    .imgDecoraUno {
+        width: 30%;
+        position: absolute;
+        bottom: 0%;
+        right: 0;
+        max-width: 100%;
+        animation: floatDecoraUno 8s ease-in-out infinite;
+        z-index: 10;
+    }
+
+    .imgDecoraDos {
+        width: 30%;
+        position: absolute;
+        bottom: 30%;
+        left: 0;
+        max-width: 100%;
+        animation: floatDecoraUno 8s ease-in-out infinite ;
+    }
+
+    /* ANIMACIÓN CORREGIDA PARA LOS GLOBOS */
+    @keyframes floatDecoraUno {
+
+        0%,
+        100% {
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+
+        50% {
+            transform: rotate(-2deg);
+            opacity: 1;
+        }
+    }
+
+
+    .img-decorative {
+        animation: fadeIn 0.11s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+
+<div class="contentBody">
+    <div class="invitation-container">
+        <div class="decorative-elements">
+            <div class="star">⭐</div>
+            <div class="star">✨</div>
+            <div class="star">⭐</div>
+            <div class="star">✨</div>
+            <div class="balloon">🎈</div>
+            <div class="balloon">🎈</div>
+        </div>
+
+        <div class="img-decorative">
+            <img class="imgDecoraUno" src="https://i.ibb.co/wrgnMqcJ/Unicornio.webp" alt="Unicornio">
+            <img class="imgDecoraDos" src="https://i.ibb.co/k27KQKm9/pastel.webp" alt="Pastel">
+            <img class="globo" src="https://i.ibb.co/1Dj2LFS/globos2.webp" alt="globos">
+        </div>
+
+        <img class="bg-img" src="https://i.ibb.co/jk4Qc4yX/bg1.webp" alt="">
+
+
+        <div class="header">
+            <h1 class="title">¡Estás Invitado!</h1>
+            <p class="subtitle">A la fiesta más divertida del año</p>
+            <div class="photo-frame">
+                <img src="{{imgUno}}" alt="Foto de niña">
+                <div class="polaroid-text">
+                    <h3>🎂 {{festejado1}} 🎂</h3>
+                    <p><strong>📅 Fecha:</strong> {{fechaEvento}}</p>
+                    <p><strong>🕐 Hora:</strong> {{horaEvento}}</p>
+                    <p><strong>📍 Lugar:</strong> {{lugarEvento}}</p>
+                    <p>{{direccionEvento}}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="rsvp-section">
+            <p style="margin-bottom: 15px; color: #6c5ce7; font-size: 1.1rem;">
+                ¡Habrá juegos, música, pastel y muchas sorpresas! 🍰🎮🎵
+            </p>
+            <button class="rsvp-button" onclick="alert('¡Gracias por confirmar! Te esperamos con muchas ganas 🎉')">
+                ¡Confirmar Asistencia! 🙋‍♀️
+            </button>
+        </div>
+    </div>
+
+</div>

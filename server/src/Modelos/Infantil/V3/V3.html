@@ -1,0 +1,488 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Playfair Display', serif; 
+        background-size: 400% 400%;
+        background-color: greenyellow;
+        max-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+    }
+
+    .invitation-card {
+        margin: 0 auto;
+        padding: 0 30px;
+        max-width: 500px;
+        width: 4000px;
+        height: 800px;
+        background-image: url('https://i.ibb.co/v4GSZDG4/bg2.jpg');
+        background-size: contain;
+        background-position: center;
+        border-radius: 15px;
+        box-shadow:
+            0 5px 8px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+            0 0 30px rgba(255, 255, 255, 0.2) inset;
+        overflow: hidden;
+        position: relative;
+        animation: cardEntrance 1s ease-out;
+    }
+
+
+
+
+
+    .img-character {
+        width: 60%;
+        margin: 30px auto;
+        animation: characterAppear 1s ease-out 0.5s both, characterDance1 4s ease-in-out 1.5s infinite;
+         filter: drop-shadow(0 5px 10px rgba(0, 255, 255, 0.886));
+    }
+
+    .decorative-corner {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border: 2px solid #d4af37;
+    }
+
+    .corner-tl {
+        top: 15px;
+        left: 15px;
+        border-right: none;
+        border-bottom: none;
+        border-radius: 10px 0 0 0;
+    }
+
+    .corner-tr {
+        top: 15px;
+        right: 15px;
+        border-left: none;
+        border-bottom: none;
+        border-radius: 0 10px 0 0;
+    }
+
+    .corner-bl {
+        bottom: 15px;
+        left: 15px;
+        border-right: none;
+        border-top: none;
+        border-radius: 0 0 0 10px;
+    }
+
+    .corner-br {
+        bottom: 15px;
+        right: 15px;
+        border-left: none;
+        border-top: none;
+        border-radius: 0 0 10px 0;
+    } 
+  
+
+    .floating-hearts {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        animation: elementsAppear 1s ease-out 1.5s both;
+    }
+
+    .heart {
+        position: absolute;
+        color: #ff6b6b;
+        font-size: 12px;
+        opacity: 0;
+        animation: floatHeart 6s ease-in-out infinite;
+    }
+
+    .heart:nth-child(1) {
+        top: 20%;
+        left: 20%;
+        animation-delay: 0s;
+    }
+
+    .heart:nth-child(2) {
+        top: 30%;
+        right: 25%;
+        animation-delay: 2s;
+    }
+
+    .heart:nth-child(3) {
+        top: 50%;
+        left: 15%;
+        animation-delay: 4s;
+    }
+
+    .heart:nth-child(4) {
+        top: 60%;
+        right: 20%;
+        animation-delay: 1s;
+    }
+
+    .invitation-content {
+        position: absolute;
+        top: 180px;
+        left: 40px;
+        right: 40px;
+        bottom: 30px;
+        /* importante para limitar altura */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* separa arriba y abajo */
+        text-align: center;
+        z-index: 10;
+        animation: contentReveal 1.5s ease-out 0.8s both;
+    }
+
+    .title {
+        font-family: 'Anton', cursive;
+        font-size: 4rem;
+        font-weight: 700;
+        color: #f16800eb;
+        margin-bottom: 20px;
+        text-shadow: 3px 3px 0px #ffffff, 6px 6px 0px rgba(232, 67, 147, 0.3);
+        position: relative;
+        top: 35%;
+        animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce {
+
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateY(0);
+        }
+
+        40% {
+            transform: translateY(-15px);
+        }
+
+        60% {
+            transform: translateY(-8px);
+        }
+    }
+
+    .event-info {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .event-detail {
+        margin: 8px 0;
+        color: #34495e;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .event-detail strong {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .date-highlight {
+        font-size: 18px;
+        font-weight: 700;
+        color: #d4af37;
+        margin: 15px 0;
+    }
+
+    .rsvp-section {
+        margin-top: 20px;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border-radius: 8px;
+        animation: pulseGlow 2s ease-in-out infinite 3s;
+    }
+
+    .rsvp-text {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .sparkle {
+        position: absolute;
+        color: #d4af37;
+        font-size: 8px;
+        opacity: 0;
+        animation: sparkleAnimation 4s ease-in-out infinite;
+    }
+
+    .sparkle:nth-child(1) {
+        top: 15%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+
+    .sparkle:nth-child(2) {
+        top: 25%;
+        right: 15%;
+        animation-delay: 1s;
+    }
+
+    .sparkle:nth-child(3) {
+        top: 70%;
+        left: 20%;
+        animation-delay: 2s;
+    }
+
+    .sparkle:nth-child(4) {
+        top: 80%;
+        right: 10%;
+        animation-delay: 3s;
+    }
+
+    @keyframes cardEntrance {
+        0% {
+            opacity: 0;
+            transform: scale(0.8) translateY(50px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    @keyframes characterAppear {
+        0% {
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes contentReveal {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes elementsAppear {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes characterDance1 {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        25% {
+            transform: translateY(-3px) rotate(2deg);
+        }
+
+        50% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        75% {
+            transform: translateY(-2px) rotate(-2deg);
+        }
+    }
+
+    @keyframes breathe {
+
+        0%,
+        100% {
+            transform: scaleY(1);
+        }
+
+        50% {
+            transform: scaleY(1.05);
+        }
+    }
+
+    @keyframes blink {
+
+        0%,
+        90%,
+        100% {
+            transform: scaleY(1);
+        }
+
+        95% {
+            transform: scaleY(0.1);
+        }
+    }
+
+    @keyframes waveLeft {
+
+        0%,
+        100% {
+            transform: rotate(0deg);
+        }
+
+        50% {
+            transform: rotate(-20deg);
+        }
+    }
+
+    @keyframes waveRight {
+
+        0%,
+        100% {
+            transform: rotate(0deg);
+        }
+
+        50% {
+            transform: rotate(20deg);
+        }
+    }
+
+    @keyframes floatHeart {
+        0% {
+            opacity: 0;
+            transform: translateY(0) scale(0.5);
+        }
+
+        20% {
+            opacity: 1;
+            transform: translateY(-10px) scale(1);
+        }
+
+        80% {
+            opacity: 1;
+            transform: translateY(-20px) scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.5);
+        }
+    }
+
+  
+    @keyframes pulseGlow {
+
+        0%,
+        100% {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        50% {
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+    }
+
+    @keyframes sparkleAnimation {
+
+        0%,
+        100% {
+            opacity: 0;
+            transform: scale(0) rotate(0deg);
+        }
+
+        50% {
+            opacity: 1;
+            transform: scale(1) rotate(180deg);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .invitation-card {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .title {
+            font-size: 3rem;
+            top: 40%;
+        }
+
+        .invitation-content {
+            left: 30px;
+            right: 30px;
+        }
+
+        .img-character {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="invitation-card">
+    <div class="decorative-corner corner-tl"></div>
+    <div class="decorative-corner corner-tr"></div>
+    <div class="decorative-corner corner-bl"></div>
+    <div class="decorative-corner corner-br"></div>
+
+    <div class="character-1">
+        <div class="character-head-1">
+            <div class="character-eyes-1">
+                <div class="eye"></div>
+                <div class="eye"></div>
+            </div>
+        </div>
+        <div class="character-body-1"></div>
+        <div class="character-arms-1">
+            <div class="arm arm-left"></div>
+            <div class="arm arm-right"></div>
+        </div>
+    </div>
+
+    <div class="img-character">
+        <img src="https://i.ibb.co/7JDDYxQL/minecraft.webp" alt="">
+    </div>
+
+    <div class="floating-hearts">
+        <div class="heart">♥</div>
+        <div class="heart">♥</div>
+        <div class="heart">♥</div>
+        <div class="heart">♥</div>
+    </div>
+
+
+
+    <div class="invitation-content">
+        <h1 class="title">¡Estás Invitado!</h1>
+
+        <div class="event-info">
+            <div class="event-detail"><strong>Evento:</strong> Celebración Especial</div>
+            <div class="date-highlight">15 de Agosto, 2025</div>
+            <div class="event-detail"><strong>Hora:</strong> 7:00 PM</div>
+            <div class="event-detail"><strong>Lugar:</strong> Salón de Eventos "Aurora"</div>
+            <div class="event-detail"><strong>Dirección:</strong> Av. Revolución 123, Centro</div>
+
+            <div class="rsvp-section">
+                <div class="rsvp-text">Confirma tu asistencia</div>
+                <div><strong>Tel: (81) 1234-5678</strong></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,904 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Playfair Display', serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .envelope-container {
+        position: relative;
+        width: 450px;
+        height: 300px;
+        cursor: pointer;
+        animation: initialFloat 3s ease-in-out infinite;
+    }
+
+    .envelope-container.opened {
+        animation: none;
+    }
+
+    .envelope-back {
+        position: absolute;
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, #f4f4f2 0%, #e8e8e6 100%);
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        z-index: 1;
+        transform-origin: bottom center;
+        transition: all 1.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .envelope-container.opened .envelope-back {
+        transform: translateY(200px) scale(0.6);
+        opacity: 0;
+    }
+
+    .envelope-front {
+        position: absolute;
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, #fff 0%, #f8f8f6 100%);
+        border-radius: 8px 8px 0 0;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 3;
+        transform-origin: top center;
+        transition: all 1.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .envelope-container.opened .envelope-front {
+        transform: translateY(-200px) rotateX(25deg) scale(0.6);
+        opacity: 0;
+    }
+
+    .envelope-flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 140px;
+        background: linear-gradient(135deg, #e8e8e6 0%, #d4d4d2 100%);
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+        transform-origin: top center;
+        z-index: 4;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 1.5s cubic-bezier(0.4, 0.0, 0.2, 1) 0.3s;
+    }
+
+    .envelope-container.opened .envelope-flap {
+        transform: rotateX(180deg) translateZ(10px) translateY(-100px) scale(0.7);
+        opacity: 0;
+    }
+
+    .envelope-seal {
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 60px;
+        background: radial-gradient(circle, #d4af37 0%, #b8941f 100%);
+        border-radius: 50%;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: all 1.2s cubic-bezier(0.4, 0.0, 0.2, 1) 0.2s;
+    }
+
+    .envelope-container.opened .envelope-seal {
+        transform: translateX(-50%) rotateX(180deg) scale(0.3) translateY(-150px);
+        opacity: 0;
+    }
+
+    .invitation-card {
+        position: absolute;
+        top: 20px;
+        left: 25px;
+        width: 400px;
+        height: 600px;
+        background: #fdfcf8;
+        border-radius: 15px;
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.4),
+            0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+            0 0 30px rgba(255, 255, 255, 0.2) inset;
+        z-index: 2;
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+        transition: all 1.8s cubic-bezier(0.4, 0.0, 0.2, 1) 0.8s;
+        overflow: hidden;
+    }
+
+    .envelope-container.opened .invitation-card {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        animation: cardReveal 2s ease-out 1.5s both;
+    }
+
+    .paper-texture {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image:
+            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.02) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .decorative-border {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        border: 2px solid #d4af37;
+        border-radius: 10px;
+        background: linear-gradient(45deg,
+                rgba(212, 175, 55, 0.1) 0%,
+                transparent 25%,
+                transparent 75%,
+                rgba(212, 175, 55, 0.1) 100%);
+    }
+
+    .decorative-corner {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border: 2px solid #d4af37;
+    }
+
+    .corner-tl {
+        top: 15px;
+        left: 15px;
+        border-right: none;
+        border-bottom: none;
+        border-radius: 10px 0 0 0;
+    }
+
+    .corner-tr {
+        top: 15px;
+        right: 15px;
+        border-left: none;
+        border-bottom: none;
+        border-radius: 0 10px 0 0;
+    }
+
+    .corner-bl {
+        bottom: 15px;
+        left: 15px;
+        border-right: none;
+        border-top: none;
+        border-radius: 0 0 0 10px;
+    }
+
+    .corner-br {
+        bottom: 15px;
+        right: 15px;
+        border-left: none;
+        border-top: none;
+        border-radius: 0 0 10px 0;
+    }
+
+    .character-1 {
+        position: absolute;
+        top: 80px;
+        left: 30px;
+        width: 60px;
+        height: 80px;
+        opacity: 0;
+        animation: characterAppear 1s ease-out 2.5s both, characterDance1 4s ease-in-out 3.5s infinite;
+    }
+
+    .character-body-1 {
+        width: 40px;
+        height: 50px;
+        background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+        border-radius: 20px 20px 10px 10px;
+        position: absolute;
+        bottom: 0;
+        left: 10px;
+        animation: breathe 3s ease-in-out infinite;
+    }
+
+    .character-head-1 {
+        width: 35px;
+        height: 35px;
+        background: #ffdbac;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 12.5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .character-eyes-1 {
+        position: absolute;
+        top: 12px;
+        left: 8px;
+        display: flex;
+        gap: 8px;
+    }
+
+    .eye {
+        width: 4px;
+        height: 4px;
+        background: #333;
+        border-radius: 50%;
+        animation: blink 4s ease-in-out infinite;
+    }
+
+    .character-arms-1 {
+        position: absolute;
+        top: 20px;
+        left: 5px;
+        width: 50px;
+        height: 30px;
+    }
+
+    .arm {
+        width: 15px;
+        height: 3px;
+        background: #ffdbac;
+        border-radius: 2px;
+        position: absolute;
+        top: 10px;
+    }
+
+    .arm-left {
+        left: 0;
+        transform-origin: right center;
+        animation: waveLeft 2s ease-in-out infinite;
+    }
+
+    .arm-right {
+        right: 0;
+        transform-origin: left center;
+        animation: waveRight 2s ease-in-out infinite 0.5s;
+    }
+
+    .character-2 {
+        position: absolute;
+        top: 80px;
+        right: 30px;
+        width: 60px;
+        height: 80px;
+        opacity: 0;
+        animation: characterAppear 1s ease-out 3s both, characterDance2 4s ease-in-out 4s infinite;
+    }
+
+    .character-body-2 {
+        width: 40px;
+        height: 50px;
+        background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        border-radius: 20px 20px 10px 10px;
+        position: absolute;
+        bottom: 0;
+        left: 10px;
+        animation: breathe 3s ease-in-out infinite 1s;
+    }
+
+    .character-head-2 {
+        width: 35px;
+        height: 35px;
+        background: #ffdbac;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 12.5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .character-eyes-2 {
+        position: absolute;
+        top: 12px;
+        left: 8px;
+        display: flex;
+        gap: 8px;
+    }
+
+    .floating-hearts {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        opacity: 0;
+        animation: elementsAppear 1s ease-out 3.5s both;
+    }
+
+    .heart {
+        position: absolute;
+        color: #ff6b6b;
+        font-size: 12px;
+        opacity: 0;
+        animation: floatHeart 6s ease-in-out infinite;
+    }
+
+    .heart:nth-child(1) {
+        top: 20%;
+        left: 20%;
+        animation-delay: 0s;
+    }
+
+    .heart:nth-child(2) {
+        top: 30%;
+        right: 25%;
+        animation-delay: 2s;
+    }
+
+    .heart:nth-child(3) {
+        top: 50%;
+        left: 15%;
+        animation-delay: 4s;
+    }
+
+    .heart:nth-child(4) {
+        top: 60%;
+        right: 20%;
+        animation-delay: 1s;
+    }
+
+    .invitation-content {
+        position: absolute;
+        top: 180px;
+        left: 40px;
+        right: 40px;
+        text-align: center;
+        z-index: 10;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: contentReveal 1.5s ease-out 2.8s both;
+    }
+
+    .title {
+        font-family: 'Dancing Script', cursive;
+        font-size: 32px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        animation: titleGlow 3s ease-in-out infinite 4s;
+    }
+
+    .event-info {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .event-detail {
+        margin: 8px 0;
+        color: #34495e;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .event-detail strong {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .date-highlight {
+        font-size: 18px;
+        font-weight: 700;
+        color: #d4af37;
+        margin: 15px 0;
+    }
+
+    .rsvp-section {
+        margin-top: 20px;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border-radius: 8px;
+        animation: pulseGlow 2s ease-in-out infinite 5s;
+    }
+
+    .rsvp-text {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+
+    .sparkles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        opacity: 0;
+        animation: elementsAppear 1s ease-out 4s both;
+    }
+
+    .sparkle {
+        position: absolute;
+        color: #d4af37;
+        font-size: 8px;
+        opacity: 0;
+        animation: sparkleAnimation 4s ease-in-out infinite;
+    }
+
+    .sparkle:nth-child(1) {
+        top: 15%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+
+    .sparkle:nth-child(2) {
+        top: 25%;
+        right: 15%;
+        animation-delay: 1s;
+    }
+
+    .sparkle:nth-child(3) {
+        top: 70%;
+        left: 20%;
+        animation-delay: 2s;
+    }
+
+    .sparkle:nth-child(4) {
+        top: 80%;
+        right: 10%;
+        animation-delay: 3s;
+    }
+
+    .click-hint {
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 14px;
+        opacity: 0.8;
+        animation: hintPulse 2s ease-in-out infinite;
+        z-index: 10;
+    }
+
+    .envelope-container.opened .click-hint {
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+    }
+
+    .magic-particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 6;
+    }
+
+    .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #d4af37;
+        border-radius: 50%;
+        opacity: 0;
+    }
+
+    .envelope-container.opened .particle {
+        animation: particleExplosion 2s ease-out;
+    }
+
+    .particle:nth-child(1) {
+        top: 50%;
+        left: 50%;
+        animation-delay: 0.5s;
+    }
+
+    .particle:nth-child(2) {
+        top: 45%;
+        left: 55%;
+        animation-delay: 0.6s;
+    }
+
+    .particle:nth-child(3) {
+        top: 55%;
+        left: 45%;
+        animation-delay: 0.7s;
+    }
+
+    .particle:nth-child(4) {
+        top: 50%;
+        left: 40%;
+        animation-delay: 0.8s;
+    }
+
+    .particle:nth-child(5) {
+        top: 50%;
+        left: 60%;
+        animation-delay: 0.9s;
+    }
+
+    @keyframes initialFloat {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-10px) rotate(1deg);
+        }
+    }
+
+    @keyframes cardReveal {
+        0% {
+            transform: scale(1) translateY(0) rotateY(-10deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        100% {
+            transform: scale(1) translateY(0) rotateY(0deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+    }
+
+    @keyframes characterAppear {
+        0% {
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes contentReveal {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes elementsAppear {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes hintPulse {
+
+        0%,
+        100% {
+            opacity: 0.8;
+            transform: translateX(-50%) scale(1);
+        }
+
+        50% {
+            opacity: 1;
+            transform: translateX(-50%) scale(1.05);
+        }
+    }
+
+    @keyframes particleExplosion {
+        0% {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translate(var(--random-x, 100px), var(--random-y, -100px)) scale(0);
+        }
+    }
+
+    @keyframes characterDance1 {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        25% {
+            transform: translateY(-3px) rotate(2deg);
+        }
+
+        50% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        75% {
+            transform: translateY(-2px) rotate(-2deg);
+        }
+    }
+
+    @keyframes characterDance2 {
+
+        0%,
+        100% {
+            transform: translateY(0) rotate(0deg) scaleX(1);
+        }
+
+        25% {
+            transform: translateY(-4px) rotate(-2deg) scaleX(1.05);
+        }
+
+        50% {
+            transform: translateY(0) rotate(0deg) scaleX(1);
+        }
+
+        75% {
+            transform: translateY(-2px) rotate(2deg) scaleX(0.95);
+        }
+    }
+
+    @keyframes breathe {
+
+        0%,
+        100% {
+            transform: scaleY(1);
+        }
+
+        50% {
+            transform: scaleY(1.05);
+        }
+    }
+
+    @keyframes blink {
+
+        0%,
+        90%,
+        100% {
+            transform: scaleY(1);
+        }
+
+        95% {
+            transform: scaleY(0.1);
+        }
+    }
+
+    @keyframes waveLeft {
+
+        0%,
+        100% {
+            transform: rotate(0deg);
+        }
+
+        50% {
+            transform: rotate(-20deg);
+        }
+    }
+
+    @keyframes waveRight {
+
+        0%,
+        100% {
+            transform: rotate(0deg);
+        }
+
+        50% {
+            transform: rotate(20deg);
+        }
+    }
+
+    @keyframes floatHeart {
+        0% {
+            opacity: 0;
+            transform: translateY(0) scale(0.5);
+        }
+
+        20% {
+            opacity: 1;
+            transform: translateY(-10px) scale(1);
+        }
+
+        80% {
+            opacity: 1;
+            transform: translateY(-20px) scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.5);
+        }
+    }
+
+    @keyframes titleGlow {
+
+        0%,
+        100% {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        50% {
+            text-shadow: 0 4px 8px rgba(212, 175, 55, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    @keyframes pulseGlow {
+
+        0%,
+        100% {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        50% {
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+    }
+
+    @keyframes sparkleAnimation {
+
+        0%,
+        100% {
+            opacity: 0;
+            transform: scale(0) rotate(0deg);
+        }
+
+        50% {
+            opacity: 1;
+            transform: scale(1) rotate(180deg);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .envelope-container {
+            width: 350px;
+            height: 250px;
+        }
+
+        .invitation-card {
+            width: 320px;
+            height: 500px;
+            left: 15px;
+        }
+
+        .title {
+            font-size: 28px;
+        }
+
+        .invitation-content {
+            left: 30px;
+            right: 30px;
+        }
+    }
+</style>
+
+ 
+<div class="envelope-container" onclick="openEnvelope">
+    <div class="envelope-back"></div>
+    <div class="envelope-front"></div>
+    <div class="envelope-flap"></div>
+    <div class="envelope-seal">💌</div>
+
+    <div class="magic-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="invitation-card">
+        <div class="paper-texture"></div>
+
+        <div class="decorative-border"></div>
+        <div class="decorative-corner corner-tl"></div>
+        <div class="decorative-corner corner-tr"></div>
+        <div class="decorative-corner corner-bl"></div>
+        <div class="decorative-corner corner-br"></div>
+
+        <div class="character-1">
+            <div class="character-head-1">
+                <div class="character-eyes-1">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+            </div>
+            <div class="character-body-1"></div>
+            <div class="character-arms-1">
+                <div class="arm arm-left"></div>
+                <div class="arm arm-right"></div>
+            </div>
+        </div>
+
+        <div class="character-2">
+            <div class="character-head-2">
+                <div class="character-eyes-2">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+            </div>
+            <div class="character-body-2"></div>
+            <div class="character-arms-1">
+                <div class="arm arm-left"></div>
+                <div class="arm arm-right"></div>
+            </div>
+        </div>
+
+        <div class="floating-hearts">
+            <div class="heart">♥</div>
+            <div class="heart">♥</div>
+            <div class="heart">♥</div>
+            <div class="heart">♥</div>
+        </div>
+
+        <div class="sparkles">
+            <div class="sparkle">✨</div>
+            <div class="sparkle">✨</div>
+            <div class="sparkle">✨</div>
+            <div class="sparkle">✨</div>
+        </div>
+
+        <div class="invitation-content">
+            <h1 class="title">¡Estás Invitado!</h1>
+
+            <div class="event-info">
+                <div class="event-detail"><strong>Evento:</strong> Celebración Especial</div>
+                <div class="date-highlight">15 de Agosto, 2025</div>
+                <div class="event-detail"><strong>Hora:</strong> 7:00 PM</div>
+                <div class="event-detail"><strong>Lugar:</strong> Salón de Eventos "Aurora"</div>
+                <div class="event-detail"><strong>Dirección:</strong> Av. Revolución 123, Centro</div>
+
+                <div class="rsvp-section">
+                    <div class="rsvp-text">Confirma tu asistencia</div>
+                    <div><strong>Tel: (81) 1234-5678</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="click-hint">💫 Haz clic para abrir la invitación 💫</div>
+</div>
+
+<script>
+   
+  let isOpened = false;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const envelope = document.getElementById('envelope');
+
+    envelope.addEventListener('click', () => {
+      if (!isOpened) {
+        envelope.classList.add('opened');
+        isOpened = true;
+      }
+    });
+
+    // Agregar variables CSS para animación de partículas
+    document.querySelectorAll('.particle').forEach((particle) => {
+      const randomX = (Math.random() - 0.5) * 200;
+      const randomY = -(Math.random() * 150 + 50);
+      particle.style.setProperty('--random-x', randomX + 'px');
+      particle.style.setProperty('--random-y', randomY + 'px');
+    });
+  });
+</script>

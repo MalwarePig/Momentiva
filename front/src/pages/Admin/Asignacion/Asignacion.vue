@@ -56,6 +56,7 @@
               <option value="V2">V2</option>
               <option value="V3">V3</option>
               <option value="V4">V4</option>
+              <option value="V5">V5</option>
             </select>
           </td>
           <td>

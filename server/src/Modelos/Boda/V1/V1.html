@@ -1,4 +1,683 @@
- 
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-width: 100vw;
+        min-height: 100vh;
+    }
+
+    .contentBody {
+        font-family: 'Cormorant Garamond', serif;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        overflow-x: hidden;
+    }
+
+    .invitation-container {
+        max-width: 700px;
+        width: 100%;
+
+        border-radius: 20px;
+        box-shadow: 0 8px 18px rgba(106, 109, 32, 0.06);
+        position: relative;
+        overflow: hidden;
+        animation: fadeInUp 1.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .paper-texture {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+            radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+            radial-gradient(circle at 80% 50%, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+        background-size: 30px 30px, 20px 20px;
+        pointer-events: none;
+    }
+
+    .ornamentoTopR {
+        width: 40%;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        transform: rotate(180deg);
+        opacity: 20%;
+        filter: brightness(0) saturate(100%) invert(74%) sepia(91%) saturate(1896%) hue-rotate(2deg) brightness(96%) contrast(92%);
+        z-index: 1;
+    }
+
+    .ornamentoBotL {
+        width: 60%;
+        position: absolute;
+        bottom: 10px;
+        left: 20px;
+        transform: rotate(90deg);
+        opacity: 40%;
+        filter: brightness(0) saturate(100%) invert(74%) sepia(91%) saturate(1896%) hue-rotate(2deg) brightness(96%) contrast(92%);
+        z-index: 1;
+    }
+
+    .decorative-border {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        border: 2px solid #d4af37;
+        border-radius: 15px;
+        opacity: 0.1;
+        animation: borderGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes borderGlow {
+        0% {
+            opacity: 0.1;
+        }
+
+        100% {
+            opacity: 0.2;
+        }
+    }
+
+    .content {
+        padding: 60px 40px;
+        text-align: center;
+        position: relative;
+        z-index: 10;
+    }
+
+    .header {
+        margin-bottom: 40px;
+        animation: slideInDown 1s ease-out 0.5s both;
+    }
+
+    @keyframes slideInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .invitation-title {
+        font-family: 'Parisienne', 'Playfair Display', serif;
+        font-size: 1.9em;
+        color: #030303;
+        margin-bottom: 20px;
+        font-weight: 600;
+        animation: dateShine 3s ease-in-out infinite;
+    }
+
+    @keyframes titlePulse {
+        0% {
+            transform: scale(1);
+        }
+
+        100% {
+            transform: scale(1.02);
+        }
+    }
+
+    .subtitle {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.1em;
+        color: #666;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+
+    .couple-section {
+        margin: 40px 0;
+        animation: fadeIn 1.5s ease-out 1s both;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .heart-photo-container {
+        position: relative;
+        width: 600px;
+        height: 400px;
+        margin: 0px auto;
+        animation: subtleFloat 4s ease-in-out infinite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @keyframes subtleFloat {
+
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-5px);
+        }
+    }
+
+    .heart-mask {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .heart-mask:hover {
+        transform: scale(1.02);
+    }
+
+    .couple-photo {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 0;
+        box-shadow: none;
+        filter: drop-shadow(0 5px 10px rgba(212, 175, 55, 0.8));
+    }
+
+    .heart-image {
+        position: absolute;
+        width: auto;
+        max-height: 100%;
+        object-fit: contain;
+        mix-blend-mode: layer;
+        filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+        transition: all 0.3s ease;
+    }
+
+    .heart-mask:hover .heart-image {
+        filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.7));
+    }
+
+    .couple-names {
+        font-family: 'Fleur De Leah', cursive;
+        font-size: 4em;
+        color: #d4af37;
+        margin: 10px 0 10px 0;
+        font-weight: 600;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        animation: namesGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes namesGlow {
+        0% {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        100% {
+            text-shadow: 2px 2px 4px rgba(212, 175, 55, 0.3);
+        }
+    }
+
+    .ampersand {
+        font-size: 0.8em;
+        color: #d4af37;
+        margin: 0 10px;
+        animation: ampersandSpin 4s ease-in-out infinite;
+    }
+
+    @keyframes ampersandSpin {
+
+        0%,
+        100% {
+            transform: rotate(0deg);
+        }
+
+        50% {
+            transform: rotate(10deg);
+        }
+    }
+
+    .quote {
+        font-family: 'Parisienne', cursive;
+        font-size: 1.5em;
+        color: #d4af37;
+        font-style: italic;
+        margin: 20px 0;
+        opacity: 0.8;
+        animation: quoteSlide 1s ease-out 2.5s both;
+    }
+
+    @keyframes quoteSlide {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 0.8;
+            transform: translateY(0);
+        }
+    }
+
+    .event-details {
+        margin: 40px 0;
+        animation: slideInLeft 1s ease-out 1.5s both;
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .date-time {
+        font-family: 'Parisienne', serif;
+        font-size: 1.6em;
+        color: #d4af37;
+        margin-bottom: 20px;
+        font-weight: 600;
+        animation: dateShine 3s ease-in-out infinite;
+    }
+
+    @keyframes dateShine {
+
+        0%,
+        100% {
+            color: #2E2E2E;
+        }
+
+        50% {
+            color: #d4af37;
+        }
+    }
+
+    .location {
+        font-size: 1em;
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+
+    .dress-code {
+        font-style: italic;
+        color: #999;
+        margin-top: 25px;
+        font-size: 1em;
+    }
+
+    .rsvp-section {
+        margin-top: 40px;
+        animation: slideInRight 1s ease-out 2s both;
+    }
+
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .rsvp-button {
+        display: inline-block;
+        background: linear-gradient(45deg, #d4af37, #f4e184);
+        color: white;
+        padding: 15px 35px;
+        border: none;
+        border-radius: 25px;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.1em;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        animation: buttonPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes buttonPulse {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    .rsvp-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+    }
+
+    .decorative-hearts {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 5;
+    }
+
+    .heart {
+        position: absolute;
+        color: #d4af37;
+        font-size: 1.2em;
+        opacity: 0.2;
+        animation: heartFloat 8s ease-in-out infinite;
+    }
+
+    @keyframes heartFloat {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 0.2;
+        }
+
+        50% {
+            transform: translateY(-30px) rotate(180deg);
+            opacity: 0.4;
+        }
+    }
+
+    .heart:nth-child(1) {
+        top: 8%;
+        left: 8%;
+        animation-delay: 0s;
+    }
+
+    .heart:nth-child(2) {
+        top: 15%;
+        right: 12%;
+        animation-delay: 2s;
+    }
+
+    .heart:nth-child(3) {
+        top: 65%;
+        left: 5%;
+        animation-delay: 4s;
+    }
+
+    .heart:nth-child(4) {
+        top: 75%;
+        right: 8%;
+        animation-delay: 1s;
+    }
+
+    .heart:nth-child(5) {
+        top: 45%;
+        right: 10%;
+        animation-delay: 3s;
+    }
+
+    .heart:nth-child(6) {
+        top: 35%;
+        left: 8%;
+        animation-delay: 5s;
+    }
+
+    .sparkles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 5;
+    }
+
+    .sparkle {
+        position: absolute;
+        color: #d4af37;
+        font-size: 0.8em;
+        opacity: 0;
+        animation: sparkleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes sparkleFloat {
+
+        0%,
+        100% {
+            opacity: 0;
+            transform: translateY(0px) rotate(0deg) scale(0.5);
+        }
+
+        50% {
+            opacity: 0.6;
+            transform: translateY(-20px) rotate(180deg) scale(1);
+        }
+    }
+
+    .sparkle:nth-child(1) {
+        top: 20%;
+        left: 20%;
+        animation-delay: 0s;
+    }
+
+    .sparkle:nth-child(2) {
+        top: 30%;
+        right: 25%;
+        animation-delay: 1s;
+    }
+
+    .sparkle:nth-child(3) {
+        top: 50%;
+        left: 15%;
+        animation-delay: 2s;
+    }
+
+    .sparkle:nth-child(4) {
+        top: 60%;
+        right: 20%;
+        animation-delay: 3s;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .contentBody {
+            padding: 0 1px;
+            padding-top: 20px;
+            align-items: flex-start;
+        }
+
+        .content {
+            padding: 40px 25px;
+        }
+
+        .invitation-title {
+            font-size: 1.8em;
+        }
+
+        .couple-names {
+            font-size: 2.2em;
+            margin: 15px 0;
+        }
+
+        .heart-photo-container {
+            width: 280px;
+            height: 200px;
+            margin: 20px auto;
+        }
+
+        .date-time {
+            font-size: 1.4em;
+        }
+
+        .quote {
+            font-size: 1.2em;
+        }
+
+        .ornamentoTopR {
+            width: 35%;
+            top: 10px;
+            right: 10px;
+        }
+
+        .ornamentoBotL {
+            width: 50%;
+            bottom: 10px;
+            left: 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .contentBody {
+            padding: 0 10px;
+            padding-top: 15px;
+        }
+
+        .content {
+            padding: 30px 20px;
+        }
+
+        .invitation-title {
+            font-size: 1.6em;
+        }
+
+        .subtitle {
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        .couple-names {
+            font-size: 1.8em;
+            margin: 10px 0;
+        }
+
+        .heart-photo-container {
+            width: 220px;
+            height: 160px;
+        }
+
+        .date-time {
+            font-size: 1.2em;
+        }
+
+        .quote {
+            font-size: 1.1em;
+        }
+
+        .location {
+            font-size: 0.9em;
+        }
+
+        .dress-code {
+            font-size: 0.9em;
+        }
+
+        .rsvp-button {
+            padding: 12px 25px;
+            font-size: 1em;
+        }
+
+        .ornamentoTopR {
+            width: 30%;
+        }
+
+        .ornamentoBotL {
+            width: 45%;
+        }
+
+        .heart {
+            font-size: 1em;
+        }
+
+        .sparkle {
+            font-size: 0.7em;
+        }
+    }
+
+    @media (max-width: 320px) {
+        .content {
+            padding: 25px 15px;
+        }
+
+        .invitation-title {
+            font-size: 1.4em;
+        }
+
+        .couple-names {
+            font-size: 1.6em;
+        }
+
+        .heart-photo-container {
+            width: 180px;
+            height: 140px;
+        }
+
+        .date-time {
+            font-size: 1.1em;
+        }
+
+        .quote {
+            font-size: 1em;
+        }
+    }
+
+    @keyframes particleFloat {
+        0% {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translate(var(--random-x, 20px), var(--random-y, -80px)) scale(0.3);
+        }
+    }
+</style>
 
 <div class="contentBody">
     <div class="invitation-container">
@@ -22,46 +701,46 @@
         </div>
 
         <div class="content">
+            <img class="ornamentoTopR" src="https://i.ibb.co/WNk4d3Gc/esquina.webp" alt="">
             <div class="header">
-                <h1 class="invitation-title">Invitación de Boda</h1>
+                <h1 class="invitation-title">Nuestra Boda</h1>
                 <p class="subtitle">Con gran alegría les invitamos a celebrar</p>
             </div>
 
             <div class="couple-section">
                 <div class="heart-photo-container">
                     <div class="heart-mask">
-                        <img src="./coraboda.png" alt="Pareja de novios" class="couple-photo">
+                        <img src='https://i.ibb.co/Wv57gnmR/coraboda.png' alt="Pareja de novios" class="couple-photo">
                     </div>
                 </div>
 
                 <h2 class="couple-names">
-                    {{nombre}} <span class="ampersand">&</span> Carlos
+                    {{festejado1}} <span class="ampersand">&</span> {{festejado2}}
                 </h2>
 
                 <p class="quote">
-                    "Dos corazones que laten como uno solo"
+                    {{mensajeEspecial}}
                 </p>
             </div>
 
             <div class="event-details">
                 <div class="date-time">
-                    Sábado, 15 de Agosto del 2025
-                    <br>
-                    6:00 PM
+                    {{fechaEvento}}<br>
+                    {{horaEvento}}
                 </div>
 
                 <div class="location">
-                    <strong>Ceremonia:</strong><br>
-                    Iglesia San José<br>
-                    Av. Juárez 123, Centro<br><br>
+                    <strong>Ceremonia:</strong>
+                    <br>{{lugarCeremonia}}<br>
+                    {{direccionCeremonia}}<br>
 
                     <strong>Recepción:</strong><br>
-                    Salón de Eventos "Los Jardines"<br>
-                    Calle Flores 456, Colonia Bella Vista
+                    {{lugarEvento}}<br>
+                    {{direccionEvento}}
                 </div>
 
                 <div class="dress-code">
-                    Código de vestimenta: Formal / Etiqueta
+                    Código de vestimenta: {{codigoVestimenta}}
                 </div>
             </div>
 
@@ -70,23 +749,27 @@
                     Confirmar Asistencia
                 </a>
                 <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
-                    Por favor confirma tu asistencia antes del 1 de Agosto
+                    Por favor confirma tu asistencia antes del {{limiteRespuesta}}
                 </p>
             </div>
+
+            <img class="ornamentoBotL" src="https://i.ibb.co/G4Zy9zfs/esquina2.webp" alt="">
         </div>
     </div>
+</div>
 
-    <script>
-        function handleRSVP() {
-            alert('¡Gracias por confirmar tu asistencia! Te contactaremos pronto para más detalles.');
-        }
+<script>
+    function handleRSVP() {
+        alert('¡Gracias por confirmar tu asistencia! Te contactaremos pronto para más detalles.');
+    }
 
-        // Efectos interactivos
-        document.addEventListener('DOMContentLoaded', function () {
-            const heartMask = document.querySelector('.heart-mask');
-            const hearts = document.querySelectorAll('.heart');
+    // Efectos interactivos
+    document.addEventListener('DOMContentLoaded', function () {
+        const heartMask = document.querySelector('.heart-mask');
+        const hearts = document.querySelectorAll('.heart');
 
-            // Efecto de click en el corazón principal
+        // Efecto de click en el corazón principal
+        if (heartMask) {
             heartMask.addEventListener('click', function () {
                 this.style.animation = 'subtleFloat 1s ease-in-out';
                 setTimeout(() => {
@@ -94,592 +777,52 @@
                 }, 1000);
 
                 // Crear partículas de corazón
+                const rect = this.getBoundingClientRect();
                 createHeartParticles(
-                    this.getBoundingClientRect().left + this.offsetWidth / 2,
-                    this.getBoundingClientRect().top + this.offsetHeight / 2
+                    rect.left + rect.width / 2,
+                    rect.top + rect.height / 2
                 );
             });
+        }
 
-            // Efecto de click en los corazones decorativos
-            hearts.forEach(heart => {
-                heart.addEventListener('click', function () {
-                    this.style.animation = 'heartFloat 1s ease-in-out';
-                    setTimeout(() => {
-                        this.style.animation = 'heartFloat 8s ease-in-out infinite';
-                    }, 1000);
-                });
+        // Efecto de click en los corazones decorativos
+        hearts.forEach(heart => {
+            heart.addEventListener('click', function () {
+                this.style.animation = 'heartFloat 1s ease-in-out';
+                setTimeout(() => {
+                    this.style.animation = 'heartFloat 8s ease-in-out infinite';
+                }, 1000);
             });
         });
+    });
 
-        function createHeartParticles(x, y) {
-            for (let i = 0; i < 6; i++) {
-                const particle = document.createElement('div');
-                particle.innerHTML = '♥';
-                particle.style.position = 'fixed';
-                particle.style.left = x + 'px';
-                particle.style.top = y + 'px';
-                particle.style.color = '#d4af37';
-                particle.style.fontSize = (1 + Math.random() * 0.5) + 'em';
-                particle.style.pointerEvents = 'none';
-                particle.style.zIndex = '9999';
-                particle.style.animation = `particleFloat ${2 + Math.random() * 1}s ease-out forwards`;
-                particle.style.transform = `rotate(${Math.random() * 360}deg)`;
+    function createHeartParticles(x, y) {
+        for (let i = 0; i < 6; i++) {
+            const particle = document.createElement('div');
+            particle.innerHTML = '♥';
+            particle.style.position = 'fixed';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.color = '#d4af37';
+            particle.style.fontSize = (1 + Math.random() * 0.5) + 'em';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '9999';
 
-                document.body.appendChild(particle);
+            const randomX = (Math.random() > 0.5 ? '-' : '') + (20 + Math.random() * 30) + 'px';
+            const randomY = '-' + (80 + Math.random() * 40) + 'px';
 
-                setTimeout(() => {
+            particle.style.animation = `particleFloat ${2 + Math.random() * 1}s ease-out forwards`;
+            particle.style.transform = `rotate(${Math.random() * 360}deg)`;
+            particle.style.setProperty('--random-x', randomX);
+            particle.style.setProperty('--random-y', randomY);
+
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                if (particle.parentNode) {
                     particle.remove();
-                }, 2000);
-            }
-        }
-
-        // Añadir CSS para las partículas
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes particleFloat {
-                0% {
-                    opacity: 1;
-                    transform: translate(0, 0) scale(1);
                 }
-                100% {
-                    opacity: 0;
-                    transform: translate(${Math.random() > 0.5 ? '-' : ''}${20 + Math.random() * 30}px, -${80 + Math.random() * 40}px) scale(0.3);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
-</div>
- 
-
-
-
- <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            }, 3000);
         }
-
-        .contentBody {
-            font-family: 'Cormorant Garamond', serif;
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-
-        .invitation-container {
-            max-width: 700px;
-            width: 100%;
-            background: linear-gradient(145deg, #fefefe 0%, #f9f7f5 100%);
-            border-radius: 20px;
-            box-shadow:
-                0 20px 40px rgba(0, 0, 0, 0.1),
-                0 0 0 1px rgba(255, 255, 255, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 1.5s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .paper-texture {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-                radial-gradient(circle at 80% 50%, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-            background-size: 30px 30px, 20px 20px;
-            pointer-events: none;
-        }
-
-        .decorative-border {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 2px solid #d4af37;
-            border-radius: 15px;
-            opacity: 0.1;
-            animation: borderGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes borderGlow {
-            0% {
-                opacity: 0.1;
-            }
-
-            100% {
-                opacity: 0.2;
-            }
-        }
-
-        .content {
-            padding: 60px 40px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .header {
-            margin-bottom: 40px;
-            animation: slideInDown 1s ease-out 0.5s both;
-        }
-
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .invitation-title {
-            font-family: 'Dancing Script','Playfair Display', serif;
-            font-size: 1.6em;
-            color: #8b4513;
-            margin-bottom: 20px;
-            font-weight: 600;
-            animation: dateShine 3s ease-in-out infinite;
-        }
-
-        @keyframes titlePulse {
-            0% {
-                transform: scale(1);
-            }
-
-            100% {
-                transform: scale(1.02);
-            }
-        }
-
-        .subtitle {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1em;
-            color: #666;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .couple-section {
-            margin: 40px 0;
-            animation: fadeIn 1.5s ease-out 1s both;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .heart-photo-container {
-            position: relative;
-            width: 600px;
-            height: 400px;
-            margin: 0px auto;
-            /* Centrado horizontal con margen automático */
-            animation: subtleFloat 4s ease-in-out infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        @keyframes subtleFloat {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-5px);
-            }
-        }
-
-        .heart-mask {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .heart-mask:hover {
-            transform: scale(1.02);
-        }
-
-        .couple-photo {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            border-radius: 0;
-            box-shadow: none;
-            filter: drop-shadow(0 5px 10px rgba(212, 175, 55, 0.8));
-        }
-
-        .heart-image {
-            position: absolute;
-            width: auto;
-            max-height: 100%;
-            object-fit: contain;
-            /* Hace que el negro sea transparente */
-            mix-blend-mode: layer;
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
-            transition: all 0.3s ease;
-        }
-
-        .heart-mask:hover .heart-image {
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.7));
-        }
-
-        .couple-names {
-            font-family: 'Dancing Script', cursive;
-            font-size: 4em;
-            color: #8b4513;
-            margin: 30px 0 20px 0;
-            font-weight: 600;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            animation: namesGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes namesGlow {
-            0% {
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            100% {
-                text-shadow: 2px 2px 4px rgba(212, 175, 55, 0.3);
-            }
-        }
-
-        .ampersand {
-            font-size: 0.8em;
-            color: #d4af37;
-            margin: 0 10px;
-            animation: ampersandSpin 4s ease-in-out infinite;
-        }
-
-        @keyframes ampersandSpin {
-
-            0%,
-            100% {
-                transform: rotate(0deg);
-            }
-
-            50% {
-                transform: rotate(10deg);
-            }
-        }
-
-        .quote {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.3em;
-            color: #8b4513;
-            font-style: italic;
-            margin: 20px 0;
-            opacity: 0.8;
-            animation: quoteSlide 1s ease-out 2.5s both;
-        }
-
-        @keyframes quoteSlide {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 0.8;
-                transform: translateY(0);
-            }
-        }
-
-        .event-details {
-            margin: 40px 0;
-            animation: slideInLeft 1s ease-out 1.5s both;
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .date-time {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6em;
-            color: #8b4513;
-            margin-bottom: 20px;
-            font-weight: 600;
-            animation: dateShine 3s ease-in-out infinite;
-        }
-
-        @keyframes dateShine {
-
-            0%,
-            100% {
-                color: #8b4513;
-            }
-
-            50% {
-                color: #d4af37;
-            }
-        }
-
-        .location {
-            font-size: 1.2em;
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .dress-code {
-            font-style: italic;
-            color: #999;
-            margin-top: 25px;
-            font-size: 1em;
-        }
-
-        .rsvp-section {
-            margin-top: 40px;
-            animation: slideInRight 1s ease-out 2s both;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .rsvp-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #d4af37, #f4e184);
-            color: white;
-            padding: 15px 35px;
-            border: none;
-            border-radius: 25px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1em;
-            font-weight: 600;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            animation: buttonPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes buttonPulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        .rsvp-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
-        }
-
-        .decorative-hearts {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .heart {
-            position: absolute;
-            color: #d4af37;
-            font-size: 1.2em;
-            opacity: 0.2;
-            animation: heartFloat 8s ease-in-out infinite;
-        }
-
-        @keyframes heartFloat {
-
-            0%,
-            100% {
-                transform: translateY(0px) rotate(0deg);
-                opacity: 0.2;
-            }
-
-            50% {
-                transform: translateY(-30px) rotate(180deg);
-                opacity: 0.4;
-            }
-        }
-
-        .heart:nth-child(1) {
-            top: 8%;
-            left: 8%;
-            animation-delay: 0s;
-        }
-
-        .heart:nth-child(2) {
-            top: 15%;
-            right: 12%;
-            animation-delay: 2s;
-        }
-
-        .heart:nth-child(3) {
-            top: 65%;
-            left: 5%;
-            animation-delay: 4s;
-        }
-
-        .heart:nth-child(4) {
-            top: 75%;
-            right: 8%;
-            animation-delay: 1s;
-        }
-
-        .heart:nth-child(5) {
-            top: 45%;
-            right: 10%;
-            animation-delay: 3s;
-        }
-
-        .heart:nth-child(6) {
-            top: 35%;
-            left: 8%;
-            animation-delay: 5s;
-        }
-
-        .sparkles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .sparkle {
-            position: absolute;
-            color: #d4af37;
-            font-size: 0.8em;
-            opacity: 0;
-            animation: sparkleFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes sparkleFloat {
-
-            0%,
-            100% {
-                opacity: 0;
-                transform: translateY(0px) rotate(0deg) scale(0.5);
-            }
-
-            50% {
-                opacity: 0.6;
-                transform: translateY(-20px) rotate(180deg) scale(1);
-            }
-        }
-
-        .sparkle:nth-child(1) {
-            top: 20%;
-            left: 20%;
-            animation-delay: 0s;
-        }
-
-        .sparkle:nth-child(2) {
-            top: 30%;
-            right: 25%;
-            animation-delay: 1s;
-        }
-
-        .sparkle:nth-child(3) {
-            top: 50%;
-            left: 15%;
-            animation-delay: 2s;
-        }
-
-        .sparkle:nth-child(4) {
-            top: 60%;
-            right: 20%;
-            animation-delay: 3s;
-        }
-
-        @media (max-width: 768px) {
-            .invitation-container {
-                margin: 10px;
-            }
-
-            .content {
-                padding: 40px 30px;
-            }
-
-            .invitation-title {
-                font-size: 2em;
-            }
-
-            .couple-names {
-                font-size: 2.5em;
-            }
-
-            .heart-photo-container {
-                width: 200px;
-                height: 180px;
-            }
-
-            .date-time {
-                font-size: 1.3em;
-            }
-        }
-    </style>
+    }
+</script>

@@ -8,25 +8,28 @@ const formData = ref({
     nombreFestejado1: '',
     nombreFestejado2: '',
     fechaEvento: '',
-    fechaLimiteRespuesta: '', // Nuevo campo agregado
+    fechaLimiteRespuesta: '',
     lugarEvento: '',
-    lugarCeremonia: '', // Nuevo campo agregado
-    horaEvento: '', 
+    lugarCeremonia: '',
+    direccionEvento: '',       // ✅ NUEVO
+    direccionCeremonia: '',    // ✅ NUEVO
+    horaEvento: '',
     horaShow: '',
-    horaCeremonia: '', // Nuevo campo agregado
+    horaCeremonia: '',
     codigoVestimenta: '',
     version: '',
     mensajeEspecial: '',
     cancionEntrada: '',
-    tematica: 'Clásico', // Valor por defecto para el select
+    tematica: 'Clásico',
     estado: 'Pendiente',
-    fechaSolicitud: new Date().toISOString().split('T')[0], // Fecha actual en formato YYYY-MM-DD
+    fechaSolicitud: new Date().toISOString().split('T')[0],
     contacto: {
         telefono: '',
         email: '',
         contrasena: ''
     }
 });
+
 
 const resetForm = () => {
     formData.value = {
@@ -35,8 +38,10 @@ const resetForm = () => {
         fechaEvento: '',
         fechaLimiteRespuesta: '',
         lugarEvento: '',
+        direccionEvento: '',
         lugarCeremonia: '',
-        horaEvento: '', 
+        direccionCeremonia: '',
+        horaEvento: '',
         horaShow: '',
         horaCeremonia: '',
         codigoVestimenta: '',
@@ -108,7 +113,7 @@ const handleSubmit = () => {
                     const exito = res.status === 200 // Verificamos si la respuesta fue exitosa
                     /*   alert(exito ? "Invitación guardada exitosamente" : "Error al guardar la invitación"); */
                     modalMsg.value.showModal('Invitación guardada exitosamente, recibira un correo con los detalles', exito)
-                     resetForm();  // ← resetea el formulario solo si fue exitoso
+                    resetForm();  // ← resetea el formulario solo si fue exitoso
                 })
             })
             .catch(err => {
@@ -123,7 +128,7 @@ const handleSubmit = () => {
         alert('Por favor, corrige los errores marcados en el formulario.');
     }
 };
- 
+
 </script>
 
 
@@ -165,10 +170,27 @@ const handleSubmit = () => {
                         <label for="fecha-limite-respuesta">Fecha límite de respuesta:</label>
                         <input type="date" id="fecha-limite-respuesta" v-model="formData.fechaLimiteRespuesta"
                             :class="{ 'has-error': errors.fechaLimiteRespuesta }">
-                        <p v-if="errors.fechaLimiteRespuesta" class="error-message">{{ errors.fechaLimiteRespuesta }}</p>
+                        <p v-if="errors.fechaLimiteRespuesta" class="error-message">{{ errors.fechaLimiteRespuesta }}
+                        </p>
                     </div>
                 </div>
 
+                <!-- Lugar y dirección de la ceremonia -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="lugar-ceremonia">Lugar de la ceremonia:</label>
+                        <input type="text" id="lugar-ceremonia" v-model="formData.lugarCeremonia"
+                            placeholder="Ej: Iglesia San José">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direccion-ceremonia">Dirección de la ceremonia:</label>
+                        <input type="text" id="direccion-ceremonia" v-model="formData.direccionCeremonia"
+                            placeholder="Ej: Calle 123, Col. Centro">
+                    </div>
+                </div>
+
+                <!-- Lugar y dirección del evento -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="lugar-evento">Lugar del evento:</label>
@@ -176,11 +198,11 @@ const handleSubmit = () => {
                             placeholder="Ej: Salón de Fiestas 'El Roble'" :class="{ 'has-error': errors.lugarEvento }">
                         <p v-if="errors.lugarEvento" class="error-message">{{ errors.lugarEvento }}</p>
                     </div>
+
                     <div class="form-group">
-                        <label for="lugar-ceremonia">Lugar de la ceremonia:</label>
-                        <input type="text" id="lugar-ceremonia" v-model="formData.lugarCeremonia"
-                            placeholder="Ej: Iglesia San José" :class="{ 'has-error': errors.lugarCeremonia }">
-                        <p v-if="errors.lugarCeremonia" class="error-message">{{ errors.lugarCeremonia }}</p>
+                        <label for="direccion-evento">Dirección del evento:</label>
+                        <input type="text" id="direccion-evento" v-model="formData.direccionEvento"
+                            placeholder="Ej: Avenida Principal 456, Col. Del Valle">
                     </div>
                 </div>
 
@@ -215,7 +237,7 @@ const handleSubmit = () => {
                     <input type="text" id="cancion-entrada" v-model="formData.cancionEntrada"
                         placeholder="Ej: 'Viva La Vida' - Coldplay">
                 </div>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="tematica-invitacion">Temática de invitación:</label>
